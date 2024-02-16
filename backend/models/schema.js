@@ -28,4 +28,45 @@ const UserSchema = mongoose.Schema(
   }
 );
 
+const PetSchema = mongoose.Schema(
+  {
+    name: {
+      type: String,
+      required: false,
+    },
+    age: {
+      type: String,
+      required: true,
+    },
+    sex: {
+      type: String,
+      required: true,
+    },
+    breed: {
+      type: String,
+      required: true,
+    },
+    size: {
+      type: String,
+      required: false,
+    },
+    weight: {
+      type: String,
+      required: false,
+    },
+    description: {
+      type: String,
+      required: true,
+    },
+    healthInformation: {
+      type: String,
+      required: false,
+    },
+  },
+  {
+    timestamps: true,
+  }
+);
+
+
 export const Users = mongoose.model("Users", UserSchema);

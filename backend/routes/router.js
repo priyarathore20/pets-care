@@ -95,4 +95,41 @@ router.get("/", async (request, response) => {
 //   }
 // });
 
+router.post("/", async (request, response) => {
+  let age = request.body.age;
+  let sex = request.body.sex;
+  let breed = request.body.breed;
+  let weight = request.body.weight;
+  let description = request.body.description;
+  let healthInformation = request.body.healthInformation;
+  try {
+    if (!age || !phoneNumber || !password || !gender || !name) {
+      return response.status(400).send({
+        message: "Send all required fields",
+      });
+    }
+    const newUser = {
+      email: email,
+      phoneNumber: phoneNumber,
+      password: password,
+      name: name,
+      gender: gender,
+    };
+
+    const user = await Users.create(newUser);
+    console.log("Created");
+
+    return response.status(201).send(user);
+  } catch (error) {
+    console.log("error creating:", error);
+    response.status(500).send({ message: error.message });
+  }
+});
+
+
+
+
+
+
+
 export default router;

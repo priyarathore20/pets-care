@@ -5,6 +5,7 @@ module.exports = {
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
+  darkMode: 'class',
   theme: {
     extend: {
       backgroundImage: {
@@ -19,7 +20,12 @@ module.exports = {
       formTitle: "#747587",
       formButton: "#696CFF",
       formHeading: "#DBDBEB",
-      white: "white"
+      white: "white",
+      black: "black",
+      darkGray: "#C0C6CE",
+      hover: "rgba(105, 108, 255, 0.5) ",
+      bgLight: "rgb(245,245,249)",
+      grayHeading: "#4D5F71"
     },
   },
   plugins: [],

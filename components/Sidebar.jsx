@@ -1,62 +1,34 @@
+"use Client";
+import { sidebarLinks } from "@/data";
 import Link from "next/link";
 import React from "react";
-import { FaPaw } from "react-icons/fa";
+import Logo from "./Logo";
 
 const Sidebar = () => {
   return (
-    <div className="bg-primaryBlue w-[290px] h-screen">
-      <div className="flex items-center p-6">
-        <FaPaw className="h-12 w-12 pr-[10px] text-formButton" />
-        <h2 className="text-formHeading text-2xl font-bold">PawHub.com</h2>
-      </div>
-      <div className="text-formTitle px-1">--- Pet actions</div>
-      <div className="flex flex-col px-7 py-4 gap-3">
-        <Link
-          href={"/"}
-          className="text-formHeading text-lg focus:bg-formButton hover:bg-formTitle p-1 pl-3 rounded-lg"
-        >
-          View all Pets
-        </Link>
-        <Link
-          href={"/"}
-          className="text-formHeading text-lg focus:bg-formButton hover:bg-formTitle p-1 pl-3 rounded-lg"
-        >
-          Add a Pet
-        </Link>
-      </div>
-      <div className="text-formTitle px-1 my-3">--- Owner actions</div>
-      <div className="flex flex-col px-7 py-4 gap-3">
-        <Link
-          href={"/"}
-          className="text-formHeading text-lg focus:bg-formButton hover:bg-formTitle p-1 pl-3 rounded-lg"
-        >
-          Login
-        </Link>
-        <Link
-          href={"/"}
-          className="text-formHeading text-lg focus:bg-formButton hover:bg-formTitle p-1 pl-3 rounded-lg"
-        >
-          Register
-        </Link>
-        <Link
-          href={"/"}
-          className="text-formHeading text-lg focus:bg-formButton hover:bg-formTitle p-1 pl-3 rounded-lg"
-        >
-          View Profile
-        </Link>
-        <Link
-          href={"/"}
-          className="text-formHeading text-lg focus:bg-formButton hover:bg-formTitle p-1 pl-3 rounded-lg"
-        >
-          Edit your info
-        </Link>
-        <Link
-          href={"/"}
-          className="text-formHeading text-lg focus:bg-formButton hover:bg-formTitle p-1 pl-3 rounded-lg"
-        >
-          Logout
-        </Link>
-      </div>
+    <div
+      className={`dark:bg-primaryBlue w-[290px] h-screen bg-white shadow-lg text-grayHeading`}
+    >
+      <Logo />
+      {sidebarLinks.map((actions, index) => (
+        <div key={index}>
+          {" "}
+          {actions.map((item, itemIndex) => (
+            <div key={itemIndex}>
+              {" "}
+              <div className="flex flex-col px-7 py-4 gap-3">
+                <div>{item.icon}</div>
+                <Link
+                  href={item.href}
+                  className="dark:text-formHeading text-grayHeading text-lg focus:text-white focus:bg-formButton hover:bg-hover p-1 pl-3 rounded-lg"
+                >
+                  {item.name}
+                </Link>
+              </div>
+            </div>
+          ))}
+        </div>
+      ))}
     </div>
   );
 };
