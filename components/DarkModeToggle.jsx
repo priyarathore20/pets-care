@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { IoMoonOutline, IoSunnyOutline } from "react-icons/io5";
 
 const DarkModeToggle = () => {
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(true);
 
   const toggleDarkMode = () => {
     if (isDarkMode) {
@@ -24,7 +24,7 @@ const DarkModeToggle = () => {
   return (
     <div>
       <button onClick={toggleDarkMode}>
-        {isDarkMode ? (
+        {!isDarkMode ? (
           <IoSunnyOutline className="w-8 h-8 dark:text-formHeading text-black" />
         ) : (
           <IoMoonOutline className="w-8 h-8 dark:text-formHeading text-black " />
