@@ -42,6 +42,11 @@ export const petDetails = [
   { label: "Size:", value: "2 ft." },
   { label: "Weight:", value: "12 kg" },
   {
+    label: "description",
+    value:
+      "Meet Max, my loyal Labrador companion! With his glossy black coat and soulful brown eyes, Max embodies intelligence, loyalty, and boundless energy. Whether we're out for a run or cuddled up at home, his playful spirit and gentle nature make every moment brighter. Max isn't just a pet – he's family, bringing endless joy and companionship into my life.",
+  },
+  {
     label: "Health information:",
     value:
       "Rex is in excellent health, full of energy and ready for adventure!",

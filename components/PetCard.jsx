@@ -1,6 +1,9 @@
+"use client";
 import Image from "next/image";
 import React from "react";
 import labraImg from "../assets/labra.jpg";
+import { FaArrowCircleRight } from "react-icons/fa";
+import Link from "next/link";
 
 const PetCard = () => {
   return (
@@ -24,22 +27,21 @@ const PetCard = () => {
           <h2 className="mt-1 text-2xl leading-7 font-semibold text-grayHeading dark:text-formHeading">
             Max
           </h2>
-          <div className="mt-2 text-grayHeading font-medium dark:text-formHeading">
-            <span className="text-formTitle dark:text-darkGray">
-              Sex:{" "}
-            </span>
-            Male
-            <br />
-            <span className="text-formTitle dark:text-darkGray">
-              Age:{" "}
-            </span>
-            3 years
-            <br />
-            <span className="text-formTitle dark:text-darkGray">
-              Breed:{" "}
-            </span>
-            Labrador
-            <br />
+          <div className="flex justify-between items-center">
+            <div className="mt-2 text-grayHeading font-medium dark:text-formHeading">
+              <span className="text-formTitle dark:text-darkGray">Sex: </span>
+              Male
+              <br />
+              <span className="text-formTitle dark:text-darkGray">Age: </span>
+              3 years
+              <br />
+              <span className="text-formTitle dark:text-darkGray">Breed: </span>
+              Labrador
+              <br />
+            </div>
+            <Link href={"/details"}>
+              <FaArrowCircleRight className="h-6 w-6 text-formHeading dark:text-grayHeading cursor-pointer" />
+            </Link>
           </div>
         </div>
       </div>

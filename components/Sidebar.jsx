@@ -27,7 +27,6 @@ const Sidebar = () => {
                 >
                   {React.createElement(item.icon, { size: 24 })}
                 </svg>
-                {/* <ReactSVG src={<item.icon />} className="h-6 w-6 text-grayHeading" /> */}
                 <Link
                   href={item.href}
                   className="dark:text-formHeading text-grayHeading text-lg  p-1 pl-3 rounded-lg"
