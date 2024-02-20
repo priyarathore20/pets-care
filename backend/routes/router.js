@@ -42,13 +42,46 @@ router.post("/register", async (request, response) => {
       name: name,
       gender: gender,
     };
-
+    const existUser = await Users.findOne({ phoneNumber: phoneNumber });
+    if (existUser) {
+      response.status(404).send("User already exists. Login instead!");
+    }
     const user = await Users.create(newUser);
     console.log("Created");
 
     return response.status(201).send(user);
   } catch (error) {
     console.log("error creating:", error);
+    response.status(500).send({ message: error.message });
+  }
+});
+
+// To login a user
+
+router.post("/login", async (request, response) => {
+  let email = request.body.email;
+  let phoneNumber = request.body.phoneNumber;
+  let password = request.body.password;
+  try {
+    if (!email || !phoneNumber || !password) {
+      return response.status(400).send({
+        message: "Send all required fields",
+      });
+    }
+    const loginUser = {
+      email: email,
+      phoneNumber: phoneNumber,
+      password: password,
+    };
+    const existUser = await Users.findOne({ phoneNumber: phoneNumber });
+    if (!existUser) {
+      response.status(404).send("User doesn't exists. Signup instead!");
+    }
+    console.log("Logged in successfully");
+
+    return response.status(201).send(loginUser);
+  } catch (error) {
+    console.log("error creating:", error.message);
     response.status(500).send({ message: error.message });
   }
 });
@@ -106,7 +139,7 @@ router.get("/pets", async (request, response) => {
       data: pets,
     });
   } catch (error) {
-    console.log("error fetching");
+    console.error(error);
     response.status(500).send({ message: error.message });
   }
 });

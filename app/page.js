@@ -1,17 +1,33 @@
 "use client";
 import Sidebar from "@/components/Sidebar";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import girlAvatar from "../assets/girl.jpg";
 import boyAvatar from "../assets/boy.jpg";
 import DarkModeToggle from "@/components/DarkModeToggle";
 import PetCard from "@/components/PetCard";
 import Loader from "@/components/Loader";
+import axios from "axios";
+import instance from "@/utils/axios";
 
 export default function Home() {
   const [gender, setGender] = useState("boy");
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  
+  // useEffect(() => {
+  //   setIsLoading(true);
+  //   instance.get("/pets")
+  //     .then((response) => {
+  //       console.log(response.data)
+  //       // setBooks(response.data.data);
+  //       setIsLoading(false);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //       setIsLoading(false);
+  //     });
+  // }, []);
 
   return (
     <div className={`dark:bg-secondaryBlue overflow-auto flex bg-bgLight`}>

@@ -1,9 +1,53 @@
 "use client";
+import Input from "@/components/Input";
+import instance from "@/utils/axios";
 import Link from "next/link";
-import React from "react";
+import { useRouter } from "next/navigation";
+import React, { useState } from "react";
 import { FaPaw } from "react-icons/fa";
 
+function validateAndFormatPhoneNumber(phoneNumber) {
+  const digitsOnly = phoneNumber.replace(/\D/g, "");
+  if (digitsOnly.length !== 10) {
+    throw new Error("Phone number must be 10 digits long");
+  }
+  return digitsOnly;
+}
+
 const LoginPage = () => {
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const router = useRouter();
+
+  const handlePhoneNumberChange = (event) => {
+    const inputPhoneNumber = event.target.value;
+    try {
+      const formattedPhoneNumber =
+        validateAndFormatPhoneNumber(inputPhoneNumber);
+      setPhoneNumber(formattedPhoneNumber);
+    } catch (error) {
+      console.error("Error:", error.message);
+    }
+  };
+
+  const LoginUser = async (e) => {
+    e.preventDefault();
+    const data = {
+      email,
+      phoneNumber,
+      password,
+    };
+    try {
+      const res = await instance.post("/login", data);
+      console.log(res.data);
+      router.push("/");
+    } catch (error) {
+      alert(error);
+      console.error(error);
+    }
+  };
+
   return (
     <div className="max-w-screen w-screen h-screen max-h-screen dark:bg-secondaryBlue bg-bgLight flex justify-center items-center">
       <div className="w-[445px] dark:bg-primaryBlue shadow-2xl  bg-white h-[660px] rounded-lg px-4 py-7 flex flex-col items-center">
@@ -23,15 +67,25 @@ const LoginPage = () => {
           </p>
         </div>
         <div className="px-6 flex flex-col items-start">
-          <input
-            placeholder="Email"
-            className="w-[368px] mb-6 dark:text-formHeading text-grayHeading dark:bg-primaryBlue bg-white border border-formTitle rounded p-4 dark:hover:border-formHeading hover:border-grayHeading"
+          <Input
+            placeholder={"Phone Number*"}
+            type="number"
+            onChange={handlePhoneNumberChange}
           />
-          <input
-            placeholder="Password"
-            className="w-[368px] mb-6 dark:text-formHeading text-grayHeading dark:bg-primaryBlue bg-white border border-formTitle rounded p-4 dark:hover:border-formHeading hover:border-grayHeading"
+          <Input
+            placeholder={"Email*"}
+            type="email"
+            onChange={(e) => setEmail(e.target.value)}
           />
-          <button className="w-[368px] h-[38px] space-x-1 bg-formButton text-white text-sm rounded">
+          <Input
+            placeholder={"Password*"}
+            type="password"
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <button
+            onClick={LoginUser}
+            className="w-[368px] h-[38px] space-x-1 bg-formButton text-white text-sm rounded"
+          >
             LOGIN
           </button>
           <div className="w-[368px] p-5 flex items-center justify-center text-grayHeading dark:text-formHeading">
