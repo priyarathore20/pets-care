@@ -1,9 +1,29 @@
 import express from "express";
-import { Users } from "../models/schema.js";
+import { Pets, Users } from "../models/schema.js";
 
 const router = express.Router();
 
-router.post("/", async (request, response) => {
+/* User CRU request */
+
+// To get all users
+
+router.get("/", async (request, response) => {
+  try {
+    const users = await Users.find({});
+    console.log("fetched users");
+    return response.status(200).json({
+      count: users.length,
+      data: users,
+    });
+  } catch (error) {
+    console.log("error fetching");
+    response.status(500).send({ message: error.message });
+  }
+});
+
+// To create a user
+
+router.post("/register", async (request, response) => {
   let email = request.body.email;
   let phoneNumber = request.body.phoneNumber;
   let password = request.body.password;
@@ -33,13 +53,57 @@ router.post("/", async (request, response) => {
   }
 });
 
-router.get("/", async (request, response) => {
+// To get a user
+
+router.get("/:id", async (request, response) => {
   try {
-    const users = await Users.find({});
-    console.log("fetched users");
+    const { id } = request.params;
+    const user = await Users.findById(id);
+    return response.status(200).json(user);
+  } catch (error) {
+    console.log(error.message);
+    response.status(500).send({ message: error.message });
+  }
+});
+
+// To edit a user
+
+router.put("/:id", async (request, response) => {
+  try {
+    if (
+      !request.body.name ||
+      !request.body.email ||
+      !request.body.phoneNumber ||
+      !request.body.gender ||
+      !request.body.password
+    ) {
+      return response.status(400).send({
+        message: "Send all required fields: title, author, publishYear",
+      });
+    }
+    const { id } = request.params;
+    const result = await Users.findByIdAndUpdate(id, request.body);
+    if (!result) {
+      return response.status(404).send({ message: "User not found" });
+    }
+    return response.status(201).send({ message: "User updated successfully" });
+  } catch (error) {
+    console.log(error.message);
+    response.status(500).send({ message: error.message });
+  }
+});
+
+/* Pet CRUD requests */
+
+// To get all pets //
+
+router.get("/pets", async (request, response) => {
+  try {
+    const pets = await Pets.find({});
+    console.log("fetched all pets");
     return response.status(200).json({
-      count: users.length,
-      data: users,
+      count: pets.length,
+      data: pets,
     });
   } catch (error) {
     console.log("error fetching");
@@ -47,89 +111,90 @@ router.get("/", async (request, response) => {
   }
 });
 
-// router.get("/:id", async (request, response) => {
-//   try {
-//     const { id } = request.params;
-//     const user = await Users.findById(id);
-//     return response.status(200).json(user);
-//   } catch (error) {
-//     console.log(error.message);
-//     response.status(500).send({ message: error.message });
-//   }
-// });
+// To create a pet
 
-// router.put("/:id", async (request, response) => {
-//   try {
-//     if (
-//       !request.body.title ||
-//       !request.body.author ||
-//       !request.body.publishYear
-//     ) {
-//       return response.status(400).send({
-//         message: "Send all required fields: title, author, publishYear",
-//       });
-//     }
-//     const { id } = request.params;
-//     const result = await Book.findByIdAndUpdate(id, request.body);
-//     if (!result) {
-//       return response.status(404).send({ message: "Book not found" });
-//     }
-//     return response.status(201).send({ message: "Book updated successfuly" });
-//   } catch (error) {
-//     console.log(error.message);
-//     response.status(500).send({ message: error.message });
-//   }
-// });
-
-// router.delete("/:id", async (request, response) => {
-//   try {
-//     const { id } = request.params;
-//     const result = await Book.findByIdAndDelete(id);
-//     if (!result) {
-//       return response.status(404).send({ message: "Book not found" });
-//     }
-//     return response.status(201).send({ message: "Book updated successfuly" });
-//   } catch (error) {
-//     console.log(error.message);
-//     response.status(500).send({ message: error.message });
-//   }
-// });
-
-router.post("/", async (request, response) => {
+router.post("/pets/add-a-pet", async (request, response) => {
   let age = request.body.age;
+  let name = request.body.age;
   let sex = request.body.sex;
   let breed = request.body.breed;
   let weight = request.body.weight;
   let description = request.body.description;
   let healthInformation = request.body.healthInformation;
   try {
-    if (!age || !phoneNumber || !password || !gender || !name) {
+    if (
+      !age ||
+      !sex ||
+      !breed ||
+      !weight ||
+      !name ||
+      !description ||
+      !healthInformation
+    ) {
       return response.status(400).send({
         message: "Send all required fields",
       });
     }
-    const newUser = {
-      email: email,
-      phoneNumber: phoneNumber,
-      password: password,
+    const newPet = {
       name: name,
-      gender: gender,
+      age: age,
+      weight: weight,
+      sex: sex,
+      breed: breed,
+      description: description,
+      healthInformation: healthInformation,
     };
 
-    const user = await Users.create(newUser);
+    const pet = await Pets.create(newPet);
     console.log("Created");
 
-    return response.status(201).send(user);
+    return response.status(201).send(pet);
   } catch (error) {
     console.log("error creating:", error);
     response.status(500).send({ message: error.message });
   }
 });
 
+// To get a specified pet
 
+router.get("/pets/:id", async (request, response) => {
+  try {
+    const { id } = request.params;
+    const pet = await Pets.findById(id);
+    return response.status(200).json(pet);
+  } catch (error) {
+    console.log(error.message);
+    response.status(500).send({ message: error.message });
+  }
+});
 
+// To update a pet
 
-
-
+router.put("/pets/:id", async (request, response) => {
+  try {
+    if (
+      !request.body.name ||
+      !request.body.breed ||
+      !request.body.sex ||
+      !request.body.age ||
+      !request.body.weight ||
+      !request.body.healthInformation ||
+      !request.body.description
+    ) {
+      return response.status(400).send({
+        message: "Send all required fields",
+      });
+    }
+    const { id } = request.params;
+    const result = await Pets.findByIdAndUpdate(id, request.body);
+    if (!result) {
+      return response.status(404).send({ message: "Pet not found" });
+    }
+    return response.status(201).send({ message: "Pet updated successfully" });
+  } catch (error) {
+    console.log(error.message);
+    response.status(500).send({ message: error.message });
+  }
+});
 
 export default router;

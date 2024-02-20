@@ -7,9 +7,11 @@ import girlAvatar from "../assets/girl.jpg";
 import boyAvatar from "../assets/boy.jpg";
 import DarkModeToggle from "@/components/DarkModeToggle";
 import PetCard from "@/components/PetCard";
+import Loader from "@/components/Loader";
 
 export default function Home() {
   const [gender, setGender] = useState("boy");
+  const [isLoading, setIsLoading] = useState(false);
 
   return (
     <div className={`dark:bg-secondaryBlue overflow-auto flex bg-bgLight`}>
@@ -24,10 +26,10 @@ export default function Home() {
           <div className="relative flex ">
             <input
               placeholder="Search pets..."
-              className={`py-4 px-16 text-xl outline-none  dark:text-formHeading w-full dark:bg-secondaryBlue bg-bgLight rounded-full text-black`}
+              className={`py-3 px-16 text-xl outline-none  dark:text-formHeading w-full dark:bg-secondaryBlue bg-bgLight rounded-full text-black`}
             />
             <span>
-              <FaSearch className="w-6 h-8 absolute text-formTitle left-8 top-4 " />
+              <FaSearch className="w-6 h-6 absolute text-formTitle left-8 top-3 " />
             </span>
           </div>
           <div className="shadow-lg pr-5 flex justify-between items-center gap-5 p-3">
@@ -41,17 +43,21 @@ export default function Home() {
             />
           </div>
         </div>
-        <div className="flex flex-wrap gap-5 mt-8">
-          <PetCard />
-          <PetCard />
-          <PetCard />
-          <PetCard />
-          <PetCard />
-          <PetCard />
-          <PetCard />
-          <PetCard />
-          <PetCard />
-        </div>
+        {isLoading ? (
+          <Loader visibility={isLoading} />
+        ) : (
+          <div className="flex flex-wrap gap-5 mt-8">
+            <PetCard />
+            <PetCard />
+            <PetCard />
+            <PetCard />
+            <PetCard />
+            <PetCard />
+            <PetCard />
+            <PetCard />
+            <PetCard />
+          </div>
+        )}
       </main>
     </div>
   );

@@ -2,17 +2,15 @@ import express from "express";
 import mongoose from "mongoose";
 import { PORT, URL } from "./config.js";
 import router from "./routes/router.js";
+import cors from "cors";
 
 const app = express();
 
 app.use(express.json());
 
-// app.use("/", (request, response) => {
-//   console.log(request);
-//   return response.status(201).send("Server is started");
-// });
+app.use(cors());
 
-app.use("/admin", router);
+app.use("/", router);
 
 mongoose
   .connect(URL)

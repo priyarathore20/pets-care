@@ -1,9 +1,17 @@
+"use client";
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
 import boyImg from "../../assets/boy.jpg";
 import { MdDelete, MdEdit } from "react-icons/md";
+import EditProfileModal from "./EditProfileModal";
 
 const UserProfile = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleClose = () => {
+    setIsOpen(false);
+  };
+
   // Mock user data
   const user = [
     { label: "Name:", value: "John Doe" },
@@ -37,12 +45,16 @@ const UserProfile = () => {
           </>
         ))}
         <div className="flex justify-center items-center mt-6 ">
-          <div className="flex gap-3 items-center justify-center rounded-3xl py-2 w-[200px] bg-formButton text-white">
+          <div
+            onClick={() => setIsOpen(true)}
+            className="flex gap-3 items-center cursor-pointer justify-center rounded-3xl py-2 w-[200px] bg-formButton text-white"
+          >
             <MdEdit className="h-5 w-5" />
             <p>Edit Profile</p>
           </div>
         </div>
       </div>
+      <EditProfileModal open={isOpen} onClose={handleClose} />
     </div>
   );
 };

@@ -70,3 +70,4 @@ const PetSchema = mongoose.Schema(
 
 
 export const Users = mongoose.model("Users", UserSchema);
+export const Pets = mongoose.model("Pets", PetSchema);

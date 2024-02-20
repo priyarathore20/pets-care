@@ -11,12 +11,12 @@ export const sidebarLinks = [
       href: "/",
       icon: FaRegEye,
     },
-    { name: "Add a pet", href: "/", icon: IoAddCircleOutline },
+    { name: "Add a pet", href: "/add-a-pet", icon: IoAddCircleOutline },
   ],
   [
-    { name: "View profile", href: "/", icon: CgProfile },
-    { name: "Edit profile", href: "/", icon: FaRegEdit },
-    { name: "Logout", href: "/", icon: TbLogout2 },
+    { name: "View profile", href: "/owner-profile", icon: CgProfile },
+    { name: "Edit profile", href: "/owner-profile", icon: FaRegEdit },
+    { name: "Logout", href: "/login", icon: TbLogout2 },
   ],
 ];
 
@@ -51,4 +51,12 @@ export const petDetails = [
     value:
       "Rex is in excellent health, full of energy and ready for adventure!",
   },
+];
+
+export const userDetails = [
+  { label: "Name", type: "text" },
+  { label: "Phone Number", type: "number" },
+  { label: "Gender", type: "text" },
+  { label: "Email", type: "email" },
+  { label: "Password", type: "password" },
 ];

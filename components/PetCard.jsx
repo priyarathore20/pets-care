@@ -7,13 +7,13 @@ import Link from "next/link";
 
 const PetCard = () => {
   return (
-    <div className=" mx-auto flex h-[200px] dark:bg-primaryBlue bg-white rounded-xl shadow-md overflow-hidden w-[600px]">
+    <div className=" mx-auto flex h-[200px] dark:bg-primaryBlue bg-white rounded-xl shadow-md overflow-hidden w-[580px]">
       <div className="md:flex">
         {/* Left column for pet image */}
         <div>
           <Image
             className="object-cover"
-            width={400}
+            width={350}
             height={400}
             src={labraImg}
             alt=""
