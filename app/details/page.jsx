@@ -6,6 +6,7 @@ import { petDetails } from "@/data";
 import { MdDelete, MdEdit } from "react-icons/md";
 import EditPetModal from "@/app/details/EditPetModal";
 import DeletePetModal from "./DeletePetModal";
+import instance from "@/utils/axios";
 
 const PetDetails = () => {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
@@ -15,6 +16,14 @@ const PetDetails = () => {
     setIsEditModalOpen(false);
     setIsDeleteModalOpen(false);
   };
+
+const fetchPetDetails = () => {
+  try {
+    const res = instance.get("/pets/details")
+  } catch (error) {
+    
+  }
+}
 
   return (
     <main className="flex justify-center items-center">

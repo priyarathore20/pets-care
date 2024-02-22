@@ -53,10 +53,3 @@ export const petDetails = [
   },
 ];
 
-export const userDetails = [
-  { label: "Name", type: "text" },
-  { label: "Phone Number", type: "number" },
-  { label: "Gender", type: "text" },
-  { label: "Email", type: "email" },
-  { label: "Password", type: "password" },
-];

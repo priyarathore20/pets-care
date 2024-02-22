@@ -1,9 +1,70 @@
 "use client";
 import Dialog from "@/components/Dialog";
-import { userDetails } from "@/data";
+import instance from "@/utils/axios";
 import React, { useState } from "react";
 
-const EditProfileModal = ({ open, onClose }) => {
+const EditProfileModal = ({
+  open,
+  onClose,
+  userName,
+  userEmail,
+  userPassword,
+  userGender,
+  userPhoneNumber,
+}) => {
+  const [name, setName] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [email, setEmail] = useState("");
+  const [gender, setGender] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [details, setDetails] = useState();
+
+  const editUserDetail = () => {
+    try {
+      const data = { name, password, phoneNumber, gender, email };
+      setLoading(true);
+      const userId = localStorage.getItem("userId");
+      const res = instance.put(`/pets/${userId}`, data);
+      se;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const userDetails = [
+    {
+      label: "Name",
+      type: "text",
+      value: userName,
+      onChange: (e) => setName(e.target.value),
+    },
+    {
+      label: "Phone Number",
+      type: "number",
+      value: userPhoneNumber,
+      onChange: (e) => setPhoneNumber(e.target.value),
+    },
+    {
+      label: "Gender",
+      type: "text",
+      value: userGender,
+      onChange: (e) => setGender(e.target.value),
+    },
+    {
+      label: "Email",
+      type: "email",
+      value: userEmail,
+      onChange: (e) => setEmail(e.target.value),
+    },
+    {
+      label: "Password",
+      type: "password",
+      value: userPassword,
+      onChange: (e) => setPassword(e.target.value),
+    },
+  ];
+
   return (
     <Dialog open={open} onClose={onClose}>
       <div
@@ -24,8 +85,9 @@ const EditProfileModal = ({ open, onClose }) => {
                   {item.label}
                 </label>
                 <input
-                  value={""}
+                  value={item?.value}
                   type={item.type}
+                  onChange={item?.onChange}
                   className={`dark:text-formHeading text-grayHeading outline-none dark:focus:border-formHeading dark:bg-primaryBlue bg-white border border-formTitle hover:border-formHeading py-2 px-1`}
                 />
               </div>

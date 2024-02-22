@@ -43,7 +43,7 @@ const LoginPage = () => {
       console.log(res.data);
       router.push("/");
     } catch (error) {
-      alert(error);
+      alert(error.message);
       console.error(error);
     }
   };

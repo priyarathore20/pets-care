@@ -4,6 +4,7 @@ import Logo from "@/components/Logo";
 import instance from "@/utils/axios";
 import { redirect } from "next/dist/server/api-utils";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { SnackbarProvider, useSnackbar } from "notistack";
 import React, { useState } from "react";
 
@@ -22,6 +23,7 @@ const RegisterPage = () => {
   const [password, setPassword] = useState("");
   const [gender, setGender] = useState("");
   const { enqueueSnackbar } = useSnackbar();
+  const router = useRouter();
 
   const handlePhoneNumberChange = (event) => {
     const inputPhoneNumber = event.target.value;
@@ -46,9 +48,9 @@ const RegisterPage = () => {
     try {
       const res = await instance.post("/register", data);
       console.log(res.data);
-      redirect("/");
+      localStorage.setItem("userId", res.data._id);
+      router.push("/");
     } catch (error) {
-      alert("user already exist");
       console.error(error);
     }
   };

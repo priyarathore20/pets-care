@@ -3,6 +3,7 @@ import { Pets, Users } from "../models/schema.js";
 
 const router = express.Router();
 
+
 /* User CRU request */
 
 // To get all users
@@ -99,7 +100,7 @@ router.get("/:id", async (request, response) => {
   }
 });
 
-// To edit a user
+// // To edit a user
 
 router.put("/:id", async (request, response) => {
   try {
@@ -126,108 +127,5 @@ router.put("/:id", async (request, response) => {
   }
 });
 
-/* Pet CRUD requests */
-
-// To get all pets //
-
-router.get("/pets", async (request, response) => {
-  try {
-    const pets = await Pets.find({});
-    console.log("fetched all pets");
-    return response.status(200).json({
-      count: pets.length,
-      data: pets,
-    });
-  } catch (error) {
-    console.error(error);
-    response.status(500).send({ message: error.message });
-  }
-});
-
-// To create a pet
-
-router.post("/pets/add-a-pet", async (request, response) => {
-  let age = request.body.age;
-  let name = request.body.age;
-  let sex = request.body.sex;
-  let breed = request.body.breed;
-  let weight = request.body.weight;
-  let description = request.body.description;
-  let healthInformation = request.body.healthInformation;
-  try {
-    if (
-      !age ||
-      !sex ||
-      !breed ||
-      !weight ||
-      !name ||
-      !description ||
-      !healthInformation
-    ) {
-      return response.status(400).send({
-        message: "Send all required fields",
-      });
-    }
-    const newPet = {
-      name: name,
-      age: age,
-      weight: weight,
-      sex: sex,
-      breed: breed,
-      description: description,
-      healthInformation: healthInformation,
-    };
-
-    const pet = await Pets.create(newPet);
-    console.log("Created");
-
-    return response.status(201).send(pet);
-  } catch (error) {
-    console.log("error creating:", error);
-    response.status(500).send({ message: error.message });
-  }
-});
-
-// To get a specified pet
-
-router.get("/pets/:id", async (request, response) => {
-  try {
-    const { id } = request.params;
-    const pet = await Pets.findById(id);
-    return response.status(200).json(pet);
-  } catch (error) {
-    console.log(error.message);
-    response.status(500).send({ message: error.message });
-  }
-});
-
-// To update a pet
-
-router.put("/pets/:id", async (request, response) => {
-  try {
-    if (
-      !request.body.name ||
-      !request.body.breed ||
-      !request.body.sex ||
-      !request.body.age ||
-      !request.body.weight ||
-      !request.body.healthInformation ||
-      !request.body.description
-    ) {
-      return response.status(400).send({
-        message: "Send all required fields",
-      });
-    }
-    const { id } = request.params;
-    const result = await Pets.findByIdAndUpdate(id, request.body);
-    if (!result) {
-      return response.status(404).send({ message: "Pet not found" });
-    }
-    return response.status(201).send({ message: "Pet updated successfully" });
-  } catch (error) {
-    console.log(error.message);
-    response.status(500).send({ message: error.message });
-  }
-});
 
 export default router;

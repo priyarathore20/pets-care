@@ -1,23 +1,40 @@
 "use client";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import boyImg from "../../assets/boy.jpg";
 import { MdDelete, MdEdit } from "react-icons/md";
 import EditProfileModal from "./EditProfileModal";
+import instance from "@/utils/axios";
+import girlImg from "../../assets/girl.jpg";
 
 const UserProfile = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [user, setUser] = useState(null);
 
   const handleClose = () => {
     setIsOpen(false);
   };
 
+  useEffect(() => {
+    const getUser = async () => {
+      try {
+        const userId = localStorage.getItem("userId");
+        const res = await instance.get(`/${userId}`);
+        console.log(res.data);
+        setUser(res.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    getUser();
+  }, []);
+
   // Mock user data
-  const user = [
-    { label: "Name:", value: "John Doe" },
-    { label: "Email:", value: "john@example.com" },
-    { label: "Gender:", value: "Male" },
-    { label: "Phone Number:", value: "9863762839" },
+  const userDetails = [
+    { label: "Name:", value: user?.name },
+    { label: "Email:", value: user?.email },
+    { label: "Gender:", value: user?.gender },
+    { label: "Phone Number:", value: user?.phoneNumber },
     { label: "Number of Pets:", value: "3" },
   ];
 
@@ -27,16 +44,16 @@ const UserProfile = () => {
         {/* Profile picture */}
         <div className="flex justify-center flex-col items-center py-5">
           <Image
-            src={boyImg}
+            src={user?.gender == "Female" ? girlImg : boyImg}
             width={150}
             height={150}
             alt="Profile"
             className="rounded-full border border-grayHeading"
           />
-          <div className="font-bold text-3xl mt-8">{user[0].value}</div>
+          <div className="font-bold text-3xl mt-8">{user?.name}</div>
         </div>
         {/* User details */}
-        {user.map((item) => (
+        {userDetails.map((item) => (
           <>
             <div className="px-12 py-2 flex justify-between items-start">
               <div className="text-grayHeading text-lg ">{item.label}</div>
@@ -54,7 +71,15 @@ const UserProfile = () => {
           </div>
         </div>
       </div>
-      <EditProfileModal open={isOpen} onClose={handleClose} />
+      <EditProfileModal
+        userName={user?.name}
+        userEmail={user?.email}
+        userGender={user?.gender}
+        userPassword={user?.password}
+        userPhoneNumber={user?.phoneNumber}
+        open={isOpen}
+        onClose={handleClose}
+      />
     </div>
   );
 };

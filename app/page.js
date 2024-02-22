@@ -13,21 +13,25 @@ import instance from "@/utils/axios";
 
 export default function Home() {
   const [gender, setGender] = useState("boy");
-  const [isLoading, setIsLoading] = useState(true);
-  
-  // useEffect(() => {
-  //   setIsLoading(true);
-  //   instance.get("/pets")
-  //     .then((response) => {
-  //       console.log(response.data)
-  //       // setBooks(response.data.data);
-  //       setIsLoading(false);
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //       setIsLoading(false);
-  //     });
-  // }, []);
+  const [isLoading, setIsLoading] = useState(false);
+  const [pets, setPets] = useState([]);
+
+  const fetchUsers = async () => {
+    try {
+      setIsLoading(true);
+      const res = await instance.get("/pets");
+      console.log(res.data);
+      setPets(res.data.data);
+      setIsLoading(false)
+    } catch (error) {
+      console.log(error);
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchUsers();
+  }, []);
 
   return (
     <div className={`dark:bg-secondaryBlue overflow-auto flex bg-bgLight`}>
@@ -60,18 +64,19 @@ export default function Home() {
           </div>
         </div>
         {isLoading ? (
-          <Loader visibility={isLoading} />
+          <Loader />
         ) : (
           <div className="flex flex-wrap gap-5 mt-8">
-            <PetCard />
-            <PetCard />
-            <PetCard />
-            <PetCard />
-            <PetCard />
-            <PetCard />
-            <PetCard />
-            <PetCard />
-            <PetCard />
+            {pets.map((pet, index) => (
+              <PetCard
+                name={pet?.name}
+                age={pet?.age}
+                breed={pet.breed}
+                sex={pet?.sex}
+                species={pet?.species}
+                key={index}
+              />
+            ))}
           </div>
         )}
       </main>
