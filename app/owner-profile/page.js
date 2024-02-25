@@ -6,6 +6,7 @@ import { MdDelete, MdEdit } from "react-icons/md";
 import EditProfileModal from "./EditProfileModal";
 import instance from "@/utils/axios";
 import girlImg from "../../assets/girl.jpg";
+import withAuth from "@/hoc/WithAuth";
 
 const UserProfile = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -29,7 +30,6 @@ const UserProfile = () => {
     getUser();
   }, []);
 
-  // Mock user data
   const userDetails = [
     { label: "Name:", value: user?.name },
     { label: "Email:", value: user?.email },
@@ -84,4 +84,4 @@ const UserProfile = () => {
   );
 };
 
-export default UserProfile;
+export default withAuth(UserProfile);

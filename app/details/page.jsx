@@ -7,6 +7,8 @@ import { MdDelete, MdEdit } from "react-icons/md";
 import EditPetModal from "@/app/details/EditPetModal";
 import DeletePetModal from "./DeletePetModal";
 import instance from "@/utils/axios";
+import withAuth from "@/hoc/WithAuth";
+import Dashboard from "@/hoc/Dashboard";
 
 const PetDetails = () => {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
@@ -17,16 +19,14 @@ const PetDetails = () => {
     setIsDeleteModalOpen(false);
   };
 
-const fetchPetDetails = () => {
-  try {
-    const res = instance.get("/pets/details")
-  } catch (error) {
-    
-  }
-}
+  const fetchPetDetails = () => {
+    try {
+      const res = instance.get("/pets/details");
+    } catch (error) {}
+  };
 
   return (
-    <main className="flex justify-center items-center">
+    <Dashboard>
       <div className="h-screen w-screen flex dark:bg-secondaryBlue items-center bg-bgLight overflow-hidden">
         <div className="w-max h-max flex items-center p-8 mr-10">
           <div className="flex flex-1 gap-8 items-center justify-center flex-col">
@@ -68,8 +68,8 @@ const fetchPetDetails = () => {
       </div>
       <EditPetModal open={isEditModalOpen} onClose={handleClose} />
       <DeletePetModal open={isDeleteModalOpen} onClose={handleClose} />
-    </main>
+    </Dashboard>
   );
 };
 
-export default PetDetails;
+export default withAuth(PetDetails);

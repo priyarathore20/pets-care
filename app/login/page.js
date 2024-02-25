@@ -1,47 +1,34 @@
 "use client";
 import Input from "@/components/Input";
+import { AuthContext } from "@/context/UserContext";
 import instance from "@/utils/axios";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { FaPaw } from "react-icons/fa";
-
-function validateAndFormatPhoneNumber(phoneNumber) {
-  const digitsOnly = phoneNumber.replace(/\D/g, "");
-  if (digitsOnly.length !== 10) {
-    throw new Error("Phone number must be 10 digits long");
-  }
-  return digitsOnly;
-}
+import { jwtDecode } from "jwt-decode";
 
 const LoginPage = () => {
-  const [phoneNumber, setPhoneNumber] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();
-
-  const handlePhoneNumberChange = (event) => {
-    const inputPhoneNumber = event.target.value;
-    try {
-      const formattedPhoneNumber =
-        validateAndFormatPhoneNumber(inputPhoneNumber);
-      setPhoneNumber(formattedPhoneNumber);
-    } catch (error) {
-      console.error("Error:", error.message);
-    }
-  };
+  const { setWebUser } = useContext(AuthContext);
 
   const LoginUser = async (e) => {
     e.preventDefault();
     const data = {
       email,
-      phoneNumber,
       password,
     };
     try {
       const res = await instance.post("/login", data);
       console.log(res.data);
-      router.push("/");
+      const token = res?.data?.token;
+      localStorage.setItem("token", token);
+      const user = jwtDecode(token);
+      console.log(user);
+      setWebUser(user);
+      // router.push("/");
     } catch (error) {
       alert(error.message);
       console.error(error);
@@ -67,11 +54,6 @@ const LoginPage = () => {
           </p>
         </div>
         <div className="px-6 flex flex-col items-start">
-          <Input
-            placeholder={"Phone Number*"}
-            type="number"
-            onChange={handlePhoneNumberChange}
-          />
           <Input
             placeholder={"Email*"}
             type="email"

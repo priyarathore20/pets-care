@@ -1,12 +1,13 @@
 "use client";
 import Input from "@/components/Input";
 import Logo from "@/components/Logo";
+import { UserContext } from "@/context/UserContext";
 import instance from "@/utils/axios";
 import { redirect } from "next/dist/server/api-utils";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { SnackbarProvider, useSnackbar } from "notistack";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 
 function validateAndFormatPhoneNumber(phoneNumber) {
   const digitsOnly = phoneNumber.replace(/\D/g, "");
@@ -24,6 +25,7 @@ const RegisterPage = () => {
   const [gender, setGender] = useState("");
   const { enqueueSnackbar } = useSnackbar();
   const router = useRouter();
+  const { registerUser } = useContext(UserContext);
 
   const handlePhoneNumberChange = (event) => {
     const inputPhoneNumber = event.target.value;
@@ -36,24 +38,26 @@ const RegisterPage = () => {
     }
   };
 
-  const registerUser = async (e) => {
-    e.preventDefault();
-    const data = {
-      name,
-      email,
-      phoneNumber,
-      password,
-      gender,
-    };
-    try {
-      const res = await instance.post("/register", data);
-      console.log(res.data);
-      localStorage.setItem("userId", res.data._id);
-      router.push("/");
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  const data = [name, email, phoneNumber, password, gender];
+
+  // const registerUser = async (e) => {
+  //   e.preventDefault();
+  //   const data = {
+  //     name,
+  //     email,
+  //     phoneNumber,
+  //     password,
+  //     gender,
+  //   };
+  //   try {
+  //     const res = await instance.post("/register", data);
+  //     console.log(res.data);
+  //     localStorage.setItem("userId", res.data._id);
+  //     router.push("/");
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
 
   return (
     <div className="max-w-screen w-screen h-screen max-h-screen dark:bg-secondaryBlue bg-bgLight flex justify-center items-center">
@@ -89,7 +93,7 @@ const RegisterPage = () => {
             onChange={(e) => setPassword(e.target.value)}
           />
           <button
-            onClick={registerUser}
+            onClick={registerUser(data)}
             className="w-[368px] h-[38px] space-x-1 bg-formButton text-white text-sm rounded"
           >
             REGISTER

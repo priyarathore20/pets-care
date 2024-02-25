@@ -1,8 +1,22 @@
 import express from "express";
 import { Pets, Users } from "../models/schema.js";
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
 const router = express.Router();
 
+const secretKey = "your-secret-key";
+
+// Function to generate JWT
+function generateToken(user) {
+  const { _id, phoneNumber, email, gender, name } = user;
+  return jwt.sign({ id: _id, phoneNumber, email, gender, name }, secretKey, {
+    expiresIn: "6d",
+  });
+}
+
+const phoneNumberRegex = /^\d{10}$/;
+const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
 /* User CRU request */
 
@@ -24,66 +38,97 @@ router.get("/", async (request, response) => {
 
 // To create a user
 
-router.post("/register", async (request, response) => {
-  let email = request.body.email;
-  let phoneNumber = request.body.phoneNumber;
-  let password = request.body.password;
-  let name = request.body.name;
-  let gender = request.body.gender;
+router.post("/signup", async (req, res) => {
   try {
-    if (!email || !phoneNumber || !password || !gender || !name) {
-      return response.status(400).send({
-        message: "Send all required fields",
-      });
-    }
-    const newUser = {
-      email: email,
-      phoneNumber: phoneNumber,
-      password: password,
-      name: name,
-      gender: gender,
-    };
-    const existUser = await Users.findOne({ phoneNumber: phoneNumber });
-    if (existUser) {
-      response.status(404).send("User already exists. Login instead!");
-    }
-    const user = await Users.create(newUser);
-    console.log("Created");
+    let email = req?.body?.email;
+    let phoneNumber = req?.body?.phoneNumber;
+    let password = req?.body?.password;
+    let name = req?.body?.name;
+    let gender = req?.body?.gender;
 
-    return response.status(201).send(user);
+    if (!phoneNumberRegex.test(phoneNumber)) {
+      console.log("Valid phone number!");
+      return res.status(400).json({ message: "Invalid phone number" });
+    }
+
+    if (!emailRegex.test(email)) {
+      return res.status(400).json({ message: "Invalid email" });
+    }
+
+    if (!gender) {
+      return res.status(400).json({ message: "Enter your gender" });
+    }
+
+    if (!name) {
+      return res.status(400).json({ message: "Enter your name" });
+    }
+
+    if (!password) {
+      return res.status(400).json({ message: "Enter your password" });
+    }
+
+    const existUser = await Users.findOne({ email: email });
+    if (existUser) {
+      return res
+        .status(409)
+        .json({ message: "User already exists. Login instead!" });
+    }
+
+    // Hash the password before storing it in the database
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    // Create a new user in the database
+    const newUser = new Users({
+      email,
+      phoneNumber,
+      name,
+      gender,
+      password: hashedPassword,
+    });
+    await newUser.save();
+
+    const token = generateToken(newUser);
+    res.status(201).json({ token, message: "User registered successfully" });
   } catch (error) {
-    console.log("error creating:", error);
-    response.status(500).send({ message: error.message });
+    console.error(error);
+    res.status(500).json({ message: "Internal Server Error" });
   }
 });
 
 // To login a user
 
-router.post("/login", async (request, response) => {
-  let email = request.body.email;
-  let phoneNumber = request.body.phoneNumber;
-  let password = request.body.password;
+router.post("/login", async (req, res) => {
   try {
-    if (!email || !phoneNumber || !password) {
-      return response.status(400).send({
-        message: "Send all required fields",
-      });
-    }
-    const loginUser = {
-      email: email,
-      phoneNumber: phoneNumber,
-      password: password,
-    };
-    const existUser = await Users.findOne({ phoneNumber: phoneNumber });
-    if (!existUser) {
-      response.status(404).send("User doesn't exists. Signup instead!");
-    }
-    console.log("Logged in successfully");
+    const { password, email } = req?.body ?? {};
 
-    return response.status(201).send(loginUser);
+    if (!emailRegex.test(email)) {
+      return res.status(400).json({ message: "Invalid email" });
+    }
+
+    if (!password) {
+      return res.status(400).json({ message: "Enter your password" });
+    }
+
+    // Find the user in the database
+    const user = await Users.findOne({ email });
+
+    if (!user) {
+      return res.status(401).json({ message: "Invalid username or password" });
+    }
+
+    // Compare the provided password with the hashed password in the database
+    const passwordMatch = await bcrypt.compare(password, user.password);
+
+    if (!passwordMatch) {
+      return res.status(401).json({ message: "Invalid username or password" });
+    }
+
+    // Generate a JWT and send it in the response
+    const token = generateToken(user);
+    res.json({ token });
   } catch (error) {
-    console.log("error creating:", error.message);
-    response.status(500).send({ message: error.message });
+    console.error(error);
+    res.status(500).json({ message: "Internal Server Error" });
   }
 });
 
@@ -126,6 +171,5 @@ router.put("/:id", async (request, response) => {
     response.status(500).send({ message: error.message });
   }
 });
-
 
 export default router;
