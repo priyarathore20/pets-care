@@ -3,9 +3,13 @@ import React from "react";
 
 const Dashboard = ({ children }) => {
   return (
-    <div className={`dark:bg-secondaryBlue overflow-auto flex bg-bgLight`}>
+    <div
+      className={` h-screen w-screen dark:bg-secondaryBlue overflow-hidden flex bg-bgLight`}
+    >
       <Sidebar />
-      <main className="flex-1 flex flex-col items-center  p-6">{children}</main>
+      <main className="flex-1 p-4 h-full overflow-x-hidden overflow-y-auto">
+        {children}
+      </main>
     </div>
   );
 };

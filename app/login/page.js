@@ -9,8 +9,8 @@ import { FaPaw } from "react-icons/fa";
 import { jwtDecode } from "jwt-decode";
 
 const LoginPage = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("example1@gmail.com");
+  const [password, setPassword] = useState("password");
   const router = useRouter();
   const { setWebUser } = useContext(AuthContext);
 
@@ -28,7 +28,7 @@ const LoginPage = () => {
       const user = jwtDecode(token);
       console.log(user);
       setWebUser(user);
-      // router.push("/");
+      router.push("/");
     } catch (error) {
       alert(error.message);
       console.error(error);

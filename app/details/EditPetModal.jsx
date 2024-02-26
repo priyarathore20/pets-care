@@ -1,5 +1,6 @@
 "use client";
 import Dialog from "@/components/Dialog";
+import Input from "@/components/Input";
 import Logo from "@/components/Logo";
 import { addPet } from "@/data";
 import React, { useState } from "react";
@@ -15,26 +16,24 @@ const EditPetModal = ({ open, onClose }) => {
         >
           Something changed? Here we go..! 🚀
         </h2>
-        <form className="flex justify-center flex-wrap gap-4 flex-1">
+        <form className="flex flex-col justify-center items-center">
+          <div className="gap-4 grid grid-cols-2 ">
           {addPet.map((item, index) => (
-            <>
-              <div className="flex flex-col gap-0 flex-1">
-                <label
-                  className={`text-lg dark:text-formHeading text-grayHeading`}
-                >
-                  {item.label}
-                </label>
-                <input
+            <div key={index} >
+              <div className="flex flex-1 gap-2" >
+                <Input
+                  label={item?.label}
                   value={"xyz"}
                   type="text"
                   className={`dark:text-formHeading text-grayHeading outline-none dark:focus:border-formHeading dark:bg-primaryBlue bg-white border border-formTitle hover:border-formHeading py-2 px-1`}
                 />
               </div>
-            </>
+            </div>
           ))}
-          <button className="w-[368px] h-[38px] space-x-1 bg-formButton text-white text-sm rounded">
-            SUBMIT
-          </button>
+          </div>
+            <button className="space-x-1 bg-formButton rounded w-[368px] h-[38px] text-sm text-white">
+              SUBMIT
+            </button>
         </form>
       </div>
     </Dialog>

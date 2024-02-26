@@ -8,7 +8,7 @@ import { ReactSVG } from "react-svg";
 const Sidebar = () => {
   return (
     <div
-      className={`dark:bg-primaryBlue w-[290px]  pt-5 h-screen bg-white shadow-lg text-grayHeading`}
+      className={`dark:bg-primaryBlue w-[290px] pt-5 h-screen bg-white shadow-lg text-grayHeading`}
     >
       <Logo />
       {sidebarLinks.map((actions, index) => (

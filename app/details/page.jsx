@@ -27,16 +27,16 @@ const PetDetails = () => {
 
   return (
     <Dashboard>
-      <div className="h-screen w-screen flex dark:bg-secondaryBlue items-center bg-bgLight overflow-hidden">
-        <div className="w-max h-max flex items-center p-8 mr-10">
+      <div className="flex dark:bg-secondaryBlue items-center bg-bgLight overflow-x-hidden">
+        <div className=" flex items-center p-8 mr-10">
           <div className="flex flex-1 gap-8 items-center justify-center flex-col">
             <h2 className="text-grayHeading dark:text-formHeading text-5xl font-bold">
               Meet Max! 🐶
             </h2>
             <Image
               src={labraImg}
-              width={700}
-              height={700}
+              width={200}
+              height={200}
               alt=""
               className="rounded-xl"
             />
