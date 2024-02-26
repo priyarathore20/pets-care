@@ -1,8 +1,8 @@
-import { Inter } from "next/font/google";
+import { Public_Sans } from "next/font/google";
 import "./globals.css";
 import AuthContextProvider from "@/context/UserContext";
 
-const inter = Inter({ subsets: ["latin"] });
+const public_sans = Public_Sans({ subsets: ["latin"] });
 
 export const metadata = {
   title: "PeTrack",
@@ -13,7 +13,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" id="html-tag">
-      <body className={inter.className}>
+      <body className={public_sans.className}>
         <AuthContextProvider>{children}</AuthContextProvider>
       </body>
     </html>

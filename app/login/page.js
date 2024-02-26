@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import React, { useContext, useState } from "react";
 import { FaPaw } from "react-icons/fa";
 import { jwtDecode } from "jwt-decode";
+import TextField from "@/components/TextField";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("example1@gmail.com");
@@ -45,23 +46,21 @@ const LoginPage = () => {
           </h2>
         </div>
         <div className="pt-2 px-6 pb-6 flex flex-col items-start">
-          <h5 className="mb-1 dark:text-formHeading text-grayHeading text-2xl font-medium">
-            Welcome to PawHub! 👋🏻
+          <h5 className="mb-1 dark:text-formHeading tracking-normal leading-8 text-grayHeading text-2xl font-medium">
+            Welcome to PeTrack! 👋🏻
           </h5>
-          <p className="text-formTitle text-base font-medium">
+          <p className="text-formTitle text-base font-normal tracking-[0.0094rem] leading-[1.3125rem]">
             This platform enables users to register their pets, making them
             accessible globally for anyone searching.
           </p>
         </div>
         <div className="px-6 flex flex-col items-start">
-          <Input
-            placeholder={"Email*"}
-            type="email"
+          <TextField
+            name={"Email"}
             onChange={(e) => setEmail(e.target.value)}
           />
-          <Input
-            placeholder={"Password*"}
-            type="password"
+          <TextField
+            name={"Password"}
             onChange={(e) => setPassword(e.target.value)}
           />
           <button
@@ -70,7 +69,7 @@ const LoginPage = () => {
           >
             LOGIN
           </button>
-          <div className="w-[368px] p-5 flex items-center justify-center text-grayHeading dark:text-formHeading">
+          <div className="w-[368px] p-5 flex items-center justify-center text-formTitle leading-6 dark:text-formHeading">
             New on our platform?{" "}
             <Link href={"/register"} className="text-formButton ml-2">
               {" "}
