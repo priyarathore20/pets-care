@@ -4,8 +4,8 @@ import React from "react";
 
 const Logo = () => {
   return (
-    <div className="flex items-center p-6">
-      <FaPaw className="h-12 w-12 pr-[10px] text-formButton" />
+    <div className="flex flex-1 items-center gap-x-3 px-8 py-4">
+      <FaPaw className="w-6 h-8 text-formButton " />
       <h2
         className={`dark:text-formHeading text-2xl font-bold  text-grayHeading`}
       >
