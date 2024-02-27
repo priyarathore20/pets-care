@@ -25,9 +25,9 @@ const DarkModeToggle = () => {
     <div>
       <button onClick={toggleDarkMode}>
         {!isDarkMode ? (
-          <IoSunnyOutline className="w-8 h-8 dark:text-formHeading text-black" />
+          <IoSunnyOutline className="w-6 h-6 text-gray-500 dark:text-formHeading" />
         ) : (
-          <IoMoonOutline className="w-8 h-8 dark:text-formHeading text-black " />
+          <IoMoonOutline className="w-6 h-6 text-gray-500 dark:text-formHeading " />
         )}
       </button>
       {/* Apply dark mode styles conditionally */}

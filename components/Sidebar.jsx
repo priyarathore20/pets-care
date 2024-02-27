@@ -14,13 +14,13 @@ const Sidebar = () => {
       {sidebarLinks.map((actions, index) => (
         <div key={index} className="pt-5">
           {" "}
-          <div className="text-navTitle text-xs dark:text-darkGray tracking-[0.4px]">---<span className="ml-2">ACTIONS</span></div>
+          <div className="text-navTitle text-xs dark:text-gray-600 dark:text-darkGray tracking-[0.4px]">---<span className="ml-2">ACTIONS</span></div>
           {actions.map((item, itemIndex) => (
             <div key={itemIndex}>
               {" "}
-              <div className="flex justify-start items-center hover:bg-hover focus:bg-focus mx-5 mt-1 py-3 pr-[10px] pl-[15px] rounded-lg">
+              <div className="flex justify-start items-center hover:bg-hover dark:hover:bg-secondaryBlue focus:bg-focus mx-5 mt-1 py-3 pr-[10px] pl-[15px] rounded-lg">
                 <svg
-                  className="w-6 h-6 text-formTitle "
+                  className="w-6 h-6 text-formTitle dark:text-gray-500"
                   viewBox="0 0 24 24"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
@@ -29,7 +29,7 @@ const Sidebar = () => {
                 </svg>
                 <Link
                   href={item.href}
-                  className="flex-1 mr-12 p-1 pl-3 text-base text-formTitle dark:text-formHeading tracking-[0.15px]"
+                  className="flex-1 mr-12 p-1 pl-3 text-base text-formTitle dark:dark:text-gray-500 tracking-[0.15px]"
                 >
                   {item.name}
                 </Link>
