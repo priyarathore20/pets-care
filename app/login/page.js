@@ -7,21 +7,30 @@ import { useRouter } from "next/navigation";
 import React, { useContext, useState } from "react";
 import { FaPaw } from "react-icons/fa";
 import { jwtDecode } from "jwt-decode";
-import TextField from "@/components/TextField";
+import ForgotPasswordModal from "./ForgotPasswordModal";
+import Loader from "@/components/Loader";
+import Button from "@/components/Button";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("example1@gmail.com");
   const [password, setPassword] = useState("password");
+  const [passwordModal, setPasswordModal] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const { setWebUser } = useContext(AuthContext);
 
-  const LoginUser = async (e) => {
+  const handleClose = () => {
+    setPasswordModal(false);
+  };
+
+  const loginUser = async (e) => {
     e.preventDefault();
     const data = {
       email,
       password,
     };
     try {
+      setIsLoading(true);
       const res = await instance.post("/login", data);
       console.log(res.data);
       const token = res?.data?.token;
@@ -29,10 +38,12 @@ const LoginPage = () => {
       const user = jwtDecode(token);
       console.log(user);
       setWebUser(user);
-      router.push("/");
+      router.replace("/");
+      // setIsLoading(false);
     } catch (error) {
-      alert(error.message);
+      // alert(error.message);
       console.error(error);
+      setIsLoading(false);
     }
   };
 
@@ -55,29 +66,45 @@ const LoginPage = () => {
           </p>
         </div>
         <div className="px-6 flex flex-col items-start">
-          <TextField
-            name={"Email"}
+          <Input
+            placeholder={"Email"}
             onChange={(e) => setEmail(e.target.value)}
+            type={"text"}
+            value={email}
+            disabled={isLoading}
           />
-          <TextField
-            name={"Password"}
+          <Input
+            placeholder={"Password"}
             onChange={(e) => setPassword(e.target.value)}
+            type={"password"}
+            value={password}
+            disabled={isLoading}
           />
-          <button
-            onClick={LoginUser}
-            className="w-[368px] h-[38px] space-x-1 bg-formButton text-white text-sm rounded"
-          >
-            LOGIN
-          </button>
+          <div className="w-full flex justify-end items-center mt-1 mb-4">
+            <p
+              onClick={() => setPasswordModal(true)}
+              className="text-formButton text-base cursor-pointer tracking=[0.009375rem] leading-[1.3125rem]"
+            >
+              Forgot your password?
+            </p>
+          </div>
+          <Button
+            disabled={isLoading}
+            isLoading={isLoading}
+            onClick={loginUser}
+            label={"LOGIN"}
+          />
           <div className="w-[368px] p-5 flex items-center justify-center text-formTitle leading-6 dark:text-formHeading">
             New on our platform?{" "}
-            <Link href={"/register"} className="text-formButton ml-2">
+            <Link href={"/signup"} className="text-formButton ml-2">
               {" "}
               Create an account
             </Link>
           </div>
         </div>
       </div>
+      {/* <ForgotPasswordModal open={passwordModal} onClose={handleClose} />
+       */}
     </div>
   );
 };

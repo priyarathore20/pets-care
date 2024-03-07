@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import girlAvatar from "../assets/girl.jpg";
 import { IoIosSearch } from "react-icons/io";
 import boyAvatar from "../assets/boy.jpg";
@@ -10,13 +10,15 @@ import Loader from "@/components/Loader";
 import instance from "@/utils/axios";
 import withAuth from "@/hoc/WithAuth";
 import Dashboard from "@/hoc/Dashboard";
+import { AuthContext } from "@/context/UserContext";
 
 function Home() {
   const [gender, setGender] = useState("boy");
   const [isLoading, setIsLoading] = useState(false);
   const [pets, setPets] = useState([]);
+  const { webUser } = useContext(AuthContext);
 
-  const fetchUsers = async () => {
+  const fetchPets = async () => {
     try {
       setIsLoading(true);
       const res = await instance.get("/pets");
@@ -29,7 +31,7 @@ function Home() {
     }
   };
   useEffect(() => {
-    fetchUsers();
+    fetchPets();
   }, []);
 
   return (

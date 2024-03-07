@@ -1,23 +1,32 @@
 import { FaRegEye } from "react-icons/fa";
 import { IoAddCircleOutline } from "react-icons/io5";
 import { CgProfile } from "react-icons/cg";
-import { FaRegEdit } from "react-icons/fa";
 import { TbLogout2 } from "react-icons/tb";
 
+const LogoutUser = ({ router }) => {
+  localStorage.removeItem("token");
+  router?.replace("/login");
+};
+
 export const sidebarLinks = [
-  [
-    {
-      name: "View all pets",
-      href: "/",
-      icon: FaRegEye,
-    },
-    { name: "Add a pet", href: "/add-a-pet", icon: IoAddCircleOutline },
-  ],
-  [
-    { name: "View profile", href: "/owner-profile", icon: CgProfile },
-    { name: "Edit profile", href: "/owner-profile", icon: FaRegEdit },
-    { name: "Logout", href: "/login", icon: TbLogout2 },
-  ],
+  {
+    category: "Pet",
+    links: [
+      {
+        name: "View all pets",
+        href: "/",
+        icon: FaRegEye,
+      },
+      { name: "Add a pet", href: "/add-a-pet", icon: IoAddCircleOutline },
+    ],
+  },
+  {
+    category: "Personal",
+    links: [
+      { name: "View profile", href: "/profile", icon: CgProfile },
+      { name: "Logout", href: "/login", icon: TbLogout2, onclick: LogoutUser },
+    ],
+  },
 ];
 
 export const addPet = [
@@ -52,4 +61,3 @@ export const petDetails = [
       "Rex is in excellent health, full of energy and ready for adventure!",
   },
 ];
-

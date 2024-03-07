@@ -3,14 +3,14 @@ import React from "react";
 
 const Loader = ({ size }) => {
   return (
-    <div className="flex h-full w-full justify-center items-center">
+    <div className="flex justify-center items-center w-full h-full">
       <div
         className={classNames(
-          "rounded-full border-8  border-t-white border-formButton animate-spin",
+          "rounded-full border-t-white border-formButton animate-spin",
           {
-            "h-4 w-4": size === "small",
-            "h-16 w-16": size === "large",
-            "h-16 w-16": !size,
+            "h-5 w-5 border-2 border-t-formButton border-white":
+              size === "small",
+            "h-16 w-16 border-8": !size || size === "large",
           }
         )}
       ></div>
