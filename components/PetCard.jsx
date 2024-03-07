@@ -5,9 +5,9 @@ import labraImg from "../assets/labra.jpg";
 import { FaArrowCircleRight } from "react-icons/fa";
 import Link from "next/link";
 
-const PetCard = ({ name, age, breed, sex, species }) => {
+const PetCard = ({ name, age, breed, sex, species, id }) => {
   return (
-    <div className=" mx-auto flex h-[200px] dark:bg-primaryBlue bg-white rounded-xl shadow-md overflow-hidden w-[580px]">
+    <div className="flex bg-white dark:bg-primaryBlue shadow-md mx-auto rounded-xl w-[580px] h-[200px] overflow-hidden">
       <div className="md:flex">
         {/* Left column for pet image */}
         <div>
@@ -21,14 +21,14 @@ const PetCard = ({ name, age, breed, sex, species }) => {
         </div>
         {/* Right column for pet details */}
         <div className="p-8 md:w-1/2">
-          <div className="uppercase tracking-wide text-sm text-grayHeading dark:text-formHeading font-semibold">
+          <div className="font-semibold text-grayHeading text-sm dark:text-formHeading uppercase tracking-wide">
             {species}
           </div>
-          <h2 className="mt-1 text-2xl leading-7 font-semibold text-grayHeading dark:text-formHeading">
+          <h2 className="mt-1 font-semibold text-2xl text-grayHeading dark:text-formHeading leading-7">
             {name}
           </h2>
           <div className="flex justify-between items-center">
-            <div className="mt-2 text-grayHeading font-medium dark:text-formHeading">
+            <div className="mt-2 font-medium text-grayHeading dark:text-formHeading">
               <span className="text-formTitle dark:text-darkGray">Sex: </span>
               {sex}
               <br />
@@ -39,8 +39,8 @@ const PetCard = ({ name, age, breed, sex, species }) => {
               {breed}
               <br />
             </div>
-            <Link href={"/details"}>
-              <FaArrowCircleRight className="h-6 w-6 text-formHeading dark:text-grayHeading cursor-pointer" />
+            <Link href={`/details/${id}`}>
+              <FaArrowCircleRight className="w-6 h-6 text-formHeading dark:text-grayHeading cursor-pointer" />
             </Link>
           </div>
         </div>

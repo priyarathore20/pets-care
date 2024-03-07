@@ -21,7 +21,11 @@ function Home() {
   const fetchPets = async () => {
     try {
       setIsLoading(true);
-      const res = await instance.get("/pets");
+      const res = await instance.get("/pets", {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
       console.log(res.data);
       setPets(res.data.data);
       setIsLoading(false);
@@ -68,6 +72,7 @@ function Home() {
         <div className="flex flex-wrap gap-5 mt-8">
           {pets.map((pet, index) => (
             <PetCard
+              id={pet?._id}
               name={pet?.name}
               age={pet?.age}
               breed={pet.breed}
@@ -82,4 +87,4 @@ function Home() {
   );
 }
 
-export default withAuth(Home);
+export default Home;
