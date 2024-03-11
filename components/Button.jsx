@@ -2,7 +2,15 @@ import React from "react";
 import Loader from "./Loader";
 import classNames from "classnames";
 
-const Button = ({ disabled, onClick, label, isLoading, size }) => {
+const Button = ({
+  disabled,
+  onClick,
+  label,
+  isLoading,
+  size,
+  variant,
+  color,
+}) => {
   return (
     <button
       disabled={disabled}
@@ -11,8 +19,12 @@ const Button = ({ disabled, onClick, label, isLoading, size }) => {
         "space-x-1 bg-formButton rounded h-[38px] text-sm text-white",
         {
           "cursor-not-allowed bg-gray-400": disabled,
-          'w-20': size === "small",
-          'w-[368px]' : !size
+          "w-20": size === "small",
+          "w-[368px]": !size,
+          "bg-formButton text-white":
+            !variant || variant === "contained" || !color,
+          [`text-${color} border-${color}`]: variant === "outlined" && color,
+          // "bg-formButton text-white": variant === "contained" && color,
         }
       )}
     >
