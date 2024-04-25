@@ -16,7 +16,7 @@ function Home() {
   const [gender, setGender] = useState("boy");
   const [isLoading, setIsLoading] = useState(false);
   const [pets, setPets] = useState([]);
-  const { webUser } = useContext(AuthContext);
+  const { webUser, setUserPet } = useContext(AuthContext);
 
   const fetchPets = async () => {
     try {
@@ -26,7 +26,8 @@ function Home() {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       });
-      console.log(res.data);
+      // console.log(res.data?.data);
+      // setUserPet(res?.data?.count)
       setPets(res.data.data);
       setIsLoading(false);
     } catch (error) {

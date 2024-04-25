@@ -21,8 +21,6 @@ const RegisterPage = () => {
   const router = useRouter();
   const { setWebUser } = useContext(AuthContext);
 
-  const data = [name, email, phoneNumber, password, gender];
-
   const registerUser = async (e) => {
     // e.preventDefault();
     const data = {
@@ -41,7 +39,7 @@ const RegisterPage = () => {
       const user = jwtDecode(token);
       setWebUser(user);
       router.replace("/");
-      setIsLoading(false)
+      setIsLoading(false);
     } catch (error) {
       console.error(error);
       setIsLoading(false);

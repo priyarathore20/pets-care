@@ -4,7 +4,7 @@ import React, { useContext, useEffect, useState } from "react";
 import boyImg from "../../assets/boy.jpg";
 import { MdDelete, MdEdit } from "react-icons/md";
 import EditProfileModal from "./EditProfileModal";
-import instance from "@/utils/axios";
+// import instance from "@/utils/axios";
 import girlImg from "../../assets/girl.jpg";
 import withAuth from "@/hoc/WithAuth";
 import { AuthContext } from "@/context/UserContext";
@@ -13,7 +13,7 @@ import Dashboard from "@/hoc/Dashboard";
 const UserProfile = () => {
   const [isOpen, setIsOpen] = useState(false);
   // const [user, setUser] = useState(null);
-  const { webUser } = useContext(AuthContext);
+  const { webUser, userPet } = useContext(AuthContext);
 
   const handleClose = () => {
     setIsOpen(false);
@@ -38,12 +38,13 @@ const UserProfile = () => {
     { label: "Email:", value: webUser?.email },
     { label: "Gender:", value: webUser?.gender },
     { label: "Phone Number:", value: webUser?.phoneNumber },
-    { label: "Number of Pets:", value: "3" },
-  ];
+    { label: "Number of Pets:", value: userPet },
+      ];
 
+      console.log(userPet)
   return (
     <Dashboard>
-      <div className=" px-4 py-8 flex justify-center items-center dark:bg-secondaryBlue bg-bgLight w-screen h-screen">
+      <div className=" px-4 py-8 flex justify-center items-center dark:bg-secondaryBlue bg-bgLight w-full h-screen">
         <div className="w-[500px] h-[600px] dark:bg-primaryBlue bg-white rounded-xl shadow-xl overflow-hidden">
           {/* Profile picture */}
           <div className="flex justify-center flex-col items-center py-5">

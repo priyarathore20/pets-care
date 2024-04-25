@@ -1,7 +1,6 @@
 "use client";
 import Dialog from "@/components/Dialog";
 import Input from "@/components/Input";
-import Logo from "@/components/Logo";
 import { addPet } from "@/data";
 import React, { useState } from "react";
 
@@ -17,7 +16,7 @@ const EditPetModal = ({ open, onClose }) => {
           Something changed? Here we go..! 🚀
         </h2>
         <form className="flex flex-col justify-center items-center">
-          <div className="gap-4 grid grid-cols-2 ">
+          <div className="gap-4 grid grid-cols-2">
           {addPet.map((item, index) => (
             <div key={index} >
               <div className="flex flex-1 gap-2" >
