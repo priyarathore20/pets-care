@@ -6,7 +6,7 @@ import Image from "next/image";
 import { useState } from "react";
 import Button from "./Button";
 
-const Header = ({ input, pageName, button, EditPetModal, DeletePetModal }) => {
+const Header = ({ input, pageName, EditPetModal, DeletePetModal }) => {
   const [gender, setGender] = useState("boy");
   return (
     <div
@@ -27,24 +27,6 @@ const Header = ({ input, pageName, button, EditPetModal, DeletePetModal }) => {
         </div>
       )}
       <div className="flex justify-between items-end gap-3 shadow-md p-3 pr-5">
-        {button && (
-          <>
-            <Button
-              size={"small"}
-              variant={"outlined"}
-              color={"blue"}
-              label={"Edit"}
-              onClick={EditPetModal}
-            />
-            <Button
-              size={"small"}
-              variant={"outlined"}
-              color={"red"}
-              label={"Delete"}
-              onClick={DeletePetModal}
-            />{" "}
-          </>
-        )}
         <DarkModeToggle />
         <Image
           src={gender == "girl" ? girlAvatar : boyAvatar}

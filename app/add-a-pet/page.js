@@ -7,19 +7,28 @@ import React, { useState } from "react";
 import "./styles.css";
 import Loader from "@/components/Loader";
 import instance from "@/utils/axios";
+import { useForm } from "react-hook-form";
+import Button from "@/components/Button";
+import { Router } from "next/router";
+import { useRouter } from "next/navigation";
 
 const AddPet = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const [name, setName] = useState("baby");
-  const [age, setAge] = useState("2 months");
-  const [species, setSpecies] = useState("dog");
-  const [breed, setBreed] = useState("shitzu");
-  const [sex, setSex] = useState("female");
-  const [color, setColor] = useState("white");
-  const [description, setDescription] = useState("whgwgij;bab;pabenjs");
-  const [healthInformation, setHealthInformation] = useState(
-    "jfhgfwFHV;SVJGNE;ALJGEA"
-  );
+  const [name, setName] = useState("");
+  const [age, setAge] = useState("");
+  const [species, setSpecies] = useState("");
+  const [breed, setBreed] = useState("");
+  const [sex, setSex] = useState("");
+  const [color, setColor] = useState("");
+  const [description, setDescription] = useState("");
+  const [healthInformation, setHealthInformation] = useState("");
+  const router = useRouter();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
   const registerPet = async (e) => {
     e.preventDefault();
@@ -35,13 +44,14 @@ const AddPet = () => {
     };
     try {
       setIsLoading(true);
-      const res = await instance.post("/add-pet", data, {
+      const res = await instance.post("/pets/add-pet", data, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       });
       console.log(res.data);
       setIsLoading(false);
+      router.push("/");
     } catch (error) {
       console.error(error);
       setIsLoading(false);
@@ -51,7 +61,7 @@ const AddPet = () => {
   return (
     <Dashboard>
       <div
-        className={`dark:bg-secondaryBlue flex flex-col justify-center center bg-bgLight`}
+        className={`items-center dark:bg-secondaryBlue flex flex-col justify-center center bg-bgLight`}
       >
         <Header pageName={"Add Your Pet...!"} />
         <div
@@ -64,88 +74,121 @@ const AddPet = () => {
             Add a new furry friend here! 😊
           </h2>
 
-          <form className="flex flex-col justify-center items-center center">
-            <div className="gap-4 grid grid-cols-2 ">
-              <div className="flex ">
+          <form
+            onSubmit={handleSubmit(registerPet)}
+            className="flex flex-col justify-center items-center center"
+          >
+            <div className="gap-4 grid grid-cols-2 mb-3">
+              <div>
                 <Input
-                  label={"Name"}
+                  {...register("name", { required: true })}
+                  label={"Name*"}
                   type="text"
                   className="input"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                 />
+                {errors.name && (
+                  <p className="text-red/80">*This field is required</p>
+                )}
               </div>
               <div>
                 <Input
-                  label={"Species"}
+                  {...register("species", { required: true })}
+                  label={"Species*"}
                   type="text"
                   className="input"
                   value={species}
                   onChange={(e) => setSpecies(e.target.value)}
                 />
+                {errors.species && (
+                  <p className="text-red/80">*This field is required</p>
+                )}
               </div>
               <div>
                 <Input
-                  label={"Breed"}
+                  {...register("breed", { required: true })}
+                  label={"Breed*"}
                   type="text"
                   className="input"
                   value={breed}
                   onChange={(e) => setBreed(e.target.value)}
                 />
+                {errors.breed && (
+                  <p className="text-red/80">*This field is required</p>
+                )}
               </div>
               <div>
                 <Input
-                  label={"Age"}
+                  {...register("age", { required: true })}
+                  label={"Age*"}
                   type="text"
                   className="input"
                   value={age}
                   onChange={(e) => setAge(e.target.value)}
                 />
+                {errors.age && (
+                  <p className="text-red/80">*This field is required</p>
+                )}
               </div>
               <div>
                 <Input
-                  label={"Sex"}
+                  {...register("sex", { required: true })}
+                  label={"Sex*"}
                   type="text"
                   className="input"
                   value={sex}
                   onChange={(e) => setSex(e.target.value)}
                 />
+                {errors.name && (
+                  <p className="text-red/80">Please write in uppercase.</p>
+                )}
               </div>
               <div>
                 <Input
-                  label={"Color"}
+                  {...register("color", { required: true })}
+                  label={"Color*"}
                   type="text"
                   className="input"
                   value={color}
                   onChange={(e) => setColor(e.target.value)}
                 />
+                {errors.color && (
+                  <p className="text-red/80">*This field is required</p>
+                )}
               </div>
               <div>
                 <Input
-                  label={"Description"}
+                  {...register("description", { required: true })}
+                  label={"Description*"}
                   type="text"
                   className="input"
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
                 />
+                {errors.description && (
+                  <p className="text-red/80">*This field is required</p>
+                )}
               </div>
               <div>
                 <Input
-                  label={"Health Information"}
+                  {...register("info", { required: true })}
+                  label={"Health Information*"}
                   type="text"
                   className="input"
                   value={healthInformation}
                   onChange={(e) => setHealthInformation(e.target.value)}
                 />
+                {errors.info && (
+                  <p className="text-red/80">*This field is required</p>
+                )}
               </div>
             </div>
-            <button
+            <Button
               onClick={registerPet}
               disabled={isLoading}
-              className="space-x-1 bg-formButton rounded w-[368px] h-[38px] text-sm text-white"
-            >
-              {isLoading ? <Loader /> : "SUBMIT"}
-            </button>
+              label={isLoading ? <Loader /> : "SUBMIT"}
+            />
           </form>
         </div>
       </div>

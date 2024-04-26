@@ -48,18 +48,17 @@ const PetDetails = () => {
 
   const petDetails = [
     { label: "Name:", value: pet?.name },
+    { label: "Species:", value: pet?.species },
     { label: "Breed:", value: pet?.breed },
     { label: "Age:", value: pet?.age },
     { label: "Sex:", value: pet?.sex },
-    { label: "Color:", value: "Brown" },
-    { label: "Weight:", value: pet?.weight },
+    { label: "Color:", value: pet?.color },
   ];
 
   const petDetailsCard = [
     {
       label: "Description",
-      value:
-        "In Tailwind CSS, the justify-items utility class is used to control the alignment of items along the inline axis (row axis) within a grid container. It applies to grid items themselves, not the container.",
+      value: pet?.description,
     },
     {
       label: "Health information:",
@@ -72,23 +71,26 @@ const PetDetails = () => {
       <div className="flex items-center justify-start px-5 flex-col bg-bgLight dark:bg-secondaryBlue overflow-x-hidden">
         <Header
           pageName={pet?.name}
-          button={true}
-          EditPetModal={isEditModalOpen}
+          // button={true}
+
           DeletePetModal={isDeleteModalOpen}
         />
         <div className="flex items-center justify-between py-5 w-full h-full">
           <Image
             src={labraImg}
-            width={250}
-            height={250}
+            width={300}
+            height={300}
             alt="img"
             className="rounded-xl"
           />
           <div className="w-full grid grid-cols-3 gap-4  justify-items-center">
             {pet &&
               petDetails.map((item, i) => (
-                <div className="flex flex-col text-center" key={i}>
-                  <label className="text-gray-400 dark:text-gray-500 ">
+                <div
+                  className="flex flex-col text-center rounded-lg border dark:bg-primaryBlue dark:border-none border-gray-200 shadow-sm bg-white p-3 w-full max-w-40"
+                  key={i}
+                >
+                  <label className="text-gray-400 dark:text-gray-500">
                     {item?.label}
                   </label>
                   <p className="text-gray-500 font-medium tracking-wide dark:text-formHeading">
@@ -103,8 +105,8 @@ const PetDetails = () => {
               errorCorrectionLevel: "M",
               margin: 3,
               scale: 4,
-              width: 180,
-              height: 150,
+              width: 200,
+              height: 170,
               color: {
                 dark: "#000",
                 light: "#FFF",
@@ -116,7 +118,7 @@ const PetDetails = () => {
           {pet &&
             petDetailsCard.map((item, i) => (
               <div
-                className="w-full p-5 flex flex-col justify-start bg-white dark:bg-primaryBlue dark:border-navTitle rounded-xl border-gray-200 border"
+                className="w-full  p-5 flex flex-col justify-start bg-white dark:bg-primaryBlue dark:border-navTitle rounded-xl border-gray-200 border"
                 key={i}
               >
                 <h5 className="text-gray-400 dark:text-gray-500 pb-2">
@@ -128,15 +130,25 @@ const PetDetails = () => {
               </div>
             ))}
         </div>
-        <div className="w-full h-full">
-          <li className="text-gray-500 dark:text-formHeading">
-            Last seen at 3 pm at Shastri Nagar, Delhi.
-          </li>
-          <section className="bg-gray-200 w-full h-52 mt-4 rounded-lg"></section>
+        <div className="flex gap-5 justify-center mt-5 items-center w-full">
+          <Button
+            label={"Edit"}
+            size={"small"}
+            onClick={() => setIsEditModalOpen(true)}
+          />
+          <Button
+            label={"Delete"}
+            size={"small"}
+            onClick={() => setIsDeleteModalOpen(true)}
+          />
         </div>
       </div>
-      <EditPetModal open={isEditModalOpen} onClose={handleClose} />
-      <DeletePetModal open={isDeleteModalOpen} onClose={handleClose} />
+      <EditPetModal open={isEditModalOpen} pet={pet} onClose={handleClose} />
+      <DeletePetModal
+        open={isDeleteModalOpen}
+        pet={pet}
+        onClose={handleClose}
+      />
     </Dashboard>
   );
 };

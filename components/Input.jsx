@@ -11,7 +11,7 @@ const Input = ({
   ...props
 }) => {
   return (
-    <div className="w-full">
+    <div className="flex flex-col">
       {label && (
         <label className="text-grayHeading text-lg dark:text-formHeading">
           {label}
@@ -24,7 +24,7 @@ const Input = ({
         type={type}
         onChange={onChange}
         className={classNames(
-          "dark:hover:border-formHeading bg-white dark:bg-primaryBlue mb-3 p-4 border rounded w-full text-formTitle text-grayHeading dark:text-formHeading outline-none",
+          "dark:text-formHeading text-grayHeading outline-none dark:focus:border-formHeading dark:bg-primaryBlue bg-white border border-formTitle hover:border-formHeading py-2 px-1",
           {
             "bg-gray-100 text-gray-400 cursor-not-allowed": disabled,
           }
