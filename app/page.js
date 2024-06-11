@@ -1,20 +1,20 @@
-"use client";
-import Image from "next/image";
-import { useContext, useEffect, useState } from "react";
-import girlAvatar from "../assets/girl.jpg";
-import { IoIosSearch } from "react-icons/io";
-import boyAvatar from "../assets/boy.jpg";
-import DarkModeToggle from "@/components/DarkModeToggle";
-import PetCard from "@/components/PetCard";
-import Loader from "@/components/Loader";
-import instance from "@/utils/axios";
-import withAuth from "@/hoc/WithAuth";
-import Dashboard from "@/hoc/Dashboard";
-import { AuthContext } from "@/context/UserContext";
-import PetCards from "@/components/PetCards";
+'use client';
+import Image from 'next/image';
+import { useContext, useEffect, useState } from 'react';
+import girlAvatar from '../assets/girl.jpg';
+import { IoIosSearch } from 'react-icons/io';
+import boyAvatar from '../assets/boy.jpg';
+import DarkModeToggle from '@/components/DarkModeToggle';
+import PetCard from '@/components/PetCard';
+import Loader from '@/components/Loader';
+import instance from '@/utils/axios';
+import withAuth from '@/hoc/WithAuth';
+import Dashboard from '@/hoc/Dashboard';
+import { AuthContext } from '@/context/UserContext';
+import PetCards from '@/components/PetCards';
 
-function Home() {
-  const [gender, setGender] = useState("boy");
+const Home = () => {
+  const [gender, setGender] = useState('boy');
   const [isLoading, setIsLoading] = useState(false);
   const [pets, setPets] = useState([]);
   const { webUser, setUserPet } = useContext(AuthContext);
@@ -22,9 +22,9 @@ function Home() {
   const fetchPets = async () => {
     try {
       setIsLoading(true);
-      const res = await instance.get("/pets", {
+      const res = await instance.get('/pets', {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
       });
       setPets(res.data.data);
@@ -58,7 +58,7 @@ function Home() {
         <div className="shadow-md pr-5 flex justify-between items-end gap-3 p-3">
           <DarkModeToggle />
           <Image
-            src={gender == "girl" ? girlAvatar : boyAvatar}
+            src={gender == 'girl' ? girlAvatar : boyAvatar}
             width={40}
             height={40}
             alt=""
@@ -86,6 +86,6 @@ function Home() {
       )}
     </Dashboard>
   );
-}
+};
 
-export default Home;
+export default withAuth(Home);

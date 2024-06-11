@@ -1,19 +1,19 @@
-import { AuthContext } from "@/context/UserContext";
-import { jwtDecode } from "jwt-decode";
-import React, { useContext, useEffect, useState } from "react";
+import { AuthContext } from '@/context/UserContext';
+import { jwtDecode } from 'jwt-decode';
+import React, { useContext, useEffect, useState } from 'react';
 
 const useAuthenticationStatus = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const {setWebUser} = useContext(AuthContext)
+  const { setWebUser } = useContext(AuthContext);
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem('token');
     if (!token) {
       setIsAuthenticated(false);
     } else {
       const user = jwtDecode(token);
-      setWebUser(user ?? null)
+      setWebUser(user ?? null);
 
       // The timestamp to check (in seconds)
       const timestamp = user?.exp;
