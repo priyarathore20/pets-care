@@ -32,7 +32,7 @@ const RegisterPage = () => {
     };
     try {
       setIsLoading(true);
-      const res = await instance.post("/signup", data);
+      const res = await instance.post("/auth/signup", data);
       console.log(res.data);
       const token = res?.data?.token;
       localStorage.setItem("token", token);
@@ -48,7 +48,7 @@ const RegisterPage = () => {
 
   return (
     <div className="max-w-screen w-screen h-screen max-h-screen dark:bg-secondaryBlue bg-bgLight flex justify-center items-center">
-      <div className="max-w-[445px] dark:bg-primaryBlue bg-white h-[700px] shadow-2xl rounded-lg px-4 py-7 flex flex-col items-center">
+      <div className="max-w-[445px] dark:bg-primaryBlue bg-white shadow-2xl rounded-lg px-4 py-7 flex flex-col items-center">
         <Logo />
         <div className="w-full pt-2 px-6 pb-6 flex flex-col items-start">
           <h5 className="mb-1 dark:text-formHeading leading-8 text-grayHeading text-2xl font-medium">
@@ -58,19 +58,21 @@ const RegisterPage = () => {
             Simplifying the lives of paw parents.
           </p>
         </div>
-        <div className="px-6 py-3 flex flex-col items-start">
+        <div className="px-6 py-3 flex gap-5 flex-col justify-center items-start">
           <Input
             placeholder={"Name*"}
             onChange={(e) => setName(e.target.value)}
             value={name}
             disabled={isLoading}
             type={"text"}
+            fullWidth
           />
           <Input
             placeholder={"Gender*"}
             onChange={(e) => setGender(e.target.value)}
             value={gender}
             disabled={isLoading}
+            fullWidth
             type={"text"}
           />
           <Input
@@ -78,6 +80,7 @@ const RegisterPage = () => {
             onChange={(e) => setPhoneNumber(e.target.value)}
             value={phoneNumber}
             disabled={isLoading}
+            fullWidth
             type={"number"}
           />
           <Input
@@ -85,6 +88,7 @@ const RegisterPage = () => {
             onChange={(e) => setEmail(e.target.value)}
             value={email}
             disabled={isLoading}
+            fullWidth
             type={"email"}
           />
           <Input
@@ -92,6 +96,7 @@ const RegisterPage = () => {
             onChange={(e) => setPassword(e.target.value)}
             value={password}
             disabled={isLoading}
+            fullWidth
             type={"password"}
           />
           <Button

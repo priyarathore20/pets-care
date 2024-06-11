@@ -18,6 +18,11 @@ const PetDetails = () => {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [pet, setPet] = useState(null);
 
+  // const hostName =
+  // typeof window !== 'undefined' && window.location.origin
+  //   ? window.location.origin
+
+
   const { Canvas } = useQRCode();
 
   const params = useParams();
@@ -100,7 +105,7 @@ const PetDetails = () => {
               ))}
           </div>
           <Canvas
-            text={`https://http://localhost:3000/details/${id}`}
+            text={`https://localhost:3000/${id}`}
             options={{
               errorCorrectionLevel: "M",
               margin: 3,
@@ -146,7 +151,7 @@ const PetDetails = () => {
       <EditPetModal open={isEditModalOpen} pet={pet} onClose={handleClose} />
       <DeletePetModal
         open={isDeleteModalOpen}
-        pet={pet}
+        petId={pet?._id}
         onClose={handleClose}
       />
     </Dashboard>

@@ -32,12 +32,12 @@ const LoginPage = () => {
     try {
       setIsLoading(true);
       const res = await instance.post("/auth/login", data);
-      console.log(data, res);
-      console.log(res.data);
+      // console.log(data, res);
+      // console.log(res.data);
       const token = res?.data?.token;
       localStorage.setItem("token", token);
       const user = jwtDecode(token);
-      console.log(user);
+      // console.log(user);
       setWebUser(user);
       router.replace("/");
       // setIsLoading(false);
@@ -73,6 +73,7 @@ const LoginPage = () => {
             type={"text"}
             value={email}
             disabled={isLoading}
+            fullWidth
           />
           <Input
             placeholder={"Password"}
@@ -80,6 +81,7 @@ const LoginPage = () => {
             type={"password"}
             value={password}
             disabled={isLoading}
+            fullWidth
           />
           <div className="w-full flex justify-end items-center mt-1 mb-4">
             <p

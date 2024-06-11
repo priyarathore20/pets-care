@@ -11,6 +11,7 @@ import instance from "@/utils/axios";
 import withAuth from "@/hoc/WithAuth";
 import Dashboard from "@/hoc/Dashboard";
 import { AuthContext } from "@/context/UserContext";
+import PetCards from "@/components/PetCards";
 
 function Home() {
   const [gender, setGender] = useState("boy");
@@ -26,8 +27,6 @@ function Home() {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       });
-      // console.log(res.data?.data);
-      // setUserPet(res?.data?.count)
       setPets(res.data.data);
       setIsLoading(false);
     } catch (error) {
@@ -70,9 +69,9 @@ function Home() {
       {isLoading ? (
         <Loader />
       ) : (
-        <div className="flex flex-wrap gap-5 mt-8">
+        <div className="flex flex-wrap justify-evenly gap-5 mt-8">
           {pets.map((pet, index) => (
-            <PetCard
+            <PetCards
               id={pet?._id}
               name={pet?.name}
               age={pet?.age}
@@ -82,6 +81,7 @@ function Home() {
               key={index}
             />
           ))}
+          {/* <PetCards /> */}
         </div>
       )}
     </Dashboard>

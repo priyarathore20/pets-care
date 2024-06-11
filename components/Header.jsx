@@ -6,7 +6,7 @@ import Image from "next/image";
 import { useState } from "react";
 import Button from "./Button";
 
-const Header = ({ input, pageName, EditPetModal, DeletePetModal }) => {
+const Header = ({ input, pageName }) => {
   const [gender, setGender] = useState("boy");
   return (
     <div

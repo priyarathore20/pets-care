@@ -19,7 +19,7 @@ const Button = ({
         "space-x-1 bg-formButton rounded h-[38px] text-sm text-white",
         {
           "cursor-not-allowed bg-gray-400": disabled,
-          "w-20": size === "small",
+          "w-24": size === "small",
           "w-[368px]": !size,
           "bg-formButton text-white":
             !variant || variant === "contained" || !color,

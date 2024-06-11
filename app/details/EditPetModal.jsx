@@ -107,7 +107,7 @@ const EditPetModal = ({ open, onClose, pet }) => {
             />
             {/* </div> */}
           </div>
-          <Button label={"SUBMIT"} />
+          <Button label={"SUBMIT"} onClick={EditPet}/>
         </form>
       </div>
     </Dialog>
