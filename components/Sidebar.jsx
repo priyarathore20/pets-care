@@ -11,7 +11,7 @@ const Sidebar = () => {
 
   return (
     <div
-      className={`dark:bg-primaryBlue w-[260px] pt-5 px-4 h-screen bg-white shadow-lg text-grayHeading`}
+      className={`dark:bg-primaryBlue w-[260px] pt-5 px-4 h-screen bg-white shadow-sm text-grayHeading`}
     >
       <Logo />
       {sidebarLinks.map((actions, index) => (
@@ -25,7 +25,6 @@ const Sidebar = () => {
             <div key={itemIndex}>
               <Link
                 href={item.href}
-                onClick={() => item.onclick(router)}
                 className={classNames(
                   'flex justify-start items-center gap-[10px]  mb-[5px] px-4 py-[10px] rounded-lg',
                   {

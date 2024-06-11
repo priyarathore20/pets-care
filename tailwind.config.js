@@ -29,6 +29,8 @@ module.exports = {
         navTitle: "#32475c61",
         blue: "blue",
         red: "red",
+        cardTitle: "#121926",
+        cardSubTitle: "#697586"
       },
     },
   },

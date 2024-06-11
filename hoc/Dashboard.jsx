@@ -7,7 +7,7 @@ const Dashboard = ({ children }) => {
       className={` h-screen w-screen dark:bg-secondaryBlue overflow-hidden flex bg-bgLight`}
     >
       <Sidebar />
-      <main className="flex-1 p-4 h-full overflow-x-hidden overflow-y-auto">
+      <main className="flex-1 h-full overflow-x-hidden overflow-y-auto">
         {children}
       </main>
     </div>

@@ -9,6 +9,7 @@ const Button = ({
   isLoading,
   size,
   variant,
+  fullWidth,
   color,
 }) => {
   return (
@@ -17,7 +18,7 @@ const Button = ({
       onClick={onClick}
       className={classNames(
         "space-x-1 bg-formButton rounded h-[38px] text-sm text-white",
-        {
+        { "w-full": fullWidth,
           "cursor-not-allowed bg-gray-400": disabled,
           "w-24": size === "small",
           "w-[368px]": !size,

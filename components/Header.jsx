@@ -1,40 +1,32 @@
-import girlAvatar from "../assets/girl.jpg";
-import { IoIosSearch } from "react-icons/io";
-import boyAvatar from "../assets/boy.jpg";
-import DarkModeToggle from "./DarkModeToggle";
-import Image from "next/image";
-import { useState } from "react";
-import Button from "./Button";
+import girlAvatar from '../assets/girl.jpg';
+import { IoIosSearch } from 'react-icons/io';
+import boyAvatar from '../assets/boy.jpg';
+import DarkModeToggle from './DarkModeToggle';
+import Image from 'next/image';
+import { useState } from 'react';
+import Button from './Button';
 
-const Header = ({ input, pageName }) => {
-  const [gender, setGender] = useState("boy");
+const Header = ({ title }) => {
+  const [gender, setGender] = useState('boy');
   return (
-    <div
-      className={`w-full h-16 -p-[16px] flex items-center justify-between shadow-md dark:bg-primaryBlue rounded-lg overflow-hidden bg-white`}
-    >
-      <div className="px-8 text-formTitle text-lg dark:text-formHeading tracking-[0.015rem]">
-        {pageName}
-      </div>
-      {input && (
-        <div className="relative flex">
-          <input
-            placeholder="Search pets..."
-            className={`h-10 py-3 px-11 text-lg outline-none  dark:text-formHeading w-full dark:bg-secondaryBlue bg-bgLight rounded-full text-black`}
-          />
-          <span>
-            <IoIosSearch className="top-1.5 left-3 absolute w-7 h-7 text-formTitle" />
-          </span>
+    <div className="mt-3 px-6 w-full">
+      <div
+        className={`w-full h-16 -p-[16px] flex items-center justify-between shadow-sm dark:bg-primaryBlue rounded-lg overflow-hidden bg-white px-6`}
+      >
+        <div className="font-semibold text-black/75 text-lg dark:text-formHeading tracking-[0.015rem]">
+          {title}
         </div>
-      )}
-      <div className="flex justify-between items-end gap-3 shadow-md p-3 pr-5">
-        <DarkModeToggle />
-        <Image
-          src={gender == "girl" ? girlAvatar : boyAvatar}
-          width={40}
-          height={40}
-          alt=""
-          className="rounded-full object-cover"
-        />
+
+        <div className="flex justify-between items-end gap-3">
+          <DarkModeToggle />
+          <Image
+            src={gender == 'girl' ? girlAvatar : boyAvatar}
+            width={40}
+            height={40}
+            alt=""
+            className="rounded-full object-contain"
+          />
+        </div>
       </div>
     </div>
   );

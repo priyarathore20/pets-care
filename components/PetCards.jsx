@@ -7,7 +7,7 @@ const PetCards = ({ name, age, breed, sex, species, id }) => {
   const router = useRouter();
 
   return (
-    <div className="flex flex-col justify-center items-center bg-white shadow-md rounded-xl w-full max-w-[320px] overflow-hidden">
+    <div className="flex flex-col justify-center items-center bg-white shadow-sm rounded-xl w-full max-w-[320px] overflow-hidden">
       <div>
         <Image
           src="/cat.jpg"

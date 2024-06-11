@@ -12,6 +12,8 @@ import withAuth from '@/hoc/WithAuth';
 import Dashboard from '@/hoc/Dashboard';
 import { AuthContext } from '@/context/UserContext';
 import PetCards from '@/components/PetCards';
+import Header from '@/components/Header';
+import PetCardNew from '@/components/PetCardNew';
 
 const Home = () => {
   const [gender, setGender] = useState('boy');
@@ -40,50 +42,27 @@ const Home = () => {
 
   return (
     <Dashboard>
-      <div
-        className={`w-full h-16 -p-[16px] flex items-center justify-between shadow-md dark:bg-primaryBlue rounded-lg overflow-hidden bg-white`}
-      >
-        <div className="px-8 text-lg text-formTitle dark:text-formHeading">
-          All pets..!
-        </div>
-        <div className="relative flex ">
-          <input
-            placeholder="Search pets..."
-            className={`h-10 py-3 px-11 text-lg outline-none  dark:text-formHeading w-full dark:bg-secondaryBlue bg-bgLight rounded-full text-black`}
-          />
-          <span>
-            <IoIosSearch className="w-7 h-7 absolute text-formTitle left-3 top-1.5 " />
-          </span>
-        </div>
-        <div className="shadow-md pr-5 flex justify-between items-end gap-3 p-3">
-          <DarkModeToggle />
-          <Image
-            src={gender == 'girl' ? girlAvatar : boyAvatar}
-            width={40}
-            height={40}
-            alt=""
-            className="object-cover rounded-full"
-          />
-        </div>
+      <Header title="My Pets" />
+      <div className="p-6 mt-[14px]">
+        {isLoading ? (
+          <Loader />
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 lg:grid-cols-3">
+            {pets.map((pet, index) => (
+              <PetCardNew
+                id={pet?._id}
+                name={pet?.name}
+                age={pet?.age}
+                breed={pet.breed}
+                sex={pet?.sex}
+                species={pet?.species}
+                key={index}
+              />
+            ))}
+            {/* <PetCards /> */}
+          </div>
+        )}
       </div>
-      {isLoading ? (
-        <Loader />
-      ) : (
-        <div className="flex flex-wrap justify-evenly gap-5 mt-8">
-          {pets.map((pet, index) => (
-            <PetCards
-              id={pet?._id}
-              name={pet?.name}
-              age={pet?.age}
-              breed={pet.breed}
-              sex={pet?.sex}
-              species={pet?.species}
-              key={index}
-            />
-          ))}
-          {/* <PetCards /> */}
-        </div>
-      )}
     </Dashboard>
   );
 };
