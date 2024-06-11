@@ -22,7 +22,7 @@ module.exports = {
         white: "white",
         black: "black",
         // darkGray: "#C0C6CE",
-        hover: "rgba(250, 251, 251) ",
+        hover: "#eee",
         focus: "rgb(226, 226, 255)",
         bgLight: "rgb(245,245,249)",
         grayHeading: "#32475cde",
