@@ -1,22 +1,22 @@
-'use client';
-import Image from 'next/image';
-import { useContext, useEffect, useState } from 'react';
-import girlAvatar from '../assets/girl.jpg';
-import { IoIosSearch } from 'react-icons/io';
-import boyAvatar from '../assets/boy.jpg';
-import DarkModeToggle from '@/components/DarkModeToggle';
-import PetCard from '@/components/PetCard';
-import Loader from '@/components/Loader';
-import instance from '@/utils/axios';
-import withAuth from '@/hoc/WithAuth';
-import Dashboard from '@/hoc/Dashboard';
-import { AuthContext } from '@/context/UserContext';
-import PetCards from '@/components/PetCards';
-import Header from '@/components/Header';
-import PetCardNew from '@/components/PetCardNew';
+"use client";
+import Image from "next/image";
+import { useContext, useEffect, useState } from "react";
+import girlAvatar from "../assets/girl.jpg";
+import { IoIosSearch } from "react-icons/io";
+import boyAvatar from "../assets/boy.jpg";
+import DarkModeToggle from "@/components/DarkModeToggle";
+import PetCard from "@/components/PetCard";
+import Loader from "@/components/Loader";
+import instance from "@/utils/axios";
+import withAuth from "@/hoc/WithAuth";
+import Dashboard from "@/hoc/Dashboard";
+import { AuthContext } from "@/context/UserContext";
+import PetCards from "@/components/PetCards";
+import Header from "@/components/Header";
+import PetCardNew from "@/components/PetCardNew";
 
 const Home = () => {
-  const [gender, setGender] = useState('boy');
+  const [gender, setGender] = useState("boy");
   const [isLoading, setIsLoading] = useState(false);
   const [pets, setPets] = useState([]);
   const { webUser, setUserPet } = useContext(AuthContext);
@@ -24,9 +24,9 @@ const Home = () => {
   const fetchPets = async () => {
     try {
       setIsLoading(true);
-      const res = await instance.get('/pets', {
+      const res = await instance.get("/pets", {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem('token')}`,
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       });
       setPets(res.data.data);
@@ -59,7 +59,6 @@ const Home = () => {
                 key={index}
               />
             ))}
-            {/* <PetCards /> */}
           </div>
         )}
       </div>
