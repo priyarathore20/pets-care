@@ -2,7 +2,6 @@
 import React, { useState } from "react";
 import dogImg from "../assets/labra.jpg";
 import Button from "./Button";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import Loader from "./Loader";
 
@@ -19,7 +18,7 @@ const PetCardNew = ({ id, name, breed }) => {
   return (
     <div className="shadow-sm rounded-lg overflow-hidden">
       <div className="w-full h-[180px]">
-        <img className="w-full h-full object-cover" src={dogImg.src} />
+        <img className="w-full h-full object-cover" src='/dog.webp' />
       </div>
 
       <div className="border-gray-200 dark:border-gray-700 bg-white dark:bg-primaryBlue p-4 border-t">

@@ -1,25 +1,19 @@
 "use client";
-import Image from "next/image";
-import { useContext, useEffect, useState } from "react";
-import girlAvatar from "../assets/girl.jpg";
-import { IoIosSearch } from "react-icons/io";
-import boyAvatar from "../assets/boy.jpg";
-import DarkModeToggle from "@/components/DarkModeToggle";
-import PetCard from "@/components/PetCard";
+import { useEffect, useState } from "react";
 import Loader from "@/components/Loader";
 import instance from "@/utils/axios";
 import withAuth from "@/hoc/WithAuth";
 import Dashboard from "@/hoc/Dashboard";
-import { AuthContext } from "@/context/UserContext";
-import PetCards from "@/components/PetCards";
 import Header from "@/components/Header";
 import PetCardNew from "@/components/PetCardNew";
+import Image from "next/image";
+import Button from "@/components/Button";
+import { useRouter } from "next/navigation";
 
 const Home = () => {
-  const [gender, setGender] = useState("boy");
+  const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [pets, setPets] = useState([]);
-  const { webUser, setUserPet } = useContext(AuthContext);
 
   const fetchPets = async () => {
     try {
@@ -46,7 +40,7 @@ const Home = () => {
       <div className="p-6 mt-[14px]">
         {isLoading ? (
           <Loader />
-        ) : (
+        ) : pets.length !== 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3 lg:grid-cols-3">
             {pets.map((pet, index) => (
               <PetCardNew
@@ -59,6 +53,17 @@ const Home = () => {
                 key={index}
               />
             ))}
+          </div>
+        ) : (
+          <div className="flex flex-col justify-center items-center">
+            <Image src="/sad-dog.png" height={200} width={200} alt="" />
+            <p className="text-xl font-medium text-gray-500">
+              No Pets to show.
+            </p>
+            <Button
+              label={"Click to add you first pet"}
+              onClick={() => router.push("/add-a-pet")}
+            />
           </div>
         )}
       </div>

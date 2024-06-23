@@ -1,4 +1,5 @@
 "use client";
+import Button from "@/components/Button";
 import Dialog from "@/components/Dialog";
 import Input from "@/components/Input";
 import Loader from "@/components/Loader";
@@ -72,12 +73,7 @@ const EditProfileModal = ({
             />
           </div>
           <div className="flex gap-5 mt-4">
-            <button
-              onClick={editUserDetail}
-              className="space-x-1 bg-formButton rounded w-[100px] h-[38px] text-sm text-white cursor-pointer"
-            >
-              {!loading ? "Submit" : <Loader size={"small"} />}
-            </button>
+            <Button onClick={editUserDetail} size={"small"} label={"SUBMIT"} />
             <button
               onClick={onClose}
               className="space-x-1 bg-bgLight dark:bg-secondaryBlue shadow-inner rounded w-[100px] h-[38px] text-grayHeading text-sm dark:text-white cursor-pointer"

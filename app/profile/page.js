@@ -9,6 +9,7 @@ import girlImg from "../../assets/girl.jpg";
 import withAuth from "@/hoc/WithAuth";
 import { AuthContext } from "@/context/UserContext";
 import Dashboard from "@/hoc/Dashboard";
+import Header from "@/components/Header";
 
 const UserProfile = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -39,13 +40,14 @@ const UserProfile = () => {
     { label: "Gender:", value: webUser?.gender },
     { label: "Phone Number:", value: webUser?.phoneNumber },
     { label: "Number of Pets:", value: userPet },
-      ];
+  ];
 
-      console.log(userPet)
+  // console.log(userPet);
   return (
     <Dashboard>
-      <div className=" px-4 py-8 flex justify-center items-center dark:bg-secondaryBlue bg-bgLight w-full h-screen">
-        <div className="w-[500px] h-[600px] dark:bg-primaryBlue bg-white rounded-xl shadow-xl overflow-hidden">
+      <Header title={webUser?.name + "'s" + " " + "profile"} />
+      <div className="  flex justify-center items-center dark:bg-secondaryBlue bg-bgLight w-full h-full">
+        <div className="px-4 py-5 w-full max-w-[500px] dark:bg-primaryBlue bg-white rounded-xl shadow-xl overflow-hidden">
           {/* Profile picture */}
           <div className="flex justify-center flex-col items-center py-5">
             <Image
@@ -55,7 +57,7 @@ const UserProfile = () => {
               alt="Profile"
               className="rounded-full border border-grayHeading"
             />
-            <div className="font-bold text-3xl mt-8">{webUser?.name}</div>
+            <div className="font-bold text-gray-500 text-3xl mt-8">{webUser?.name}</div>
           </div>
           {/* User details */}
           {userDetails.map((item, index) => (
@@ -64,8 +66,8 @@ const UserProfile = () => {
                 className="px-12 py-2 flex justify-between items-start"
                 key={index}
               >
-                <div className="text-grayHeading text-lg ">{item.label}</div>
-                <div className="text-grayHeading text-lg">{item.value}</div>
+                <div className="text-gray-500 text-lg ">{item.label}</div>
+                <div className="text-gray-500 text-lg">{item.value}</div>
               </div>
             </>
           ))}

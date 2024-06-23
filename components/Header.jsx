@@ -1,13 +1,16 @@
-import girlAvatar from '../assets/girl.jpg';
-import { IoIosSearch } from 'react-icons/io';
-import boyAvatar from '../assets/boy.jpg';
-import DarkModeToggle from './DarkModeToggle';
-import Image from 'next/image';
-import { useState } from 'react';
-import Button from './Button';
+"use client";
+import girlAvatar from "../assets/girl.jpg";
+import { LuMenu } from "react-icons/lu";
+import boyAvatar from "../assets/boy.jpg";
+import DarkModeToggle from "./DarkModeToggle";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { useContext } from "react";
+import { AuthContext } from "@/context/UserContext";
 
 const Header = ({ title }) => {
-  const [gender, setGender] = useState('boy');
+  const { webUser } = useContext(AuthContext);
+  const router = useRouter();
   return (
     <div className="mt-3 px-6 w-full">
       <div
@@ -17,15 +20,19 @@ const Header = ({ title }) => {
           {title}
         </div>
 
-        <div className="flex justify-between items-end gap-3">
+        <div className="flex justify-between items-center gap-3">
           <DarkModeToggle />
           <Image
-            src={gender == 'girl' ? girlAvatar : boyAvatar}
+            src={webUser?.gender == "Female" ? girlAvatar : boyAvatar}
             width={40}
             height={40}
             alt=""
-            className="rounded-full object-contain"
+            className="border border-black/40 rounded-full object-contain"
+            onClick={() => router.push("/profile")}
           />
+          <div className="block xs:hidden w-6 h-6">
+            <LuMenu className="w-full h-full text-gray-500" />
+          </div>
         </div>
       </div>
     </div>

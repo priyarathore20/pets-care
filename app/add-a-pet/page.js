@@ -9,6 +9,7 @@ import Loader from '@/components/Loader';
 import instance from '@/utils/axios';
 import Button from '@/components/Button';
 import { useRouter } from 'next/navigation';
+import { petImg } from '@/data';
 
 const AddPet = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -56,7 +57,7 @@ const AddPet = () => {
       <div
         className={`items-center dark:bg-secondaryBlue flex flex-col justify-center center bg-bgLight`}
       >
-        <Header pageName={'Add Your Pet...!'} />
+        <Header title={'Add Your Pet...!'} />
         <div
           className={`w-5/6 dark:bg-primaryBlue items-center my-5 rounded-lg px-4 py-7 flex flex-col justify-center bg-white`}
         >
@@ -85,13 +86,12 @@ const AddPet = () => {
                 )}
               </div>
               <div>
-                <Input
-                  label={'Species*'}
-                  type="text"
-                  className="input"
-                  value={species}
-                  onChange={(e) => setSpecies(e.target.value)}
-                />
+                <label>Select species:</label>
+                <select>
+                {petImg.map((item,i)=> (
+                  <option key={i}>{item?.species}</option>
+                ))}
+                </select>
                 {errors?.species && (
                   <p className="text-red/80">*This field is required</p>
                 )}

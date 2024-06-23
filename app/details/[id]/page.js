@@ -1,16 +1,16 @@
-'use client';
-import Image from 'next/image';
-import React, { useEffect, useState } from 'react';
-import labraImg from '../../../assets/labra.jpg';
-import EditPetModal from '@/app/details/EditPetModal';
-import DeletePetModal from '../DeletePetModal';
-import instance from '@/utils/axios';
-import withAuth from '@/hoc/WithAuth';
-import Dashboard from '@/hoc/Dashboard';
-import { useParams } from 'next/navigation';
-import Header from '@/components/Header';
-import Button from '@/components/Button';
-import { useQRCode } from 'next-qrcode';
+"use client";
+import Image from "next/image";
+import React, { useEffect, useState } from "react";
+import labraImg from "../../../assets/labra.jpg";
+import EditPetModal from "@/app/details/EditPetModal";
+import DeletePetModal from "../DeletePetModal";
+import instance from "@/utils/axios";
+import withAuth from "@/hoc/WithAuth";
+import Dashboard from "@/hoc/Dashboard";
+import { useParams } from "next/navigation";
+import Header from "@/components/Header";
+import Button from "@/components/Button";
+import { useQRCode } from "next-qrcode";
 
 const PetDetails = () => {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
@@ -18,9 +18,9 @@ const PetDetails = () => {
   const [pet, setPet] = useState(null);
 
   const hostName =
-    typeof window !== 'undefined' && window.location.origin
+    typeof window !== "undefined" && window.location.origin
       ? window.location.origin
-      : '';
+      : "";
 
   const { Canvas } = useQRCode();
 
@@ -37,9 +37,9 @@ const PetDetails = () => {
       const fetchPetDetails = async () => {
         try {
           const res = await instance.get(`/pets/details/${id}`, {
-            headers: { Authorization: localStorage.getItem('token') },
+            headers: { Authorization: localStorage.getItem("token") },
           });
-          console.log(res.data);
+          // console.log(res.data);
           setPet(res?.data);
         } catch (error) {
           console.log(error?.message);
@@ -51,21 +51,21 @@ const PetDetails = () => {
   }, [id]);
 
   const petDetails = [
-    { label: 'Name:', value: pet?.name },
-    { label: 'Species:', value: pet?.species },
-    { label: 'Breed:', value: pet?.breed },
-    { label: 'Age:', value: pet?.age },
-    { label: 'Sex:', value: pet?.sex },
-    { label: 'Color:', value: pet?.color },
+    { label: "Name:", value: pet?.name },
+    { label: "Species:", value: pet?.species },
+    { label: "Breed:", value: pet?.breed },
+    { label: "Age:", value: pet?.age },
+    { label: "Sex:", value: pet?.sex },
+    { label: "Color:", value: pet?.color },
   ];
 
   const petDetailsCard = [
     {
-      label: 'Description',
+      label: "Description",
       value: pet?.description,
     },
     {
-      label: 'Health information:',
+      label: "Health information:",
       value: pet?.healthInformation,
     },
   ];
@@ -74,30 +74,31 @@ const PetDetails = () => {
     <Dashboard>
       <Header title={`${pet?.name} (${pet?.breed})`} />
       <div className="p-6 mt-[14px]">
-        <div className="flex items-center justify-between py-5 w-full h-full">
+        <div className="flex items-center justify-between md:flex-row gap-y-5 flex-col py-5 w-full h-full">
           <div className="flex-[0.5] max-h-[350px]">
             <img
-              src={labraImg?.src}
+              src="/dog.webp"
               alt="img"
               className="rounded-xl h-full w-full max-h-[350px] object-cover"
             />
           </div>
 
-          <div className="flex-[0.5] flex justify-center">
+          <div className="flex-[0.5] flex flex-col items-center justify-center">
             <Canvas
               text={`${hostName}/${id}`}
               options={{
-                errorCorrectionLevel: 'M',
+                errorCorrectionLevel: "M",
                 margin: 3,
                 scale: 4,
                 width: 200,
                 height: 170,
                 color: {
-                  dark: '#000',
-                  light: '#FFF',
+                  dark: "#000",
+                  light: "#FFF",
                 },
               }}
             />
+            <p className="text-gray-700">Stick it to your pet&apos;s collar.</p>
           </div>
         </div>
         <div className="w-full mt-3">
@@ -118,7 +119,7 @@ const PetDetails = () => {
               ))}
           </div>
         </div>
-        <div className="w-full py-5 flex justify-between items-stretch gap-5">
+        <div className="w-full py-5 flex flex-col md:flex-row justify-between items-stretch gap-5">
           {pet &&
             petDetailsCard.map((item, i) => (
               <div
@@ -136,18 +137,23 @@ const PetDetails = () => {
         </div>
         <div className="flex gap-5 justify-center mt-5 items-center w-full">
           <Button
-            label={'Edit'}
-            size={'small'}
+            label={"Edit"}
+            size={"small"}
             onClick={() => setIsEditModalOpen(true)}
           />
           <Button
-            label={'Delete'}
-            size={'small'}
+            label={"Delete"}
+            size={"small"}
             onClick={() => setIsDeleteModalOpen(true)}
           />
         </div>
       </div>
-      <EditPetModal open={isEditModalOpen} pet={pet} onClose={handleClose} />
+      <EditPetModal
+        open={isEditModalOpen}
+        pet={pet}
+        onClose={handleClose}
+        petId={pet?._id}
+      />
       <DeletePetModal
         open={isDeleteModalOpen}
         petId={pet?._id}

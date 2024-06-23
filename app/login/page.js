@@ -1,27 +1,22 @@
-'use client';
-import Input from '@/components/Input';
-import { AuthContext } from '@/context/UserContext';
-import instance from '@/utils/axios';
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import React, { useContext, useEffect, useState } from 'react';
-import { FaPaw } from 'react-icons/fa';
-import { jwtDecode } from 'jwt-decode';
-import ForgotPasswordModal from './ForgotPasswordModal';
-import Loader from '@/components/Loader';
-import Button from '@/components/Button';
+"use client";
+import Input from "@/components/Input";
+import { AuthContext } from "@/context/UserContext";
+import instance from "@/utils/axios";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import React, { useContext, useState } from "react";
+import { FaPaw } from "react-icons/fa";
+import { jwtDecode } from "jwt-decode";
+import Button from "@/components/Button";
+import withAuth from "@/hoc/WithAuth";
 
 const LoginPage = () => {
-  const [email, setEmail] = useState('example1@gmail.com');
-  const [password, setPassword] = useState('password');
+  const [email, setEmail] = useState("example1@gmail.com");
+  const [password, setPassword] = useState("password");
   const [passwordModal, setPasswordModal] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const { setWebUser } = useContext(AuthContext);
-
-  const handleClose = () => {
-    setPasswordModal(false);
-  };
 
   const loginUser = async (e) => {
     e.preventDefault();
@@ -31,18 +26,13 @@ const LoginPage = () => {
     };
     try {
       setIsLoading(true);
-      const res = await instance.post('/auth/login', data);
-      // console.log(data, res);
-      // console.log(res.data);
+      const res = await instance.post("/auth/login", data);
       const token = res?.data?.token;
-      localStorage.setItem('token', token);
+      localStorage.setItem("token", token);
       const user = jwtDecode(token);
-      // console.log(user);
       setWebUser(user);
-      router.replace('/');
-      // setIsLoading(false);
+      router.replace("/");
     } catch (error) {
-      // alert(error.message);
       console.error(error);
       setIsLoading(false);
     }
@@ -68,17 +58,17 @@ const LoginPage = () => {
         </div>
         <div className="px-6 flex flex-col items-start">
           <Input
-            placeholder={'Email'}
+            placeholder={"Email"}
             onChange={(e) => setEmail(e.target.value)}
-            type={'text'}
+            type={"text"}
             value={email}
             disabled={isLoading}
             fullWidth
           />
           <Input
-            placeholder={'Password'}
+            placeholder={"Password"}
             onChange={(e) => setPassword(e.target.value)}
-            type={'password'}
+            type={"password"}
             value={password}
             disabled={isLoading}
             fullWidth
@@ -95,11 +85,11 @@ const LoginPage = () => {
             disabled={isLoading}
             isLoading={isLoading}
             onClick={loginUser}
-            label={'LOGIN'}
+            label={"LOGIN"}
           />
           <div className="w-[368px] p-5 flex items-center justify-center text-formTitle leading-6 dark:text-formHeading">
             New on our platform?
-            <Link href={'/signup'} className="text-formButton ml-2">
+            <Link href={"/signup"} className="text-formButton ml-2">
               Create an account
             </Link>
           </div>
@@ -111,4 +101,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default withAuth(LoginPage);

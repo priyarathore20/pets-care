@@ -2,19 +2,21 @@
 import Button from "@/components/Button";
 import Dialog from "@/components/Dialog";
 import Input from "@/components/Input";
-import { AuthContext } from "@/context/UserContext";
-import { addPet } from "@/data";
-import React, { useContext, useState } from "react";
+import instance from "@/utils/axios";
+import React, { useState } from "react";
 
-const EditPetModal = ({ open, onClose, pet }) => {
-  const [name, setName] = useState("");
-  const [species, setSpecies] = useState("");
-  const [breed, setBreed] = useState("");
-  const [age, setAge] = useState("");
-  const [sex, setSex] = useState("");
-  const [color, setColor] = useState("");
-  const [description, setDescription] = useState("");
-  const [healthInformation, setHealthInformation] = useState("");
+const EditPetModal = ({ open, onClose, pet, petId }) => {
+  const [name, setName] = useState(pet?.name);
+  const [species, setSpecies] = useState(pet?.species);
+  const [breed, setBreed] = useState(pet?.breed);
+  const [age, setAge] = useState(pet?.age);
+  const [sex, setSex] = useState(pet?.sex);
+  const [color, setColor] = useState(pet?.color);
+  const [description, setDescription] = useState(pet?.description);
+  const [healthInformation, setHealthInformation] = useState(
+    pet?.healthInformation
+  );
+  const [isLoading, setIsLoading] = useState(false);
 
   const EditPet = async (e) => {
     e.preventDefault();
@@ -30,14 +32,14 @@ const EditPetModal = ({ open, onClose, pet }) => {
     };
     try {
       setIsLoading(true);
-      const res = await instance.post("/pets/add-pet", data, {
+      const res = await instance.put(`/pets/edit-pet/${petId}`, data, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       });
-      console.log(res.data);
+      // console.log(res.data);
       setIsLoading(false);
-      router.push("/");
+      onClose(true);
     } catch (error) {
       console.error(error);
       setIsLoading(false);
@@ -59,55 +61,55 @@ const EditPetModal = ({ open, onClose, pet }) => {
             {/* <div className="flex flex-wrap gap-2 w-full"> */}
             <Input
               label={"Name"}
-              placeholder={pet?.name}
               type="text"
+              value={name}
               onChange={(e) => setName(e.target.value)}
             />
             <Input
               label={"Species"}
-              placeholder={pet?.species}
               type="text"
+              value={species}
               onChange={(e) => setSpecies(e.target.value)}
             />
             <Input
               label={"Breed"}
-              placeholder={pet?.breed}
               type="text"
+              value={breed}
               onChange={(e) => setBreed(e.target.value)}
             />
             <Input
               label={"Age"}
-              placeholder={pet?.age}
               type="text"
+              value={age}
               onChange={(e) => setAge(e.target.value)}
             />
             <Input
               label={"Color"}
-              placeholder={pet?.color}
               type="text"
+              value={color}
               onChange={(e) => setColor(e.target.value)}
             />
             <Input
               label={"Sex"}
-              placeholder={pet?.sex}
               type="text"
+              value={sex}
               onChange={(e) => setSex(e.target.value)}
             />
             <Input
               label={"Description"}
-              placeholder={pet?.description}
               type="text"
+              value={description}
               onChange={(e) => setDescription(e.target.value)}
             />
             <Input
               label={"Health Information"}
-              placeholder={pet?.healthInformation}
               type="text"
+              value={healthInformation}
               onChange={(e) => setHealthInformation(e.target.value)}
             />
             {/* </div> */}
           </div>
-          <Button label={"SUBMIT"} onClick={EditPet}/>
+          <Button label={"SUBMIT"} onClick={EditPet} />
         </form>
       </div>
     </Dialog>

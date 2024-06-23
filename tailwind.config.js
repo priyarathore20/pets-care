@@ -30,7 +30,16 @@ module.exports = {
         blue: "blue",
         red: "red",
         cardTitle: "#121926",
-        cardSubTitle: "#697586"
+        cardSubTitle: "#697586",
+      },
+      screens: {
+        xxs: "360px",
+        xs: "430px",
+        sm: "640px",
+        md: "768px",
+        lg: "1024px",
+        xl: "1280px",
+        xxl: "1536px",
       },
     },
   },

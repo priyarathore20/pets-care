@@ -3,6 +3,7 @@ import Button from "@/components/Button";
 import Input from "@/components/Input";
 import Logo from "@/components/Logo";
 import { AuthContext, UserContext } from "@/context/UserContext";
+import withAuth from "@/hoc/WithAuth";
 import instance from "@/utils/axios";
 import { jwtDecode } from "jwt-decode";
 import Link from "next/link";
@@ -39,7 +40,6 @@ const RegisterPage = () => {
       const user = jwtDecode(token);
       setWebUser(user);
       router.replace("/");
-      setIsLoading(false);
     } catch (error) {
       console.error(error);
       setIsLoading(false);
@@ -118,4 +118,4 @@ const RegisterPage = () => {
   );
 };
 
-export default RegisterPage;
+export default withAuth(RegisterPage);
