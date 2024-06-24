@@ -1,28 +1,31 @@
-'use client';
-import Header from '@/components/Header';
-import Input from '@/components/Input';
-import Logo from '@/components/Logo';
-import Dashboard from '@/hoc/Dashboard';
-import React, { useState } from 'react';
-import './styles.css';
-import Loader from '@/components/Loader';
-import instance from '@/utils/axios';
-import Button from '@/components/Button';
-import { useRouter } from 'next/navigation';
-import { petImg } from '@/data';
+"use client";
+import Header from "@/components/Header";
+import Input from "@/components/Input";
+import Logo from "@/components/Logo";
+import Dashboard from "@/hoc/Dashboard";
+import React, { useContext, useState } from "react";
+import "./styles.css";
+import Loader from "@/components/Loader";
+import instance from "@/utils/axios";
+import Button from "@/components/Button";
+import { useRouter } from "next/navigation";
+import { petImg } from "@/data";
+import { PetInfoContext } from "@/context/PetContext";
 
 const AddPet = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState({});
-  const [name, setName] = useState('');
-  const [age, setAge] = useState('');
-  const [species, setSpecies] = useState('');
-  const [breed, setBreed] = useState('');
-  const [sex, setSex] = useState('');
-  const [color, setColor] = useState('');
-  const [description, setDescription] = useState('');
-  const [healthInformation, setHealthInformation] = useState('');
+  const [name, setName] = useState("");
+  const [age, setAge] = useState("");
+  const [species, setSpecies] = useState();
+  const [breed, setBreed] = useState("");
+  const [sex, setSex] = useState("");
+  const [selectedSpecies, setSelectedSpecies] = useState("");
+  const [color, setColor] = useState("");
+  const [description, setDescription] = useState("");
+  const [healthInformation, setHealthInformation] = useState("");
   const router = useRouter();
+  const { setPetImg } = useContext(PetInfoContext);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -38,17 +41,25 @@ const AddPet = () => {
     };
     try {
       setIsLoading(true);
-      const res = await instance.post('/pets/add-pet', data, {
+      const res = await instance.post("/pets/add-pet", data, {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem('token')}`,
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       });
       console.log(res.data);
       setIsLoading(false);
-      router.push('/');
+      router.push("/");
     } catch (error) {
       console.error(error);
       setIsLoading(false);
+    }
+  };
+
+  const handleSpeciesChange = (event) => {
+    const newSelectedSpecies = event.target.value;
+    setSelectedSpecies(newSelectedSpecies);
+    if (newSelectedSpecies && petImg[newSelectedSpecies]) {
+      setPetImg(petImg[newSelectedSpecies]);
     }
   };
 
@@ -57,7 +68,7 @@ const AddPet = () => {
       <div
         className={`items-center dark:bg-secondaryBlue flex flex-col justify-center center bg-bgLight`}
       >
-        <Header title={'Add Your Pet...!'} />
+        <Header title={"Add Your Pet...!"} />
         <div
           className={`w-5/6 dark:bg-primaryBlue items-center my-5 rounded-lg px-4 py-7 flex flex-col justify-center bg-white`}
         >
@@ -75,7 +86,7 @@ const AddPet = () => {
             <div className="gap-4 grid grid-cols-2 mb-3">
               <div>
                 <Input
-                  label={'Name*'}
+                  label={"Name*"}
                   type="text"
                   className="input"
                   value={name}
@@ -85,12 +96,23 @@ const AddPet = () => {
                   <p className="text-red/80">*This field is required</p>
                 )}
               </div>
-              <div>
-                <label>Select species:</label>
-                <select>
-                {petImg.map((item,i)=> (
-                  <option key={i}>{item?.species}</option>
-                ))}
+              <div className="flex flex-col">
+                <label className=" text-grayHeading text-lg dark:text-formHeading">
+                  Select species:*
+                </label>
+                <select
+                  onChange={handleSpeciesChange}
+                  className="py-2 outline-none border border-formHeading rounded-lg px-2"
+                >
+                  {Object.keys(petImg).map((species, i) => (
+                    <option
+                      value={species}
+                      key={i}
+                      className="text-gray-700 py-1 outline-none"
+                    >
+                      {species}
+                    </option>
+                  ))}
                 </select>
                 {errors?.species && (
                   <p className="text-red/80">*This field is required</p>
@@ -98,7 +120,7 @@ const AddPet = () => {
               </div>
               <div>
                 <Input
-                  label={'Breed*'}
+                  label={"Breed*"}
                   type="text"
                   className="input"
                   value={breed}
@@ -110,7 +132,7 @@ const AddPet = () => {
               </div>
               <div>
                 <Input
-                  label={'Age*'}
+                  label={"Age*"}
                   type="text"
                   className="input"
                   value={age}
@@ -122,7 +144,7 @@ const AddPet = () => {
               </div>
               <div>
                 <Input
-                  label={'Sex*'}
+                  label={"Sex*"}
                   type="text"
                   className="input"
                   value={sex}
@@ -134,7 +156,7 @@ const AddPet = () => {
               </div>
               <div>
                 <Input
-                  label={'Color*'}
+                  label={"Color*"}
                   type="text"
                   className="input"
                   value={color}
@@ -146,7 +168,7 @@ const AddPet = () => {
               </div>
               <div>
                 <Input
-                  label={'Description*'}
+                  label={"Description*"}
                   type="text"
                   className="input"
                   value={description}
@@ -158,7 +180,7 @@ const AddPet = () => {
               </div>
               <div>
                 <Input
-                  label={'Health Information*'}
+                  label={"Health Information*"}
                   type="text"
                   className="input"
                   value={healthInformation}
@@ -172,7 +194,7 @@ const AddPet = () => {
             <Button
               onClick={handleSubmit}
               disabled={isLoading}
-              label={isLoading ? <Loader /> : 'SUBMIT'}
+              label={isLoading ? <Loader /> : "SUBMIT"}
             />
           </form>
         </div>

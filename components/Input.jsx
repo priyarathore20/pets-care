@@ -29,7 +29,7 @@ const Input = ({
         type={type}
         onChange={onChange}
         className={classNames(
-          "dark:text-formHeading rounded-lg pl-3 text-grayHeading outline-none dark:focus:border-formHeading dark:bg-primaryBlue bg-white border border-formHeading py-2 px-1",
+          "dark:text-formHeading rounded-lg pl-3 text-grayHeading outline-none dark:bg-primaryBlue bg-white border border-formHeading py-2 px-1",
           {
             "bg-gray-100 text-gray-400 cursor-not-allowed": disabled,
           }

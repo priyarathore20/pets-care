@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Loader from "@/components/Loader";
 import instance from "@/utils/axios";
 import withAuth from "@/hoc/WithAuth";
@@ -9,6 +9,7 @@ import PetCardNew from "@/components/PetCardNew";
 import Image from "next/image";
 import Button from "@/components/Button";
 import { useRouter } from "next/navigation";
+import { PetInfoContext } from "@/context/PetContext";
 
 const Home = () => {
   const router = useRouter();
@@ -46,10 +47,7 @@ const Home = () => {
               <PetCardNew
                 id={pet?._id}
                 name={pet?.name}
-                age={pet?.age}
                 breed={pet.breed}
-                sex={pet?.sex}
-                species={pet?.species}
                 key={index}
               />
             ))}
