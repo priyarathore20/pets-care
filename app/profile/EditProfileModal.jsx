@@ -20,17 +20,46 @@ const EditProfileModal = ({
   const [email, setEmail] = useState("");
   const [gender, setGender] = useState("");
   const [password, setPassword] = useState("");
+  const [errors, setErrors] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const editUserDetail = () => {
-    try {
-      const data = { name, password, phoneNumber, gender, email };
-      setLoading(true);
-      const userId = localStorage.getItem("userId");
-      const res = instance.put(`/pets/${userId}`, data);
-      setLoading(false);
-    } catch (error) {
-      console.log(error);
+  const isValidated = () => {
+    let validation = true;
+    if (name.length === 0) {
+      validation = false;
+      setErrors(true);
+    }
+    if (phoneNumber.length === 0) {
+      validation = false;
+      setErrors(true);
+    }
+    if (gender.length === 0) {
+      validation = false;
+      setErrors(true);
+    }
+    if (password.length === 0) {
+      validation = false;
+      setErrors(true);
+    }
+    if (email.length === 0) {
+      validation = false;
+      setErrors(true);
+    }
+    return validation;
+  };
+
+  const editUserDetail = (e) => {
+    e.preventDefault();
+    if (isValidated()) {
+      try {
+        const data = { name, password, phoneNumber, gender, email };
+        setLoading(true);
+        const userId = localStorage.getItem("userId");
+        const res = instance.put(`/pets/${userId}`, data);
+        setLoading(false);
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
 
@@ -72,8 +101,17 @@ const EditProfileModal = ({
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
+          {errors && (
+            <p className="mt-3 w-full text-center text-red/90">
+              *All fields are required*
+            </p>
+          )}
           <div className="flex gap-5 mt-4">
-            <Button onClick={editUserDetail} size={"small"} label={"SUBMIT"} />
+            <Button
+              onClick={editUserDetail}
+              size={"small"}
+              label={loading ? <Loader /> : "SUBMIT"}
+            />
             <button
               onClick={onClose}
               className="space-x-1 bg-bgLight dark:bg-secondaryBlue shadow-inner rounded w-[100px] h-[38px] text-grayHeading text-sm dark:text-white cursor-pointer"

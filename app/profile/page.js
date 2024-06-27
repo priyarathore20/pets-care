@@ -13,40 +13,23 @@ import Header from "@/components/Header";
 
 const UserProfile = () => {
   const [isOpen, setIsOpen] = useState(false);
-  // const [user, setUser] = useState(null);
-  const { webUser, userPet } = useContext(AuthContext);
+  const { webUser } = useContext(AuthContext);
 
   const handleClose = () => {
     setIsOpen(false);
   };
-
-  // useEffect(() => {
-  //   const getUser = async () => {
-  //     try {
-  //       const userId = localStorage.getItem("userId");
-  //       const res = await instance.get(`/${userId}`);
-  //       console.log(res.data);
-  //       setUser(res.data);
-  //     } catch (error) {
-  //       console.error(error);
-  //     }
-  //   };
-  //   getUser();
-  // }, []);
 
   const userDetails = [
     { label: "Name:", value: webUser?.name },
     { label: "Email:", value: webUser?.email },
     { label: "Gender:", value: webUser?.gender },
     { label: "Phone Number:", value: webUser?.phoneNumber },
-    { label: "Number of Pets:", value: userPet },
   ];
 
-  // console.log(userPet);
   return (
     <Dashboard>
       <Header title={webUser?.name + "'s" + " " + "profile"} />
-      <div className="  flex justify-center items-center dark:bg-secondaryBlue bg-bgLight w-full h-full">
+      <div className="  flex justify-center items-start mt-12 px-10 dark:bg-secondaryBlue bg-bgLight w-full h-full">
         <div className="px-4 py-5 w-full max-w-[500px] dark:bg-primaryBlue bg-white rounded-xl shadow-xl overflow-hidden">
           {/* Profile picture */}
           <div className="flex justify-center flex-col items-center py-5">
@@ -57,13 +40,15 @@ const UserProfile = () => {
               alt="Profile"
               className="rounded-full border border-grayHeading"
             />
-            <div className="font-bold text-gray-500 text-3xl mt-8">{webUser?.name}</div>
+            <div className="font-bold text-gray-500 text-3xl mt-8">
+              {webUser?.name}
+            </div>
           </div>
           {/* User details */}
           {userDetails.map((item, index) => (
             <>
               <div
-                className="px-12 py-2 flex justify-between items-start"
+                className="px-12 py-2 flex flex-col xs:flex-row justify-between items-center md:items-start"
                 key={index}
               >
                 <div className="text-gray-500 text-lg ">{item.label}</div>

@@ -13,28 +13,44 @@ import withAuth from "@/hoc/WithAuth";
 const LoginPage = () => {
   const [email, setEmail] = useState("example1@gmail.com");
   const [password, setPassword] = useState("password");
+  const [errors, setErrors] = useState(false);
   const [passwordModal, setPasswordModal] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const { setWebUser } = useContext(AuthContext);
 
+  const isValidated = () => {
+    let validation = true;
+    if (email.length === 0) {
+      validation = false;
+      setErrors(true);
+    }
+    if (password.length === 0) {
+      validation = false;
+      setErrors(true);
+    }
+    return validation;
+  };
+
   const loginUser = async (e) => {
     e.preventDefault();
-    const data = {
-      email,
-      password,
-    };
-    try {
-      setIsLoading(true);
-      const res = await instance.post("/auth/login", data);
-      const token = res?.data?.token;
-      localStorage.setItem("token", token);
-      const user = jwtDecode(token);
-      setWebUser(user);
-      router.replace("/");
-    } catch (error) {
-      console.error(error);
-      setIsLoading(false);
+    if (isValidated()) {
+      const data = {
+        email,
+        password,
+      };
+      try {
+        setIsLoading(true);
+        const res = await instance.post("/auth/login", data);
+        const token = res?.data?.token;
+        localStorage.setItem("token", token);
+        const user = jwtDecode(token);
+        setWebUser(user);
+        router.replace("/");
+      } catch (error) {
+        console.error(error);
+        setIsLoading(false);
+      }
     }
   };
 
@@ -81,6 +97,7 @@ const LoginPage = () => {
               Forgot your password?
             </p>
           </div>
+          {errors && <p className="text-red/90 text-center mb-3 w-full">*All Fields are required*</p>}
           <Button
             disabled={isLoading}
             isLoading={isLoading}

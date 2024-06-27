@@ -12,14 +12,14 @@ const Sidebar = () => {
   const router = useRouter();
 
   const logoutUser = () => {
-    console.log("called");
+    // console.log("called");
     localStorage.removeItem("token");
     router?.replace("/login");
   };
 
   return (
     <div
-      className={`dark:bg-primaryBlue xs:block hidden w-[260px] pt-5 px-4 h-screen bg-white shadow-sm text-grayHeading`}
+      className={`dark:bg-primaryBlue sm:block hidden w-[260px] pt-5 px-4 h-screen bg-white shadow-sm text-grayHeading`}
     >
       <Logo />
       {sidebarLinks.map((actions, index) => (

@@ -14,50 +14,84 @@ import { PetInfoContext } from "@/context/PetContext";
 
 const AddPet = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState(false);
   const [name, setName] = useState("");
   const [age, setAge] = useState("");
   const [species, setSpecies] = useState();
   const [breed, setBreed] = useState("");
   const [sex, setSex] = useState("");
-  const [selectedSpecies, setSelectedSpecies] = useState("");
   const [color, setColor] = useState("");
   const [description, setDescription] = useState("");
   const [healthInformation, setHealthInformation] = useState("");
   const router = useRouter();
   const { setPetImg } = useContext(PetInfoContext);
 
+  const isValidated = () => {
+    let validation = true;
+    if (name.length === 0) {
+      validation = false;
+      setErrors(true);
+    }
+    if (age.length === 0) {
+      validation = false;
+      setErrors(true);
+    }
+    if (breed.length === 0) {
+      validation = false;
+      setErrors(true);
+    }
+    if (sex.length === 0) {
+      validation = false;
+      setErrors(true);
+    }
+    if (color.length === 0) {
+      validation = false;
+      setErrors(true);
+    }
+    if (description.length === 0) {
+      validation = false;
+      setErrors(true);
+    }
+    if (healthInformation.length === 0) {
+      validation = false;
+      setErrors(true);
+    }
+    return validation;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const data = {
-      name,
-      age,
-      species,
-      breed,
-      sex,
-      color,
-      description,
-      healthInformation,
-    };
-    try {
-      setIsLoading(true);
-      const res = await instance.post("/pets/add-pet", data, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      });
-      console.log(res.data);
-      setIsLoading(false);
-      router.push("/");
-    } catch (error) {
-      console.error(error);
-      setIsLoading(false);
+    if (isValidated()) {
+      const data = {
+        name,
+        age,
+        species,
+        breed,
+        sex,
+        color,
+        description,
+        healthInformation,
+      };
+      try {
+        setIsLoading(true);
+        const res = await instance.post("/pets/add-pet", data, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        });
+        console.log(res.data);
+        setIsLoading(false);
+        router.push("/");
+      } catch (error) {
+        console.error(error);
+        setIsLoading(false);
+      }
     }
   };
 
   const handleSpeciesChange = (event) => {
     const newSelectedSpecies = event.target.value;
-    setSelectedSpecies(newSelectedSpecies);
+    setSpecies(newSelectedSpecies);
     if (newSelectedSpecies && petImg[newSelectedSpecies]) {
       setPetImg(petImg[newSelectedSpecies]);
     }
@@ -92,9 +126,6 @@ const AddPet = () => {
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                 />
-                {errors?.name && (
-                  <p className="text-red/80">*This field is required</p>
-                )}
               </div>
               <div className="flex flex-col">
                 <label className=" text-grayHeading text-lg dark:text-formHeading">
@@ -114,9 +145,6 @@ const AddPet = () => {
                     </option>
                   ))}
                 </select>
-                {errors?.species && (
-                  <p className="text-red/80">*This field is required</p>
-                )}
               </div>
               <div>
                 <Input
@@ -126,9 +154,6 @@ const AddPet = () => {
                   value={breed}
                   onChange={(e) => setBreed(e.target.value)}
                 />
-                {errors?.breed && (
-                  <p className="text-red/80">*This field is required</p>
-                )}
               </div>
               <div>
                 <Input
@@ -138,21 +163,15 @@ const AddPet = () => {
                   value={age}
                   onChange={(e) => setAge(e.target.value)}
                 />
-                {errors?.age && (
-                  <p className="text-red/80">*This field is required</p>
-                )}
               </div>
               <div>
                 <Input
                   label={"Sex*"}
                   type="text"
-                  className="input"
+                  className="input capitalize"
                   value={sex}
                   onChange={(e) => setSex(e.target.value)}
                 />
-                {errors?.name && (
-                  <p className="text-red/80">Please write in uppercase.</p>
-                )}
               </div>
               <div>
                 <Input
@@ -162,9 +181,6 @@ const AddPet = () => {
                   value={color}
                   onChange={(e) => setColor(e.target.value)}
                 />
-                {errors?.color && (
-                  <p className="text-red/80">*This field is required</p>
-                )}
               </div>
               <div>
                 <Input
@@ -174,9 +190,6 @@ const AddPet = () => {
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
                 />
-                {errors?.description && (
-                  <p className="text-red/80">*This field is required</p>
-                )}
               </div>
               <div>
                 <Input
@@ -186,15 +199,15 @@ const AddPet = () => {
                   value={healthInformation}
                   onChange={(e) => setHealthInformation(e.target.value)}
                 />
-                {errors?.info && (
-                  <p className="text-red/80">*This field is required</p>
-                )}
               </div>
             </div>
+            {errors && (
+              <p className="text-red/90 mb-2">*All fields are required*</p>
+            )}
             <Button
               onClick={handleSubmit}
               disabled={isLoading}
-              label={isLoading ? <Loader /> : "SUBMIT"}
+              label={isLoading ? <Loader size={"small"} /> : "SUBMIT"}
             />
           </form>
         </div>
