@@ -14,7 +14,6 @@ const DeletePetModal = ({ open, onClose, petId }) => {
         headers: { Authorization: localStorage.getItem("token") },
       });
       console.log(res.data);
-      setPet(res?.data);
       router.push("/");
     } catch (error) {
       console.log(error);

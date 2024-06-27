@@ -9,7 +9,6 @@ import PetCardNew from "@/components/PetCardNew";
 import Image from "next/image";
 import Button from "@/components/Button";
 import { useRouter } from "next/navigation";
-import { PetInfoContext } from "@/context/PetContext";
 
 const Home = () => {
   const router = useRouter();
@@ -25,6 +24,7 @@ const Home = () => {
         },
       });
       setPets(res.data.data);
+      console.log(res.data.data)
       setIsLoading(false);
     } catch (error) {
       console.log(error);
@@ -49,6 +49,7 @@ const Home = () => {
                 name={pet?.name}
                 breed={pet.breed}
                 key={index}
+                species={pet?.species}
               />
             ))}
           </div>

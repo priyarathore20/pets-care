@@ -10,7 +10,6 @@ import instance from "@/utils/axios";
 import Button from "@/components/Button";
 import { useRouter } from "next/navigation";
 import { petImg } from "@/data";
-import { PetInfoContext } from "@/context/PetContext";
 
 const AddPet = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -24,7 +23,6 @@ const AddPet = () => {
   const [description, setDescription] = useState("");
   const [healthInformation, setHealthInformation] = useState("");
   const router = useRouter();
-  const { setPetImg } = useContext(PetInfoContext);
 
   const isValidated = () => {
     let validation = true;
@@ -89,14 +87,6 @@ const AddPet = () => {
     }
   };
 
-  const handleSpeciesChange = (event) => {
-    const newSelectedSpecies = event.target.value;
-    setSpecies(newSelectedSpecies);
-    if (newSelectedSpecies && petImg[newSelectedSpecies]) {
-      setPetImg(petImg[newSelectedSpecies]);
-    }
-  };
-
   return (
     <Dashboard>
       <div
@@ -131,10 +121,7 @@ const AddPet = () => {
                 <label className=" text-grayHeading text-lg dark:text-formHeading">
                   Select species:*
                 </label>
-                <select
-                  onChange={handleSpeciesChange}
-                  className="py-2 outline-none border border-formHeading rounded-lg px-2"
-                >
+                <select className="py-2 outline-none border border-formHeading rounded-lg px-2">
                   {Object.keys(petImg).map((species, i) => (
                     <option
                       value={species}

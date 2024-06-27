@@ -1,13 +1,11 @@
 "use client";
-import React, { useContext, useState } from "react";
-import dogImg from "../assets/labra.jpg";
+import React, { useContext, useEffect, useState } from "react";
 import Button from "./Button";
 import { useRouter } from "next/navigation";
 import Loader from "./Loader";
-import { PetInfoContext } from "@/context/PetContext";
+import { petImg } from "@/data";
 
-const PetCardNew = ({ id, name, breed, img }) => {
-  const { petImg } = useContext(PetInfoContext);
+const PetCardNew = ({ id, name, breed, species }) => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -17,10 +15,16 @@ const PetCardNew = ({ id, name, breed, img }) => {
     setIsLoading(false);
   };
 
+  // console.log(petImg[species]);
+
   return (
     <div className="shadow-sm rounded-lg overflow-hidden">
       <div className="w-full h-[180px]">
-        <img className="w-full h-full object-cover" src={petImg} />
+        <img
+          className="w-full h-full object-cover"
+          alt=""
+          src={(petImg[species])?.src || ""}
+        />
       </div>
 
       <div className="border-gray-200 dark:border-gray-700 bg-white dark:bg-primaryBlue p-4 border-t">

@@ -44,14 +44,14 @@ export const addPet = [
 ];
 
 export const petImg = {
-  Dog: DogImg,
-  Cat: CatImg,
-  Cow: CowImg,
-  Horse: HorseImg,
-  Bird: BirdImg,
-  Snake: SnakeImg,
-  Buffalo: CowImg,
-  Camel: CamelImg
+  dog: DogImg,
+  cat: CatImg,
+  cow: CowImg,
+  horse: HorseImg,
+  bird: BirdImg,
+  snake: SnakeImg,
+  buffalo: CowImg,
+  camel: CamelImg,
 };
 
 export const notAuthenticatedRoutes = ["/login", "/signup"];

@@ -34,17 +34,16 @@ const Sidebar = () => {
               <SidebarMenuLink item={item} pathname={pathname} />
             </div>
           ))}
-
-          <SidebarMenuLink
-            item={{
-              name: "Logout",
-              href: "#",
-              icon: TbLogout2,
-            }}
-            onClick={logoutUser}
-          />
         </div>
       ))}
+      <SidebarMenuLink
+        item={{
+          name: "Logout",
+          href: "#",
+          icon: TbLogout2,
+        }}
+        onClick={logoutUser}
+      />
     </div>
   );
 };

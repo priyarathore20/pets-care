@@ -11,6 +11,7 @@ import { useParams } from "next/navigation";
 import Header from "@/components/Header";
 import Button from "@/components/Button";
 import { useQRCode } from "next-qrcode";
+import { petImg } from "@/data";
 
 const PetDetails = () => {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
@@ -77,7 +78,7 @@ const PetDetails = () => {
         <div className="flex items-center justify-between md:flex-row gap-y-5 flex-col py-5 w-full h-full">
           <div className="flex-[0.5] max-h-[350px]">
             <img
-              src="/dog.webp"
+              src={petImg[pet?.species]?.src}
               alt="img"
               className="rounded-xl h-full w-full max-h-[350px] object-cover"
             />
