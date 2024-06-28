@@ -11,8 +11,8 @@ import Button from "@/components/Button";
 import withAuth from "@/hoc/WithAuth";
 
 const LoginPage = () => {
-  const [email, setEmail] = useState("example1@gmail.com");
-  const [password, setPassword] = useState("password");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [errors, setErrors] = useState(false);
   const [passwordModal, setPasswordModal] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -97,7 +97,11 @@ const LoginPage = () => {
               Forgot your password?
             </p>
           </div>
-          {errors && <p className="text-red/90 text-center mb-3 w-full">*All Fields are required*</p>}
+          {errors && (
+            <p className="text-red/90 text-center mb-3 w-full">
+              *All Fields are required*
+            </p>
+          )}
           <Button
             disabled={isLoading}
             isLoading={isLoading}

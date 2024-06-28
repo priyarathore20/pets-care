@@ -12,12 +12,12 @@ import { SnackbarProvider, useSnackbar } from "notistack";
 import React, { useContext, useState } from "react";
 
 const RegisterPage = () => {
-  const [name, setName] = useState("Shikha");
-  const [email, setEmail] = useState("userr1@gmail.com");
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [phoneNumber, setPhoneNumber] = useState("7348920345");
-  const [password, setPassword] = useState("password");
-  const [gender, setGender] = useState("Female");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [password, setPassword] = useState("");
+  const [gender, setGender] = useState("");
   // const { enqueueSnackbar } = useSnackbar();
   const router = useRouter();
   const { setWebUser } = useContext(AuthContext);
