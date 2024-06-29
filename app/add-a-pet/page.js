@@ -13,7 +13,18 @@ import { petImg } from "@/data";
 
 const AddPet = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const [errors, setErrors] = useState(false);
+  const [errors, setErrors] = useState({
+    name: false,
+    species: false,
+    breed: false,
+    age: false,
+    sex: false,
+    color: false,
+    size: false,
+    weight: false,
+    description: false,
+    healthInformation: false,
+  });
   const [name, setName] = useState("");
   const [age, setAge] = useState("");
   const [species, setSpecies] = useState();
@@ -28,31 +39,31 @@ const AddPet = () => {
     let validation = true;
     if (name.length === 0) {
       validation = false;
-      setErrors(true);
+      setErrors((prev) => ({ ...prev, name: true }));
     }
     if (age.length === 0) {
       validation = false;
-      setErrors(true);
+      setErrors((prev) => ({ ...prev, age: true }));
     }
     if (breed.length === 0) {
       validation = false;
-      setErrors(true);
+      setErrors((prev) => ({ ...prev, breed: true }));
     }
     if (sex.length === 0) {
       validation = false;
-      setErrors(true);
+      setErrors((prev) => ({ ...prev, sex: true }));
     }
     if (color.length === 0) {
       validation = false;
-      setErrors(true);
+      setErrors((prev) => ({ ...prev, color: true }));
     }
     if (description.length === 0) {
       validation = false;
-      setErrors(true);
+      setErrors((prev) => ({ ...prev, description: true }));
     }
     if (healthInformation.length === 0) {
       validation = false;
-      setErrors(true);
+      setErrors((prev) => ({ ...prev, healthInformation: true }));
     }
     return validation;
   };
@@ -110,6 +121,7 @@ const AddPet = () => {
             <div className="gap-4 grid grid-cols-2 mb-3">
               <div>
                 <Input
+                  error={errors?.name}
                   label={"Name*"}
                   type="text"
                   className="input"
@@ -135,6 +147,7 @@ const AddPet = () => {
               </div>
               <div>
                 <Input
+                  error={errors?.breed}
                   label={"Breed*"}
                   type="text"
                   className="input"
@@ -144,6 +157,7 @@ const AddPet = () => {
               </div>
               <div>
                 <Input
+                  error={errors?.age}
                   label={"Age*"}
                   type="text"
                   className="input"
@@ -153,6 +167,7 @@ const AddPet = () => {
               </div>
               <div>
                 <Input
+                  error={errors?.sex}
                   label={"Sex*"}
                   type="text"
                   className="input capitalize"
@@ -162,6 +177,7 @@ const AddPet = () => {
               </div>
               <div>
                 <Input
+                  error={errors?.color}
                   label={"Color*"}
                   type="text"
                   className="input"
@@ -171,6 +187,7 @@ const AddPet = () => {
               </div>
               <div>
                 <Input
+                  error={errors?.description}
                   label={"Description*"}
                   type="text"
                   className="input"
@@ -180,6 +197,7 @@ const AddPet = () => {
               </div>
               <div>
                 <Input
+                  error={errors?.healthInformation}
                   label={"Health Information*"}
                   type="text"
                   className="input"
@@ -188,9 +206,6 @@ const AddPet = () => {
                 />
               </div>
             </div>
-            {errors && (
-              <p className="text-red/90 mb-2">*All fields are required*</p>
-            )}
             <Button
               onClick={handleSubmit}
               disabled={isLoading}

@@ -14,7 +14,6 @@ const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState(false);
-  const [passwordModal, setPasswordModal] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const { setWebUser } = useContext(AuthContext);
@@ -51,6 +50,7 @@ const LoginPage = () => {
         console.error(error);
         setIsLoading(false);
       }
+      setErrors(false);
     }
   };
 
@@ -89,16 +89,9 @@ const LoginPage = () => {
             disabled={isLoading}
             fullWidth
           />
-          <div className="w-full flex justify-end items-center mt-1 mb-4">
-            <p
-              onClick={() => setPasswordModal(true)}
-              className="text-formButton text-base cursor-pointer tracking=[0.009375rem] leading-[1.3125rem]"
-            >
-              Forgot your password?
-            </p>
-          </div>
+
           {errors && (
-            <p className="text-red/90 text-center mb-3 w-full">
+            <p className="text-red/90 text-center mb-4 w-full">
               *All Fields are required*
             </p>
           )}
@@ -116,8 +109,6 @@ const LoginPage = () => {
           </div>
         </div>
       </div>
-      {/* <ForgotPasswordModal open={passwordModal} onClose={handleClose} />
-       */}
     </div>
   );
 };

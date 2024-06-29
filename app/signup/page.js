@@ -8,7 +8,6 @@ import instance from "@/utils/axios";
 import { jwtDecode } from "jwt-decode";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { SnackbarProvider, useSnackbar } from "notistack";
 import React, { useContext, useState } from "react";
 
 const RegisterPage = () => {
@@ -18,12 +17,10 @@ const RegisterPage = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [password, setPassword] = useState("");
   const [gender, setGender] = useState("");
-  // const { enqueueSnackbar } = useSnackbar();
   const router = useRouter();
   const { setWebUser } = useContext(AuthContext);
 
-  const registerUser = async (e) => {
-    // e.preventDefault();
+  const registerUser = async () => {
     const data = {
       name,
       email,
@@ -67,14 +64,7 @@ const RegisterPage = () => {
             type={"text"}
             fullWidth
           />
-          <Input
-            placeholder={"Gender*"}
-            onChange={(e) => setGender(e.target.value)}
-            value={gender}
-            disabled={isLoading}
-            fullWidth
-            type={"text"}
-          />
+          
           <Input
             placeholder={"Phone Number*"}
             onChange={(e) => setPhoneNumber(e.target.value)}
