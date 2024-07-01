@@ -1,6 +1,6 @@
 import { AuthContext } from '@/context/UserContext';
 import { jwtDecode } from 'jwt-decode';
-import React, { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 
 const useAuthenticationStatus = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -8,7 +8,7 @@ const useAuthenticationStatus = () => {
   const { setWebUser } = useContext(AuthContext);
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
+\    const token = localStorage.getItem('token');
     if (!token) {
       setIsAuthenticated(false);
     } else {
