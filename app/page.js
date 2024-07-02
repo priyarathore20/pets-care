@@ -1,14 +1,14 @@
-"use client";
-import { useContext, useEffect, useState } from "react";
-import Loader from "@/components/Loader";
-import instance from "@/utils/axios";
-import withAuth from "@/hoc/WithAuth";
-import Dashboard from "@/hoc/Dashboard";
-import Header from "@/components/Header";
-import PetCardNew from "@/components/PetCardNew";
-import Image from "next/image";
-import Button from "@/components/Button";
-import { useRouter } from "next/navigation";
+'use client';
+import Button from '@/components/Button';
+import Header from '@/components/Header';
+import Loader from '@/components/Loader';
+import PetCardNew from '@/components/PetCardNew';
+import Dashboard from '@/hoc/Dashboard';
+import withAuth from '@/hoc/WithAuth';
+import instance from '@/utils/axios';
+import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
 
 const Home = () => {
   const router = useRouter();
@@ -18,13 +18,13 @@ const Home = () => {
   const fetchPets = async () => {
     try {
       setIsLoading(true);
-      const res = await instance.get("/pets", {
+      const res = await instance.get('/pets', {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
       });
       setPets(res.data.data);
-      console.log(res.data.data)
+      console.log(res.data.data);
       setIsLoading(false);
     } catch (error) {
       console.log(error);
@@ -43,15 +43,18 @@ const Home = () => {
           <Loader />
         ) : pets.length !== 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3 lg:grid-cols-3">
-            {pets.map((pet, index) => (
-              <PetCardNew
-                id={pet?._id}
-                name={pet?.name}
-                breed={pet.breed}
-                key={index}
-                species={pet?.species}
-              />
-            ))}
+            {pets.map((pet, index) => {
+              console.log(pet);
+              return (
+                <PetCardNew
+                  id={pet?._id}
+                  name={pet?.name}
+                  breed={pet.breed}
+                  key={index}
+                  species={pet?.species}
+                />
+              );
+            })}
           </div>
         ) : (
           <div className="flex flex-col justify-center items-center">
@@ -60,8 +63,8 @@ const Home = () => {
               No Pets to show.
             </p>
             <Button
-              label={"Click to add you first pet"}
-              onClick={() => router.push("/add-a-pet")}
+              label={'Click to add you first pet'}
+              onClick={() => router.push('/add-a-pet')}
             />
           </div>
         )}

@@ -1,7 +1,7 @@
-"use client";
-import React, { useEffect, useState } from "react";
-import { useParams } from "next/navigation";
-import instance from "@/utils/axios";
+'use client';
+import instance from '@/utils/axios';
+import { useParams } from 'next/navigation';
+import React, { useEffect, useState } from 'react';
 
 const PetForPublic = () => {
   const [data, setData] = useState(null);
@@ -28,28 +28,28 @@ const PetForPublic = () => {
   }, [id]);
 
   const petDetails = [
-    { label: "Name:", value: data?.name },
-    { label: "Species:", value: data?.species },
-    { label: "Breed:", value: data?.breed },
-    { label: "Age:", value: data?.age },
-    { label: "Sex:", value: data?.sex },
-    { label: "Color:", value: data?.color },
+    { label: 'Name:', value: data?.name },
+    { label: 'Species:', value: data?.species },
+    { label: 'Breed:', value: data?.breed },
+    { label: 'Age:', value: data?.age },
+    { label: 'Sex:', value: data?.sex },
+    { label: 'Color:', value: data?.color },
   ];
 
   const ownerDetails = [
-    { label: "Name:", value: data?.ownerName },
-    { label: "Mobile number:", value: data?.ownerPhoneNumber },
-    { label: "Email:", value: data?.ownerEmail },
-    { label: "Gender:", value: data?.ownerGender },
+    { label: 'Name:', value: data?.ownerName },
+    { label: 'Mobile number:', value: data?.ownerPhoneNumber },
+    { label: 'Email:', value: data?.ownerEmail },
+    { label: 'Gender:', value: data?.ownerGender },
   ];
 
   const petDetailsCard = [
     {
-      label: "Description",
+      label: 'Description',
       value: data?.description,
     },
     {
-      label: "Health information:",
+      label: 'Health information:',
       value: data?.healthInformation,
     },
   ];

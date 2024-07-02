@@ -1,22 +1,22 @@
-"use client";
-import Button from "@/components/Button";
-import Input from "@/components/Input";
-import Logo from "@/components/Logo";
-import { AuthContext, UserContext } from "@/context/UserContext";
-import withAuth from "@/hoc/WithAuth";
-import instance from "@/utils/axios";
-import { jwtDecode } from "jwt-decode";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
-import React, { useContext, useState } from "react";
+'use client';
+import Button from '@/components/Button';
+import Input from '@/components/Input';
+import Logo from '@/components/Logo';
+import { AuthContext } from '@/context/UserContext';
+import withAuth from '@/hoc/WithAuth';
+import instance from '@/utils/axios';
+import { jwtDecode } from 'jwt-decode';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import React, { useContext, useState } from 'react';
 
 const RegisterPage = () => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [phoneNumber, setPhoneNumber] = useState("");
-  const [password, setPassword] = useState("");
-  const [gender, setGender] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [password, setPassword] = useState('');
+  const [gender, setGender] = useState('');
   const router = useRouter();
   const { setWebUser } = useContext(AuthContext);
 
@@ -30,13 +30,13 @@ const RegisterPage = () => {
     };
     try {
       setIsLoading(true);
-      const res = await instance.post("/auth/signup", data);
+      const res = await instance.post('/auth/signup', data);
       console.log(res.data);
       const token = res?.data?.token;
-      localStorage.setItem("token", token);
+      localStorage.setItem('token', token);
       const user = jwtDecode(token);
       setWebUser(user);
-      router.replace("/");
+      router.replace('/');
     } catch (error) {
       console.error(error);
       setIsLoading(false);
@@ -57,48 +57,48 @@ const RegisterPage = () => {
         </div>
         <div className="px-6 py-3 flex gap-5 flex-col justify-center items-start">
           <Input
-            placeholder={"Name*"}
+            placeholder={'Name*'}
             onChange={(e) => setName(e.target.value)}
             value={name}
             disabled={isLoading}
-            type={"text"}
+            type={'text'}
             fullWidth
           />
-          
+          {/*Gender dropdown */}
           <Input
-            placeholder={"Phone Number*"}
+            placeholder={'Phone Number*'}
             onChange={(e) => setPhoneNumber(e.target.value)}
             value={phoneNumber}
             disabled={isLoading}
             fullWidth
-            type={"number"}
+            type={'number'}
           />
           <Input
-            placeholder={"Email*"}
+            placeholder={'Email*'}
             onChange={(e) => setEmail(e.target.value)}
             value={email}
             disabled={isLoading}
             fullWidth
-            type={"email"}
+            type={'email'}
           />
           <Input
-            placeholder={"Password*"}
+            placeholder={'Password*'}
             onChange={(e) => setPassword(e.target.value)}
             value={password}
             disabled={isLoading}
             fullWidth
-            type={"password"}
+            type={'password'}
           />
           <Button
-            label={"REGISTER"}
+            label={'REGISTER'}
             onClick={registerUser}
             disabled={isLoading}
             isLoading={isLoading}
           />
           <div className="w-[368px] p-5 flex items-center justify-center text-formTitle dark:text-formHeading">
-            Already have an account?{" "}
-            <Link href={"/login"} className="text-formButton ml-2">
-              {" "}
+            Already have an account?{' '}
+            <Link href={'/login'} className="text-formButton ml-2">
+              {' '}
               Sign in instead
             </Link>
           </div>

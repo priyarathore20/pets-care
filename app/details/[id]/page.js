@@ -1,17 +1,15 @@
-"use client";
-import Image from "next/image";
-import React, { useEffect, useState } from "react";
-import labraImg from "../../../assets/labra.jpg";
-import EditPetModal from "@/app/details/EditPetModal";
-import DeletePetModal from "../DeletePetModal";
-import instance from "@/utils/axios";
-import withAuth from "@/hoc/WithAuth";
-import Dashboard from "@/hoc/Dashboard";
-import { useParams } from "next/navigation";
-import Header from "@/components/Header";
-import Button from "@/components/Button";
-import { useQRCode } from "next-qrcode";
-import { petImg } from "@/data";
+'use client';
+import EditPetModal from '@/app/details/EditPetModal';
+import Button from '@/components/Button';
+import Header from '@/components/Header';
+import { petImg } from '@/data';
+import Dashboard from '@/hoc/Dashboard';
+import withAuth from '@/hoc/WithAuth';
+import instance from '@/utils/axios';
+import { useQRCode } from 'next-qrcode';
+import { useParams } from 'next/navigation';
+import React, { useEffect, useState } from 'react';
+import DeletePetModal from '../DeletePetModal';
 
 const PetDetails = () => {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
@@ -19,9 +17,9 @@ const PetDetails = () => {
   const [pet, setPet] = useState(null);
 
   const hostName =
-    typeof window !== "undefined" && window.location.origin
+    typeof window !== 'undefined' && window.location.origin
       ? window.location.origin
-      : "";
+      : '';
 
   const { Canvas } = useQRCode();
 
@@ -38,7 +36,7 @@ const PetDetails = () => {
       const fetchPetDetails = async () => {
         try {
           const res = await instance.get(`/pets/details/${id}`, {
-            headers: { Authorization: localStorage.getItem("token") },
+            headers: { Authorization: localStorage.getItem('token') },
           });
           // console.log(res.data);
           setPet(res?.data);
@@ -52,21 +50,21 @@ const PetDetails = () => {
   }, [id]);
 
   const petDetails = [
-    { label: "Name:", value: pet?.name },
-    { label: "Species:", value: pet?.species },
-    { label: "Breed:", value: pet?.breed },
-    { label: "Age:", value: pet?.age },
-    { label: "Sex:", value: pet?.sex },
-    { label: "Color:", value: pet?.color },
+    { label: 'Name:', value: pet?.name },
+    { label: 'Species:', value: pet?.species },
+    { label: 'Breed:', value: pet?.breed },
+    { label: 'Age:', value: pet?.age },
+    { label: 'Sex:', value: pet?.sex },
+    { label: 'Color:', value: pet?.color },
   ];
 
   const petDetailsCard = [
     {
-      label: "Description",
+      label: 'Description',
       value: pet?.description,
     },
     {
-      label: "Health information:",
+      label: 'Health information:',
       value: pet?.healthInformation,
     },
   ];
@@ -88,14 +86,14 @@ const PetDetails = () => {
             <Canvas
               text={`${hostName}/${id}`}
               options={{
-                errorCorrectionLevel: "M",
+                errorCorrectionLevel: 'M',
                 margin: 3,
                 scale: 4,
                 width: 200,
                 height: 170,
                 color: {
-                  dark: "#000",
-                  light: "#FFF",
+                  dark: '#000',
+                  light: '#FFF',
                 },
               }}
             />
@@ -138,13 +136,13 @@ const PetDetails = () => {
         </div>
         <div className="flex gap-5 justify-center mt-5 items-center w-full">
           <Button
-            label={"Edit"}
-            size={"small"}
+            label={'Edit'}
+            size={'small'}
             onClick={() => setIsEditModalOpen(true)}
           />
           <Button
-            label={"Delete"}
-            size={"small"}
+            label={'Delete'}
+            size={'small'}
             onClick={() => setIsDeleteModalOpen(true)}
           />
         </div>
