@@ -15,6 +15,7 @@ const PetCardNew = ({ id, name, breed, species }) => {
     setIsLoading(false);
   };
 
+  console.log(species);
 
   return (
     <div className="shadow-sm rounded-lg overflow-hidden">
@@ -22,7 +23,7 @@ const PetCardNew = ({ id, name, breed, species }) => {
         <img
           className="w-full h-full object-cover"
           alt=""
-          src={petImg[species]?.src || ''}
+          src={petImg[species]?.src}
         />
       </div>
 

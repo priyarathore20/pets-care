@@ -1,8 +1,8 @@
-'use client'
-import Image from "next/image";
-import React from "react";
-import dogImg from "../assets/404.jpg";
-import { useRouter } from "next/navigation";
+'use client';
+import Image from 'next/image';
+import React from 'react';
+import dogImg from '../assets/404.jpg';
+import { useRouter } from 'next/navigation';
 
 const NotFound = () => {
   const router = useRouter();
@@ -13,7 +13,7 @@ const NotFound = () => {
         Oops! Our dog ate this page.
       </h2>
       <button
-        onClick={() => router.push("/")}
+        onClick={() => router.push('/')}
         className="bg-formButton px-4 py-2 rounded-full text-white"
       >
         Return to homepage

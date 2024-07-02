@@ -1,21 +1,21 @@
-"use client";
-import Button from "@/components/Button";
-import Dialog from "@/components/Dialog";
-import Input from "@/components/Input";
-import Loader from "@/components/Loader";
-import instance from "@/utils/axios";
-import React, { useState } from "react";
+'use client';
+import Button from '@/components/Button';
+import Dialog from '@/components/Dialog';
+import Input from '@/components/Input';
+import Loader from '@/components/Loader';
+import instance from '@/utils/axios';
+import React, { useState } from 'react';
 
 const EditPetModal = ({ open, onClose, pet, petId }) => {
-  const [name, setName] = useState(pet?.name || "");
-  const [species, setSpecies] = useState(pet?.species || "");
-  const [breed, setBreed] = useState(pet?.breed || "");
-  const [age, setAge] = useState(pet?.age || "");
-  const [sex, setSex] = useState(pet?.sex || "");
-  const [color, setColor] = useState(pet?.color || "");
-  const [description, setDescription] = useState(pet?.description || "");
+  const [name, setName] = useState(pet?.name || '');
+  const [species, setSpecies] = useState(pet?.species || '');
+  const [breed, setBreed] = useState(pet?.breed || '');
+  const [age, setAge] = useState(pet?.age || '');
+  const [sex, setSex] = useState(pet?.sex || '');
+  const [color, setColor] = useState(pet?.color || '');
+  const [description, setDescription] = useState(pet?.description || '');
   const [healthInformation, setHealthInformation] = useState(
-    pet?.healthInformation || ""
+    pet?.healthInformation || ''
   );
   const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState({
@@ -77,9 +77,9 @@ const EditPetModal = ({ open, onClose, pet, petId }) => {
       };
       try {
         setIsLoading(true);
-        const res = await instance.put(`/pets/edit-pet/${petId}`, data, {
+        await instance.put(`/pets/edit-pet/${petId}`, data, {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
           },
         });
         setIsLoading(false);
@@ -94,17 +94,21 @@ const EditPetModal = ({ open, onClose, pet, petId }) => {
   return (
     <Dialog open={open} onClose={onClose}>
       <div
-        className={`w-[520px] dark:bg-primaryBlue h-full rounded-lg shadow-2xl px-5 pt-8 py-4 pb-8 flex flex-col items-center bg-white`}
+        className={
+          'w-[520px] dark:bg-primaryBlue h-full rounded-lg shadow-2xl px-5 pt-8 py-4 pb-8 flex flex-col items-center bg-white'
+        }
       >
         <h2
-          className={`mb-5 px-2 text-xl dark:text-formTitle font-medium text-grayHeading`}
+          className={
+            'mb-5 px-2 text-xl dark:text-formTitle font-medium text-grayHeading'
+          }
         >
           Something changed? Here we go..! 🚀
         </h2>
         <form className="flex flex-col justify-center items-center">
           <div className="flex flex-wrap justify-center gap-4 mb-8">
             <Input
-              label={"Name"}
+              label={'Name'}
               error={errors?.name}
               type="text"
               value={name}
@@ -112,34 +116,34 @@ const EditPetModal = ({ open, onClose, pet, petId }) => {
             />
             <Input
               error={errors?.species}
-              label={"Species"}
+              label={'Species'}
               type="text"
               value={species}
               onChange={(e) => setSpecies(e.target.value)}
             />
             <Input
               error={errors?.breed}
-              label={"Breed"}
+              label={'Breed'}
               type="text"
               value={breed}
               onChange={(e) => setBreed(e.target.value)}
             />
             <Input
               error={errors?.age}
-              label={"Age"}
+              label={'Age'}
               type="text"
               value={age}
               onChange={(e) => setAge(e.target.value)}
             />
             <Input
               error={errors?.color}
-              label={"Color"}
+              label={'Color'}
               type="text"
               value={color}
               onChange={(e) => setColor(e.target.value)}
             />
             <Input
-              label={"Sex"}
+              label={'Sex'}
               error={errors?.sex}
               type="text"
               value={sex}
@@ -147,21 +151,21 @@ const EditPetModal = ({ open, onClose, pet, petId }) => {
             />
             <Input
               error={errors?.description}
-              label={"Description"}
+              label={'Description'}
               type="text"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
             />
             <Input
               error={errors?.h}
-              label={"Health Information"}
+              label={'Health Information'}
               type="text"
               value={healthInformation}
               onChange={(e) => setHealthInformation(e.target.value)}
             />
           </div>
           <Button
-            label={isLoading ? <Loader size={"small"} /> : "SUBMIT"}
+            label={isLoading ? <Loader size={'small'} /> : 'SUBMIT'}
             onClick={EditPet}
           />
         </form>

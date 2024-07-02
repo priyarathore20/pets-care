@@ -1,5 +1,5 @@
-import React from "react";
-import "./styles.css";
+import React from 'react';
+import './styles.css';
 
 const TextField = ({ placeholder, onChange, name }) => {
   return (

@@ -1,8 +1,8 @@
-import Loader from "@/components/Loader";
-import { notAuthenticatedRoutes } from "@/data";
-import useAuthenticationStatus from "@/hooks/useAuthenticationStatus";
-import { useRouter } from "next/navigation";
-import { usePathname } from "next/navigation";
+import Loader from '@/components/Loader';
+import { notAuthenticatedRoutes } from '@/data';
+import useAuthenticationStatus from '@/hooks/useAuthenticationStatus';
+import { useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 
 export default function withAuth(Component) {
   return function AuthProtected(props) {
@@ -20,15 +20,14 @@ export default function withAuth(Component) {
       );
     }
 
-    console.log(isLoading, isAuthenticated, pathname);
+    // console.log(isLoading, isAuthenticated, pathname);
 
     if (isAuthenticated && notAuthenticatedRoutes.includes(pathname)) {
-      return router.replace("/");
+      return router.replace('/');
     }
 
     if (!isAuthenticated && !notAuthenticatedRoutes.includes(pathname)) {
-      console.log("called");
-      return router.replace("/login");
+      return router.replace('/login');
     }
 
     return <Component {...props} />;

@@ -1,20 +1,20 @@
-import Image from "next/image";
-import React from "react";
-import catImg from "../../assets/sad-cat.png";
-import Dialog from "@/components/Dialog";
-import instance from "@/utils/axios";
-import { useRouter } from "next/navigation";
+import Image from 'next/image';
+import React from 'react';
+import catImg from '../../assets/sad-cat.png';
+import Dialog from '@/components/Dialog';
+import instance from '@/utils/axios';
+import { useRouter } from 'next/navigation';
 
 const DeletePetModal = ({ open, onClose, petId }) => {
   const router = useRouter();
 
   const deletePet = async (id) => {
     try {
-      const res = await instance.delete(`/pets/delete-pet/${id}`, {
-        headers: { Authorization: localStorage.getItem("token") },
+      await instance.delete(`/pets/delete-pet/${id}`, {
+        headers: { Authorization: localStorage.getItem('token') },
       });
-      console.log(res.data);
-      router.push("/");
+      // console.log(res.data);
+      router.push('/');
     } catch (error) {
       console.log(error);
     }

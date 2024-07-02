@@ -3,11 +3,11 @@ import Header from '@/components/Header';
 import { AuthContext } from '@/context/UserContext';
 import Dashboard from '@/hoc/Dashboard';
 import withAuth from '@/hoc/WithAuth';
-import Image from 'next/image';
+// import Image from 'next/image';
 import React, { useContext, useState } from 'react';
 import { MdEdit } from 'react-icons/md';
 import boyImg from '../../assets/boy.jpg';
-import girlImg from '../../assets/girl.jpg';
+// import girlImg from '../../assets/girl.jpg';
 import EditProfileModal from './EditProfileModal';
 
 const UserProfile = () => {
@@ -28,12 +28,12 @@ const UserProfile = () => {
   return (
     <Dashboard>
       <Header title={`${webUser?.name}'s profile`} />
-      <div className="  flex justify-center items-start mt-12 px-10 dark:bg-secondaryBlue bg-bgLight w-full h-full">
+      <div className="  flex justify-center items-start my-12 px-10 dark:bg-secondaryBlue bg-bgLight w-full h-full">
         <div className="px-4 py-5 w-full max-w-[500px] dark:bg-primaryBlue bg-white rounded-xl shadow-xl overflow-hidden">
           {/* Profile picture */}
           <div className="flex justify-center flex-col items-center py-5">
-            <Image
-              src={webUser?.gender == 'Female' ? girlImg : boyImg}
+            <img
+              src={ boyImg?.src}
               width={150}
               height={150}
               alt="Profile"

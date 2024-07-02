@@ -49,7 +49,6 @@ export const SnackbarProvider = ({ children }) => {
     };
   }, []);
 
-
   return (
     <SnackbarContext.Provider value={showSnackbar}>
       {children}
@@ -58,14 +57,14 @@ export const SnackbarProvider = ({ children }) => {
         className={classNames(
           'transition-transform bottom-8 text-white left-8 fixed flex justify-between gap-2 items-center shadow-md min-h-[48px] max-w-[50vw] p-4 rounded-lg min-w-[300px]  text-sm truncate whitespace-nowrap',
           {
-            ['bg-successBg ']: snackbar.variant === 'success',
-            ['bg-errorBg ']: snackbar.variant === 'error',
-            ['-translate-x-[200%]']: !snackbar.show,
-            ['translate-x-0']: snackbar.show,
+            ['bg-successBg ']: snackbar?.variant === 'success',
+            ['bg-errorBg ']: snackbar?.variant === 'error',
+            ['-translate-x-[200%]']: !snackbar?.show,
+            ['translate-x-0']: snackbar?.show,
           }
         )}
       >
-        {snackbar.message}
+        {snackbar?.message}
         <IoMdClose
           size={'20'}
           className="cursor-pointer"

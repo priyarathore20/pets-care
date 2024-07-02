@@ -10,6 +10,7 @@ import instance from '@/utils/axios';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 import './styles.css';
+import { useSnackbar } from '@/context/SnackbarProvider';
 
 const genderOptions = ['Male', 'Female', 'Others'];
 
@@ -29,13 +30,14 @@ const AddPet = () => {
   });
   const [name, setName] = useState('');
   const [age, setAge] = useState('');
-  const [species, setSpecies] = useState();
+  const [species, setSpecies] = useState('dog');
   const [breed, setBreed] = useState('');
-  const [sex, setSex] = useState('');
+  const [sex, setSex] = useState('female');
   const [color, setColor] = useState('');
   const [description, setDescription] = useState('');
   const [healthInformation, setHealthInformation] = useState('');
   const router = useRouter();
+  const showSnackbar = useSnackbar();
 
   const isValidated = () => {
     let validation = true;
@@ -72,6 +74,7 @@ const AddPet = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    // if (isValidated()) {
     if (isValidated()) {
       const data = {
         name,
@@ -85,19 +88,19 @@ const AddPet = () => {
       };
       try {
         setIsLoading(true);
-        const res = await instance.post('/pets/add-pet', data, {
+        await instance.post('/pets/add-pet', data, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`,
           },
         });
-        // console.log(res.data);
-        setIsLoading(false);
         router.push('/');
+        showSnackbar('Pet added successfully');
+        setIsLoading(false);
       } catch (error) {
-        console.error(error);
+        showSnackbar(error?.response?.data?.message, 'error');
         setIsLoading(false);
       }
-    }
+    } else showSnackbar('All fields are required.', 'error');
   };
 
   return (
@@ -107,7 +110,9 @@ const AddPet = () => {
         <div className="w-5/6 dark:bg-primaryBlue items-center my-5 rounded-lg px-4 py-7 flex flex-col justify-center bg-white">
           <Logo />
           <h2
-            className={'mb-5 px-2 text-xl dark:text-formHeading font-medium text-grayHeading'}
+            className={
+              'mb-5 px-2 text-xl dark:text-formHeading font-medium text-grayHeading'
+            }
           >
             Add a new furry friend here! 😊
           </h2>
@@ -132,16 +137,14 @@ const AddPet = () => {
                   Select species:*
                 </label>
                 <select
-                  value={species}
+                  value={species?.toLowerCase()}
                   onChange={(e) => setSpecies(e.target.value)}
                   className="py-2 dark:bg-primaryBlue dark:text-formHeading outline-none border border-formHeading rounded-lg px-2"
                 >
-                  <option value="" disabled>
-                    Select a species
-                  </option>
+                  <option value="">Select a species</option>
                   {Object.keys(petImg).map((species, i) => (
                     <option
-                      // value={species}
+                      value={species.toLowerCase()}
                       key={i}
                       className="dark:text-formHeading text-gray-700 py-1 outline-none cursor-pointer"
                     >
@@ -181,14 +184,18 @@ const AddPet = () => {
                   Sex:*
                 </label>
                 <select
-                  onChange={(e) => setSex(e.target.value)}
+                  value={sex}
+                  onChange={(e) => {
+                    setSex(e.target.value);
+                    // console.log(sex);
+                  }}
                   className="dark:bg-primaryBlue dark:text-formHeading py-2 outline-none border min-w-36 border-formHeading rounded-lg px-2"
                 >
                   {genderOptions.map((gender, i) => (
                     <option
-                      value={gender}
+                      value={gender.toLowerCase()}
                       key={i}
-                      className="text-gray-700 dark:text-formHeading py-1 outline-none"
+                      className="text-gray-700  dark:text-formHeading py-1 outline-none"
                     >
                       {gender}
                     </option>

@@ -71,7 +71,7 @@ const RegisterPage = () => {
       try {
         setIsLoading(true);
         const res = await instance.post("/auth/signup", data);
-        console.log(res.data);
+        // console.log(res.data);
         const token = res?.data?.token;
         localStorage.setItem("token", token);
         const user = jwtDecode(token);

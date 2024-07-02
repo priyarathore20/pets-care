@@ -12,7 +12,7 @@ import { useEffect, useState } from 'react';
 
 const Home = () => {
   const router = useRouter();
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [pets, setPets] = useState([]);
 
   const fetchPets = async () => {
@@ -24,7 +24,7 @@ const Home = () => {
         },
       });
       setPets(res.data.data);
-      console.log(res.data.data);
+      // console.log(res.data.data);
       setIsLoading(false);
     } catch (error) {
       console.log(error);
@@ -44,7 +44,6 @@ const Home = () => {
         ) : pets.length !== 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3 lg:grid-cols-3">
             {pets.map((pet, index) => {
-              console.log(pet);
               return (
                 <PetCardNew
                   id={pet?._id}

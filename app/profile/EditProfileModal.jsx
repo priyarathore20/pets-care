@@ -1,10 +1,10 @@
-"use client";
-import Button from "@/components/Button";
-import Dialog from "@/components/Dialog";
-import Input from "@/components/Input";
-import Loader from "@/components/Loader";
-import instance from "@/utils/axios";
-import React, { useState } from "react";
+'use client';
+import Button from '@/components/Button';
+import Dialog from '@/components/Dialog';
+import Input from '@/components/Input';
+import Loader from '@/components/Loader';
+import instance from '@/utils/axios';
+import React, { useState } from 'react';
 
 const EditProfileModal = ({
   open,
@@ -14,10 +14,10 @@ const EditProfileModal = ({
   userGender,
   userPhoneNumber,
 }) => {
-  const [name, setName] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
-  const [email, setEmail] = useState("");
-  const [gender, setGender] = useState("");
+  const [name, setName] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [email, setEmail] = useState('');
+  const [gender, setGender] = useState('');
   const [errors, setErrors] = useState({
     name: false,
     email: false,
@@ -47,14 +47,14 @@ const EditProfileModal = ({
     return validation;
   };
 
-  const editUserDetail = (e) => {
+  const editUserDetail = async (e) => {
     e.preventDefault();
     if (isValidated()) {
       try {
         const data = { name, phoneNumber, gender, email };
         setLoading(true);
-        const userId = localStorage.getItem("userId");
-        const res = instance.put(`/pets/${userId}`, data);
+        const userId = localStorage.getItem('userId');
+        await instance.put(`/pets/${userId}`, data);
         setLoading(false);
       } catch (error) {
         console.log(error);
@@ -65,37 +65,45 @@ const EditProfileModal = ({
   return (
     <Dialog open={open} onClose={onClose}>
       <div
-        className={`w-[520px] dark:bg-primaryBlue h-full rounded-lg shadow-2xl px-5 pt-8 py-4 pb-8 flex flex-col items-center bg-white`}
+        className={
+          's:w-[520px] dark:bg-primaryBlue h-full rounded-lg shadow-2xl px-5 pt-8 py-4 pb-8 flex flex-col items-center bg-white'
+        }
       >
         <h2
-          className={`mb-4 px-2 text-xl dark:text-formTitle font-medium text-grayHeading`}
+          className={
+            'mb-4 px-2 text-xl dark:text-formHeading font-medium text-grayHeading'
+          }
         >
           Customize Your Profile! 🎨
         </h2>
         <form className="flex flex-col justify-center items-center">
-          <div className="gap-2 grid grid-cols-2">
+          <div className="gap-2 grid grid-cols-1 s:grid-cols-2">
             <Input
               placeholder={userName}
-              label={"Name"}
+              label={'Name'}
+              error={errors?.name}
               value={name}
               onChange={(e) => setName(e.target.value)}
             />
             <Input
               placeholder={userPhoneNumber}
+              error={errors?.phoneNumber}
               value={phoneNumber}
               type="number"
-              label={"Phone Number"}
+              label={'Phone Number'}
               onChange={(e) => setPhoneNumber(e.target.value)}
             />
             <Input
               placeholder={userGender}
               value={gender}
-              label={"Gender"}
+              error={errors?.gender}
+              label={'Gender'}
               onChange={(e) => setGender(e.target.value)}
             />
             <Input
               placeholder={userEmail}
-              label={"Email"}
+              error={errors?.email}
+              label={'Email'}
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
@@ -103,8 +111,8 @@ const EditProfileModal = ({
           <div className="flex gap-5 mt-8">
             <Button
               onClick={editUserDetail}
-              size={"small"}
-              label={loading ? <Loader /> : "SUBMIT"}
+              size={'small'}
+              label={loading ? <Loader /> : 'SUBMIT'}
             />
             <button
               onClick={onClose}
