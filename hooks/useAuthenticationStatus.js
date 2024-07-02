@@ -8,7 +8,7 @@ const useAuthenticationStatus = () => {
   const { setWebUser } = useContext(AuthContext);
 
   useEffect(() => {
-\    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('token');
     if (!token) {
       setIsAuthenticated(false);
     } else {

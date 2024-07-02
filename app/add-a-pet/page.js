@@ -4,7 +4,6 @@ import Header from '@/components/Header';
 import Input from '@/components/Input';
 import Loader from '@/components/Loader';
 import Logo from '@/components/Logo';
-import { useSnackbar } from '@/context/SnackbarProvider';
 import { petImg } from '@/data';
 import Dashboard from '@/hoc/Dashboard';
 import instance from '@/utils/axios';
@@ -99,28 +98,8 @@ const AddPet = () => {
     }
   };
 
-  const showSnackbar = useSnackbar();
-
-  const handleClick = () => {
-    showSnackbar('This is a  error snackbar!', 'error');
-  };
-
   return (
     <Dashboard>
-      <button
-        onClick={handleClick}
-        // className="top-0 left-1 z-20 fixed bg-red w-20 h-10"
-      >
-        Show Snackbar
-      </button>
-      <button
-        onClick={() => {
-          showSnackbar('This is a success snackbar!', 'success');
-        }}
-        // className="top-0 left-1 z-20 fixed bg-red w-20 h-10"
-      >
-        Show Snackbar
-      </button>
       <div className="items-center dark:bg-secondaryBlue flex flex-col justify-center center bg-bgLight">
         <Header title={'Add Your Pet...!'} />
         <div className="w-5/6 dark:bg-primaryBlue items-center my-5 rounded-lg px-4 py-7 flex flex-col justify-center bg-white">

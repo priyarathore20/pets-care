@@ -56,7 +56,7 @@ const LoginPage = () => {
 
   return (
     <div className="max-w-screen w-screen h-screen max-h-screen dark:bg-secondaryBlue bg-bgLight flex justify-center items-center">
-      <div className="w-[445px] dark:bg-primaryBlue shadow-2xl  bg-white h-[660px] rounded-lg px-4 py-7 flex flex-col items-center">
+      <div className="max-w-[350px] s:max-w-[445px]  w-full dark:bg-primaryBlue shadow-2xl  bg-white h-[660px] rounded-lg px-4 py-7 flex flex-col items-center">
         <div className="flex items-center p-6">
           <FaPaw className="h-12 w-12 pr-[10px] text-formButton" />
           <h2 className="dark:text-formHeading text-grayHeading text-2xl font-bold">
@@ -72,7 +72,7 @@ const LoginPage = () => {
             accessible globally for anyone searching.
           </p>
         </div>
-        <div className="px-6 flex flex-col items-start">
+        <div className="px-6 flex gap-3 flex-col w-full items-start">
           <Input
             placeholder={"Email"}
             onChange={(e) => setEmail(e.target.value)}
@@ -89,20 +89,15 @@ const LoginPage = () => {
             disabled={isLoading}
             fullWidth
           />
-
-          {errors && (
-            <p className="text-red/90 text-center mb-4 w-full">
-              *All Fields are required*
-            </p>
-          )}
           <Button
             disabled={isLoading}
             isLoading={isLoading}
             onClick={loginUser}
             label={"LOGIN"}
+            fullWidth
           />
-          <div className="w-[368px] p-5 flex items-center justify-center text-formTitle leading-6 dark:text-formHeading">
-            New on our platform?
+          <div className="w-full s:flex-row flex-col p-5 flex items-center justify-center text-formTitle leading-6 dark:text-formHeading">
+            <p> New on our platform? </p>
             <Link href={"/signup"} className="text-formButton ml-2">
               Create an account
             </Link>

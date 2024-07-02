@@ -1,22 +1,25 @@
-'use client';
-import Button from '@/components/Button';
-import Input from '@/components/Input';
-import Logo from '@/components/Logo';
-import { AuthContext } from '@/context/UserContext';
-import withAuth from '@/hoc/WithAuth';
-import instance from '@/utils/axios';
-import { jwtDecode } from 'jwt-decode';
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import React, { useContext, useState } from 'react';
+/* eslint-disable quotes */
+"use client";
+import Button from "@/components/Button";
+import Input from "@/components/Input";
+import Logo from "@/components/Logo";
+import { AuthContext } from "@/context/UserContext";
+import withAuth from "@/hoc/WithAuth";
+import instance from "@/utils/axios";
+import { jwtDecode } from "jwt-decode";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import React, { useContext, useState } from "react";
+
+const genderOptions = ["Male", "Female", "Others"];
 
 const RegisterPage = () => {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [phoneNumber, setPhoneNumber] = useState('');
-  const [password, setPassword] = useState('');
-  const [gender, setGender] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [password, setPassword] = useState("");
+  const [gender, setGender] = useState("");
   const router = useRouter();
   const { setWebUser } = useContext(AuthContext);
 
@@ -30,13 +33,13 @@ const RegisterPage = () => {
     };
     try {
       setIsLoading(true);
-      const res = await instance.post('/auth/signup', data);
+      const res = await instance.post("/auth/signup", data);
       console.log(res.data);
       const token = res?.data?.token;
-      localStorage.setItem('token', token);
+      localStorage.setItem("token", token);
       const user = jwtDecode(token);
       setWebUser(user);
-      router.replace('/');
+      router.replace("/");
     } catch (error) {
       console.error(error);
       setIsLoading(false);
@@ -44,10 +47,10 @@ const RegisterPage = () => {
   };
 
   return (
-    <div className="max-w-screen w-screen h-screen max-h-screen dark:bg-secondaryBlue bg-bgLight flex justify-center items-center">
-      <div className="max-w-[445px] dark:bg-primaryBlue bg-white shadow-2xl rounded-lg px-4 py-7 flex flex-col items-center">
+    <div className="max-w-screen w-screen h-screen  max-h-screen dark:bg-secondaryBlue bg-bgLight flex justify-center items-center">
+      <div className="max-w-[350px] s:max-w-[445px]  w-full dark:bg-primaryBlue bg-white shadow-2xl rounded-lg px-8 py-7 flex flex-col items-center">
         <Logo />
-        <div className="w-full pt-2 px-6 pb-6 flex flex-col items-start">
+        <div className="w-full pt-2 pb-6 flex flex-col items-start">
           <h5 className="mb-1 dark:text-formHeading leading-8 text-grayHeading text-2xl font-medium">
             Care starts here! 🤗
           </h5>
@@ -55,50 +58,68 @@ const RegisterPage = () => {
             Simplifying the lives of paw parents.
           </p>
         </div>
-        <div className="px-6 py-3 flex gap-5 flex-col justify-center items-start">
+        <div className=" py-3 flex w-full gap-5 flex-col justify-center items-start">
           <Input
-            placeholder={'Name*'}
+            placeholder={"Name*"}
             onChange={(e) => setName(e.target.value)}
             value={name}
             disabled={isLoading}
-            type={'text'}
+            type={"text"}
             fullWidth
           />
-          {/*Gender dropdown */}
+          <div className="flex justify-between w-full gap-3">
+            <select
+              onChange={(e) => {
+                setGender(e.target.value);
+              }}
+              className="py-2 outline-none s:w-32 w-[52px] border border-formHeading rounded-lg px-2"
+            >
+              {genderOptions.map((gender, i) => (
+                <option
+                  value={gender}
+                  key={i}
+                  className="text-gray-700 py-1 outline-none capitalize"
+                >
+                  {gender?.charAt(0).toUpperCase() + gender?.slice(1)}
+                </option>
+              ))}
+            </select>
+            <Input
+              placeholder={"Phone Number*"}
+              onChange={(e) => setPhoneNumber(e.target.value)}
+              value={phoneNumber}
+              disabled={isLoading}
+              type={"number"}
+            />
+          </div>
+
           <Input
-            placeholder={'Phone Number*'}
-            onChange={(e) => setPhoneNumber(e.target.value)}
-            value={phoneNumber}
-            disabled={isLoading}
-            fullWidth
-            type={'number'}
-          />
-          <Input
-            placeholder={'Email*'}
+            placeholder={"Email*"}
             onChange={(e) => setEmail(e.target.value)}
             value={email}
             disabled={isLoading}
             fullWidth
-            type={'email'}
+            type={"email"}
           />
           <Input
-            placeholder={'Password*'}
+            placeholder={"Password*"}
             onChange={(e) => setPassword(e.target.value)}
             value={password}
             disabled={isLoading}
             fullWidth
-            type={'password'}
+            type={"password"}
           />
           <Button
-            label={'REGISTER'}
+            label={"REGISTER"}
             onClick={registerUser}
             disabled={isLoading}
             isLoading={isLoading}
+            fullWidth
           />
-          <div className="w-[368px] p-5 flex items-center justify-center text-formTitle dark:text-formHeading">
-            Already have an account?{' '}
-            <Link href={'/login'} className="text-formButton ml-2">
-              {' '}
+          <div className="w-full p-5 flex s:flex-row flex-col items-center justify-center text-formTitle dark:text-formHeading">
+            <p>Already have an account?</p>
+            <Link href={"/login"} className="text-formButton ml-2">
+              {" "}
               Sign in instead
             </Link>
           </div>
