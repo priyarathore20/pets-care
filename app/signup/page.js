@@ -2,6 +2,7 @@
 "use client";
 import Button from "@/components/Button";
 import Input from "@/components/Input";
+import Loader from "@/components/Loader";
 import Logo from "@/components/Logo";
 import { AuthContext } from "@/context/UserContext";
 import withAuth from "@/hoc/WithAuth";
@@ -16,33 +17,70 @@ const genderOptions = ["Male", "Female", "Others"];
 const RegisterPage = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState("");
   const [password, setPassword] = useState("");
   const [gender, setGender] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [errors, setErrors] = useState({
+    name: false,
+    email: false,
+    phoneNumber: false,
+    password: false,
+    gender: false,
+  });
   const router = useRouter();
   const { setWebUser } = useContext(AuthContext);
 
+  const isValidated = () => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const phoneRegex = /^\d{10}$/;
+
+    let validation = true;
+    if (name.length === 0) {
+      validation = false;
+      setErrors((prev) => ({ ...prev, name: true }));
+    }
+    if (phoneNumber.length === 0 || !phoneRegex?.test(email)) {
+      validation = false;
+      setErrors((prev) => ({ ...prev, phoneNumber: true }));
+    }
+    if (gender.length === 0) {
+      validation = false;
+      setErrors((prev) => ({ ...prev, gender: true }));
+    }
+    if (password.length === 0) {
+      validation = false;
+      setErrors((prev) => ({ ...prev, password: true }));
+    }
+    if (email.length === 0 || !emailRegex?.test(email)) {
+      validation = false;
+      setErrors((prev) => ({ ...prev, email: true }));
+    }
+    return validation;
+  };
+
   const registerUser = async () => {
-    const data = {
-      name,
-      email,
-      phoneNumber,
-      password,
-      gender,
-    };
-    try {
-      setIsLoading(true);
-      const res = await instance.post("/auth/signup", data);
-      console.log(res.data);
-      const token = res?.data?.token;
-      localStorage.setItem("token", token);
-      const user = jwtDecode(token);
-      setWebUser(user);
-      router.replace("/");
-    } catch (error) {
-      console.error(error);
-      setIsLoading(false);
+    if (isValidated()) {
+      const data = {
+        name,
+        email,
+        phoneNumber,
+        password,
+        gender,
+      };
+      try {
+        setIsLoading(true);
+        const res = await instance.post("/auth/signup", data);
+        console.log(res.data);
+        const token = res?.data?.token;
+        localStorage.setItem("token", token);
+        const user = jwtDecode(token);
+        setWebUser(user);
+        router.replace("/");
+      } catch (error) {
+        console.error(error);
+        setIsLoading(false);
+      }
     }
   };
 
@@ -61,6 +99,7 @@ const RegisterPage = () => {
         <div className=" py-3 flex w-full gap-5 flex-col justify-center items-start">
           <Input
             placeholder={"Name*"}
+            error={errors?.name}
             onChange={(e) => setName(e.target.value)}
             value={name}
             disabled={isLoading}
@@ -89,11 +128,12 @@ const RegisterPage = () => {
               onChange={(e) => setPhoneNumber(e.target.value)}
               value={phoneNumber}
               disabled={isLoading}
-              type={"number"}
+              maxLength={10}
+              type="number"
             />
           </div>
-
           <Input
+            error={errors?.email}
             placeholder={"Email*"}
             onChange={(e) => setEmail(e.target.value)}
             value={email}
@@ -103,6 +143,7 @@ const RegisterPage = () => {
           />
           <Input
             placeholder={"Password*"}
+            error={errors?.password}
             onChange={(e) => setPassword(e.target.value)}
             value={password}
             disabled={isLoading}
@@ -110,7 +151,7 @@ const RegisterPage = () => {
             type={"password"}
           />
           <Button
-            label={"REGISTER"}
+            label={isLoading ? <Loader /> : "REGISTER"}
             onClick={registerUser}
             disabled={isLoading}
             isLoading={isLoading}

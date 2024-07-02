@@ -10,6 +10,7 @@ const Input = ({
   disabled,
   fullWidth,
   error,
+  maxLength,
   ...props
 }) => {
   return (
@@ -24,6 +25,7 @@ const Input = ({
         </label>
       )}
       <input
+        maxLength={maxLength}
         placeholder={placeholder}
         value={value}
         {...props}

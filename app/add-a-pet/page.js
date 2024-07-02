@@ -11,6 +11,8 @@ import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 import './styles.css';
 
+const genderOptions = ['Male', 'Female', 'Others'];
+
 const AddPet = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState({
@@ -88,7 +90,7 @@ const AddPet = () => {
             Authorization: `Bearer ${localStorage.getItem('token')}`,
           },
         });
-        console.log(res.data);
+        // console.log(res.data);
         setIsLoading(false);
         router.push('/');
       } catch (error) {
@@ -104,7 +106,9 @@ const AddPet = () => {
         <Header title={'Add Your Pet...!'} />
         <div className="w-5/6 dark:bg-primaryBlue items-center my-5 rounded-lg px-4 py-7 flex flex-col justify-center bg-white">
           <Logo />
-          <h2 className="mb-5 px-2 text-xl dark:text-formTitle font-medium text-grayHeading">
+          <h2
+            className={'mb-5 px-2 text-xl dark:text-formHeading font-medium text-grayHeading'}
+          >
             Add a new furry friend here! 😊
           </h2>
 
@@ -112,7 +116,7 @@ const AddPet = () => {
             onSubmit={handleSubmit}
             className="flex flex-col justify-center items-center center"
           >
-            <div className="gap-4 grid grid-cols-2 mb-3">
+            <div className="gap-4 grid sm:max-md:grid-cols-1 mb-6 xxs:grid-cols-2">
               <div>
                 <Input
                   error={errors?.name}
@@ -124,26 +128,34 @@ const AddPet = () => {
                 />
               </div>
               <div className="flex flex-col">
-                <label className=" text-grayHeading text-lg dark:text-formHeading">
+                <label className="text-grayHeading text-lg dark:text-formHeading">
                   Select species:*
                 </label>
                 <select
-                  onChange={(e) => {
-                    setSpecies(e.target.value);
-                  }}
-                  className="py-2 outline-none border border-formHeading rounded-lg px-2"
+                  value={species}
+                  onChange={(e) => setSpecies(e.target.value)}
+                  className="py-2 dark:bg-primaryBlue dark:text-formHeading outline-none border border-formHeading rounded-lg px-2"
                 >
+                  <option value="" disabled>
+                    Select a species
+                  </option>
                   {Object.keys(petImg).map((species, i) => (
                     <option
-                      value={species}
+                      // value={species}
                       key={i}
-                      className="text-gray-700 py-1 outline-none capitalize"
+                      className="dark:text-formHeading text-gray-700 py-1 outline-none cursor-pointer"
                     >
                       {species?.charAt(0).toUpperCase() + species?.slice(1)}
                     </option>
                   ))}
                 </select>
+                {errors.species && (
+                  <span className="text-red-500">
+                    This field cannot be empty
+                  </span>
+                )}
               </div>
+
               <div>
                 <Input
                   error={errors?.breed}
@@ -164,15 +176,24 @@ const AddPet = () => {
                   onChange={(e) => setAge(e.target.value)}
                 />
               </div>
-              <div>
-                <Input
-                  error={errors?.sex}
-                  label={'Sex*'}
-                  type="text"
-                  className="input capitalize"
-                  value={sex}
+              <div className="flex flex-col">
+                <label className=" text-grayHeading text-lg dark:text-formHeading">
+                  Sex:*
+                </label>
+                <select
                   onChange={(e) => setSex(e.target.value)}
-                />
+                  className="dark:bg-primaryBlue dark:text-formHeading py-2 outline-none border min-w-36 border-formHeading rounded-lg px-2"
+                >
+                  {genderOptions.map((gender, i) => (
+                    <option
+                      value={gender}
+                      key={i}
+                      className="text-gray-700 dark:text-formHeading py-1 outline-none"
+                    >
+                      {gender}
+                    </option>
+                  ))}
+                </select>
               </div>
               <div>
                 <Input
@@ -208,6 +229,7 @@ const AddPet = () => {
             <Button
               onClick={handleSubmit}
               disabled={isLoading}
+              size={'small'}
               label={isLoading ? <Loader size={'small'} /> : 'SUBMIT'}
             />
           </form>

@@ -13,20 +13,22 @@ import withAuth from "@/hoc/WithAuth";
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [errors, setErrors] = useState(false);
+  const [errors, setErrors] = useState({ email: false, password: false });
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const { setWebUser } = useContext(AuthContext);
 
   const isValidated = () => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     let validation = true;
-    if (email.length === 0) {
+
+    if (email.length === 0 || !emailRegex?.test(email)) {
       validation = false;
-      setErrors(true);
+      setErrors((prev) => ({ ...prev, email: true }));
     }
     if (password.length === 0) {
       validation = false;
-      setErrors(true);
+      setErrors((prev) => ({ ...prev, password: true }));
     }
     return validation;
   };
@@ -72,23 +74,29 @@ const LoginPage = () => {
             accessible globally for anyone searching.
           </p>
         </div>
-        <div className="px-6 flex gap-3 flex-col w-full items-start">
-          <Input
-            placeholder={"Email"}
-            onChange={(e) => setEmail(e.target.value)}
-            type={"text"}
-            value={email}
-            disabled={isLoading}
-            fullWidth
-          />
-          <Input
-            placeholder={"Password"}
-            onChange={(e) => setPassword(e.target.value)}
-            type={"password"}
-            value={password}
-            disabled={isLoading}
-            fullWidth
-          />
+        <div className="w-full flex flex-col items-start">
+          <div className="mb-3 w-full">
+            <Input
+              placeholder={"Email"}
+              error={errors?.email}
+              onChange={(e) => setEmail(e.target.value)}
+              type={"text"}
+              value={email}
+              disabled={isLoading}
+              fullWidth
+            />
+          </div>
+          <div className="mb-3 w-full">
+            <Input
+              error={errors?.password}
+              placeholder={"Password"}
+              onChange={(e) => setPassword(e.target.value)}
+              type={"password"}
+              value={password}
+              disabled={isLoading}
+              fullWidth
+            />
+          </div>
           <Button
             disabled={isLoading}
             isLoading={isLoading}

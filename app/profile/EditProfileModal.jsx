@@ -11,7 +11,6 @@ const EditProfileModal = ({
   onClose,
   userName,
   userEmail,
-  userPassword,
   userGender,
   userPhoneNumber,
 }) => {
@@ -19,31 +18,31 @@ const EditProfileModal = ({
   const [phoneNumber, setPhoneNumber] = useState("");
   const [email, setEmail] = useState("");
   const [gender, setGender] = useState("");
-  const [password, setPassword] = useState("");
-  const [errors, setErrors] = useState(false);
+  const [errors, setErrors] = useState({
+    name: false,
+    email: false,
+    phoneNumber: false,
+    gender: false,
+  });
   const [loading, setLoading] = useState(false);
 
   const isValidated = () => {
     let validation = true;
     if (name.length === 0) {
       validation = false;
-      setErrors(true);
+      setErrors((prev) => ({ ...prev, name: true }));
     }
     if (phoneNumber.length === 0) {
       validation = false;
-      setErrors(true);
+      setErrors((prev) => ({ ...prev, phoneNumber: true }));
     }
     if (gender.length === 0) {
       validation = false;
-      setErrors(true);
-    }
-    if (password.length === 0) {
-      validation = false;
-      setErrors(true);
+      setErrors((prev) => ({ ...prev, gender: true }));
     }
     if (email.length === 0) {
       validation = false;
-      setErrors(true);
+      setErrors((prev) => ({ ...prev, email: true }));
     }
     return validation;
   };
@@ -52,7 +51,7 @@ const EditProfileModal = ({
     e.preventDefault();
     if (isValidated()) {
       try {
-        const data = { name, password, phoneNumber, gender, email };
+        const data = { name, phoneNumber, gender, email };
         setLoading(true);
         const userId = localStorage.getItem("userId");
         const res = instance.put(`/pets/${userId}`, data);
@@ -66,7 +65,7 @@ const EditProfileModal = ({
   return (
     <Dialog open={open} onClose={onClose}>
       <div
-        className={`w-[520px] dark:bg-primaryBlue h-[470px] rounded-lg shadow-2xl px-5 pt-8 py-4 pb-8 flex flex-col items-center bg-white`}
+        className={`w-[520px] dark:bg-primaryBlue h-full rounded-lg shadow-2xl px-5 pt-8 py-4 pb-8 flex flex-col items-center bg-white`}
       >
         <h2
           className={`mb-4 px-2 text-xl dark:text-formTitle font-medium text-grayHeading`}
@@ -78,35 +77,30 @@ const EditProfileModal = ({
             <Input
               placeholder={userName}
               label={"Name"}
+              value={name}
               onChange={(e) => setName(e.target.value)}
             />
             <Input
               placeholder={userPhoneNumber}
+              value={phoneNumber}
+              type="number"
               label={"Phone Number"}
               onChange={(e) => setPhoneNumber(e.target.value)}
             />
             <Input
               placeholder={userGender}
+              value={gender}
               label={"Gender"}
               onChange={(e) => setGender(e.target.value)}
             />
             <Input
               placeholder={userEmail}
               label={"Email"}
+              value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
-            <Input
-              placeholder={userPassword}
-              label={"Password"}
-              onChange={(e) => setPassword(e.target.value)}
-            />
           </div>
-          {errors && (
-            <p className="mt-3 w-full text-center text-red/90">
-              *All fields are required*
-            </p>
-          )}
-          <div className="flex gap-5 mt-4">
+          <div className="flex gap-5 mt-8">
             <Button
               onClick={editUserDetail}
               size={"small"}
