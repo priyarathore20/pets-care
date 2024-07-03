@@ -111,7 +111,7 @@ const RegisterPage = () => {
               onChange={(e) => {
                 setGender(e.target.value);
               }}
-              className="py-2 outline-none s:w-32 w-[52px] border border-formHeading rounded-lg px-2"
+              className="py-2 outline-none s:w-32 w-[52px] border border-cardSubTitle rounded-lg px-2"
             >
               {genderOptions.map((gender, i) => (
                 <option
