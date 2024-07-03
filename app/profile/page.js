@@ -22,13 +22,13 @@ const UserProfile = () => {
     { label: 'Name:', value: webUser?.name },
     { label: 'Email:', value: webUser?.email },
     { label: 'Gender:', value: webUser?.gender },
-    { label: 'Phone Number:', value: webUser?.phoneNumber },
+    { label: 'Phone:', value: webUser?.phoneNumber },
   ];
 
   return (
     <Dashboard>
       <Header title={`${webUser?.name}'s profile`} />
-      <div className="  flex justify-center items-start my-12 px-10 dark:bg-secondaryBlue bg-bgLight w-full h-full">
+      <div className="  flex justify-center items-start my-12 px-5 dark:bg-secondaryBlue bg-bgLight w-full h-full">
         <div className="px-4 py-5 w-full max-w-[500px] dark:bg-primaryBlue bg-white rounded-xl shadow-xl overflow-hidden">
           {/* Profile picture */}
           <div className="flex justify-center flex-col items-center py-5">
@@ -57,10 +57,7 @@ const UserProfile = () => {
 
             <div className="flex-[0.5]">
               {userDetails.map((item, index) => (
-                <div
-                  className=" py-2 flex flex-col xs:flex-row justify-between items-center md:items-start"
-                  key={index}
-                >
+                <div className=" py-2 " key={index}>
                   {' '}
                   <div className="text-gray-500 dark:text-white/75 text-lg">
                     {item.value}
