@@ -4,19 +4,19 @@ import { AuthContext } from '@/context/UserContext';
 import Dashboard from '@/hoc/Dashboard';
 import withAuth from '@/hoc/WithAuth';
 // import Image from 'next/image';
-import React, { useContext, useState } from 'react';
-import { MdEdit } from 'react-icons/md';
+import React, { useContext } from 'react';
+// import { MdEdit } from 'react-icons/md';
 import boyImg from '../../assets/boy.jpg';
 import girlImg from '../../assets/girl.jpg';
-import EditProfileModal from './EditProfileModal';
+// import EditProfileModal from './EditProfileModal';
 
 const UserProfile = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  // const [isOpen, setIsOpen] = useState(false);
   const { webUser } = useContext(AuthContext);
 
-  const handleClose = () => {
-    setIsOpen(false);
-  };
+  // const handleClose = () => {
+  //   setIsOpen(false);
+  // };
 
   const userDetails = [
     { label: 'Name:', value: webUser?.name },
@@ -53,7 +53,7 @@ const UserProfile = () => {
               <div className="text-gray-500 text-lg">{item.value}</div>
             </div>
           ))}
-          <div className="flex justify-center items-center mt-6 ">
+          {/* <div className="flex justify-center items-center mt-6 ">
             <div
               onClick={() => setIsOpen(true)}
               className="flex gap-3 items-center cursor-pointer justify-center rounded-3xl py-2 w-[200px] bg-formButton text-white"
@@ -61,9 +61,9 @@ const UserProfile = () => {
               <MdEdit className="h-5 w-5" />
               <p>Edit Profile</p>
             </div>
-          </div>
+          </div> */}
         </div>
-        <EditProfileModal
+        {/* <EditProfileModal
           userName={webUser?.name}
           userEmail={webUser?.email}
           userGender={webUser?.gender}
@@ -71,7 +71,7 @@ const UserProfile = () => {
           userPhoneNumber={webUser?.phoneNumber}
           open={isOpen}
           onClose={handleClose}
-        />
+        /> */}
       </div>
     </Dashboard>
   );

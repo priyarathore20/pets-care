@@ -5,7 +5,7 @@ const Dialog = ({ open, onClose, children }) => {
   return (
     <div
       className={classNames(
-        'fixed top-0 left-0 justify-center items-center w-screen h-screen z-50',
+        'fixed top-0 left-0 justify-center items-center h-full w-full z-50',
         {
           ['hidden']: !open,
           ['flex']: open,

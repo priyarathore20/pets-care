@@ -95,7 +95,7 @@ const EditPetModal = ({ open, onClose, pet, petId }) => {
     <Dialog open={open} onClose={onClose}>
       <div
         className={
-          'w-[520px] dark:bg-primaryBlue h-full rounded-lg shadow-2xl px-5 pt-8 py-4 pb-8 flex flex-col items-center bg-white'
+          'w-[360px] s:w-[520px] dark:bg-primaryBlue h-full rounded-lg shadow-2xl px-5 pt-8 py-4 pb-8 flex flex-col items-center bg-white'
         }
       >
         <h2
@@ -173,6 +173,7 @@ const EditPetModal = ({ open, onClose, pet, petId }) => {
             />
           </div>
           <Button
+            fullWidth
             label={isLoading ? <Loader size={'small'} /> : 'SUBMIT'}
             onClick={EditPet}
           />

@@ -54,7 +54,7 @@ const EditProfileModal = ({
         const data = { name, phoneNumber, gender, email };
         setLoading(true);
         const userId = localStorage.getItem('userId');
-        await instance.put(`/pets/${userId}`, data);
+        await instance.put(`/user/${userId}`, data);
         setLoading(false);
       } catch (error) {
         console.log(error);
@@ -112,7 +112,7 @@ const EditProfileModal = ({
             <Button
               onClick={editUserDetail}
               size={'small'}
-              label={loading ? <Loader /> : 'SUBMIT'}
+              label={loading ? <Loader size={'small'} /> : 'SUBMIT'}
             />
             <button
               onClick={onClose}
