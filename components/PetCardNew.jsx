@@ -1,22 +1,10 @@
 'use client';
 import { petImg } from '@/data';
-import { useRouter } from 'next/navigation';
-import React, { useState } from 'react';
+import React from 'react';
 import Button from './Button';
-import Loader from './Loader';
+import Link from 'next/link';
 
 const PetCardNew = ({ id, name, breed, species }) => {
-  const router = useRouter();
-  const [isLoading, setIsLoading] = useState(false);
-
-  const handleClick = () => {
-    setIsLoading(true);
-    router.push(`/details/${id}`);
-    setIsLoading(false);
-  };
-
-  // console.log(species);
-
   return (
     <div className="shadow-sm rounded-lg overflow-hidden">
       <div className="w-full h-[180px]">
@@ -34,11 +22,9 @@ const PetCardNew = ({ id, name, breed, species }) => {
         <p className="text-cardSubTitle text-sm">{breed}</p>
 
         <div className="mt-4">
-          <Button
-            fullWidth
-            label={isLoading ? <Loader size={'small'} /> : 'View More'}
-            onClick={handleClick}
-          />
+          <Link href={`/details/${id}`}>
+            <Button fullWidth label={'View More'} />
+          </Link>
         </div>
       </div>
     </div>

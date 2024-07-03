@@ -6,12 +6,14 @@ import { petImg } from '@/data';
 import Dashboard from '@/hoc/Dashboard';
 import withAuth from '@/hoc/WithAuth';
 import instance from '@/utils/axios';
+import { IoMdArrowBack } from 'react-icons/io';
 import { useQRCode } from 'next-qrcode';
 import { useParams } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 import DeletePetModal from '../DeletePetModal';
 import { useSnackbar } from '@/context/SnackbarProvider';
 import Loader from '@/components/Loader';
+import Link from 'next/link';
 
 const PetDetails = () => {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
@@ -89,7 +91,17 @@ const PetDetails = () => {
       ) : (
         <div className="h-full w-full">
           <div className="p-6">
-            <h2 className="text-3xl font-bold dark:text-black/75">{pet?.name}</h2>
+            <div className="flex gap-3 sm:hidden items-center">
+              <Link href={'/'}>
+                <IoMdArrowBack
+                  size={24}
+                  className="dark:text-white/75 text-black/75"
+                />
+              </Link>
+              <h2 className="text-2xl font-bold dark:text-white/75 text-black/75">
+                {pet?.name}
+              </h2>
+            </div>
             <div className="flex items-center justify-between md:flex-row gap-y-5 flex-col py-5 w-full h-full">
               <div className="flex-[0.5] max-h-[350px]">
                 <img

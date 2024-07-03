@@ -9,6 +9,7 @@ import { useContext, useState } from 'react';
 import { AuthContext } from '@/context/UserContext';
 import { sidebarLinks } from '@/data';
 import Logo from './Logo';
+import Link from 'next/link';
 
 const Header = ({ title }) => {
   const { webUser } = useContext(AuthContext);
@@ -28,7 +29,7 @@ const Header = ({ title }) => {
           'w-full h-16 flex items-center justify-between sm:shadow-sm shadow-lg dark:bg-primaryBlue sm:rounded-lg bg-white px-6'
         }
       >
-        <div className='block sm:hidden'>
+        <div className="block sm:hidden">
           <Logo />
         </div>
         <div className="sm:block hidden font-semibold text-black/75 text-lg dark:text-formHeading tracking-[0.015rem]">
@@ -58,18 +59,18 @@ const Header = ({ title }) => {
             <div
               className={`${
                 menuOpen ? 'block' : 'hidden'
-              } absolute bg-white dark:bg-primaryBlue w-40 top-12 -right-6 p-5 `}
+              } absolute shadow-lg bg-white dark:bg-primaryBlue w-40 top-12 -right-6 p-5 `}
             >
               {sidebarLinks.map((actions, index) => (
                 <div key={index} className="">
                   {actions.links.map((item, itemIndex) => (
                     <div key={itemIndex}>
-                      <h1
+                      <Link
+                        href={item?.href}
                         className="mb-4 text-black/75 dark:text-white/75"
-                        onClick={() => router.push(item?.href)}
                       >
                         {item?.name}
-                      </h1>
+                      </Link>
                     </div>
                   ))}
                 </div>
