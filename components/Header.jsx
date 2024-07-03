@@ -1,16 +1,16 @@
 'use client';
-// import girlAvatar from '../assets/girl.jpg';
+import girlAvatar from '../assets/girl.jpg';
 import { LuMenu } from 'react-icons/lu';
 import boyAvatar from '../assets/boy.jpg';
 import DarkModeToggle from './DarkModeToggle';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
-// import { AuthContext } from '@/context/UserContext';
+import { useContext, useState } from 'react';
+import { AuthContext } from '@/context/UserContext';
 import { sidebarLinks } from '@/data';
 
 const Header = ({ title }) => {
-  // const { webUser } = useContext(AuthContext);
+  const { webUser } = useContext(AuthContext);
   const [menuOpen, setMenuOpen] = useState(false);
   const router = useRouter();
 
@@ -23,7 +23,9 @@ const Header = ({ title }) => {
   return (
     <div className="mt-3 px-6 w-full">
       <div
-        className={'w-full h-16 -p-[16px] flex items-center justify-between shadow-sm dark:bg-primaryBlue rounded-lg bg-white px-6'}
+        className={
+          'w-full h-16 -p-[16px] flex items-center justify-between shadow-sm dark:bg-primaryBlue rounded-lg bg-white px-6'
+        }
       >
         <div className="font-semibold text-black/75 text-lg dark:text-formHeading tracking-[0.015rem]">
           {title}
@@ -32,7 +34,9 @@ const Header = ({ title }) => {
         <div className="flex justify-between items-center gap-3">
           <DarkModeToggle />
           <Image
-            src={boyAvatar}
+            src={
+              webUser?.gender === 'Female' ? girlAvatar?.src : boyAvatar?.src
+            }
             width={40}
             height={40}
             alt=""

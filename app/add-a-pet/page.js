@@ -133,13 +133,13 @@ const AddPet = () => {
                 />
               </div>
               <div className="flex flex-col">
-                <label className="text-grayHeading text-lg dark:text-formHeading">
+                <label className="text-grayHeading text-lg dark:text-cardSubTitle">
                   Select species:*
                 </label>
                 <select
                   value={species?.toLowerCase()}
                   onChange={(e) => setSpecies(e.target.value)}
-                  className="py-2 dark:bg-primaryBlue dark:text-formHeading outline-none border border-formHeading rounded-lg px-2"
+                  className="py-2 dark:bg-primaryBlue dark:text-formHeading outline-none border border-cardSubTitle rounded-lg px-2"
                 >
                   <option value="">Select a species</option>
                   {Object.keys(petImg).map((species, i) => (
@@ -152,11 +152,6 @@ const AddPet = () => {
                     </option>
                   ))}
                 </select>
-                {errors.species && (
-                  <span className="text-red-500">
-                    This field cannot be empty
-                  </span>
-                )}
               </div>
 
               <div>
@@ -180,7 +175,7 @@ const AddPet = () => {
                 />
               </div>
               <div className="flex flex-col">
-                <label className=" text-grayHeading text-lg dark:text-formHeading">
+                <label className=" text-grayHeading text-lg dark:text-cardSubTitle">
                   Sex:*
                 </label>
                 <select
@@ -189,7 +184,7 @@ const AddPet = () => {
                     setSex(e.target.value);
                     // console.log(sex);
                   }}
-                  className="dark:bg-primaryBlue dark:text-formHeading py-2 outline-none border min-w-36 border-formHeading rounded-lg px-2"
+                  className="dark:bg-primaryBlue dark:text-formHeading py-2 outline-none border min-w-36 border-cardSubTitle rounded-lg px-2"
                 >
                   {genderOptions.map((gender, i) => (
                     <option

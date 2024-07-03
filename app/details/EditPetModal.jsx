@@ -112,10 +112,12 @@ const EditPetModal = ({ open, onClose, pet, petId }) => {
               error={errors?.name}
               type="text"
               value={name}
+              placeholder={pet?.name}
               onChange={(e) => setName(e.target.value)}
             />
             <Input
               error={errors?.species}
+              placeholder={pet?.species}
               label={'Species'}
               type="text"
               value={species}
@@ -125,6 +127,7 @@ const EditPetModal = ({ open, onClose, pet, petId }) => {
               error={errors?.breed}
               label={'Breed'}
               type="text"
+              placeholder={pet?.breed}
               value={breed}
               onChange={(e) => setBreed(e.target.value)}
             />
@@ -132,11 +135,13 @@ const EditPetModal = ({ open, onClose, pet, petId }) => {
               error={errors?.age}
               label={'Age'}
               type="text"
+              placeholder={pet?.age}
               value={age}
               onChange={(e) => setAge(e.target.value)}
             />
             <Input
               error={errors?.color}
+              placeholder={pet?.color}
               label={'Color'}
               type="text"
               value={color}
@@ -145,12 +150,14 @@ const EditPetModal = ({ open, onClose, pet, petId }) => {
             <Input
               label={'Sex'}
               error={errors?.sex}
+              placeholder={pet?.sex}
               type="text"
               value={sex}
               onChange={(e) => setSex(e.target.value)}
             />
             <Input
               error={errors?.description}
+              placeholder={pet?.description}
               label={'Description'}
               type="text"
               value={description}
@@ -159,6 +166,7 @@ const EditPetModal = ({ open, onClose, pet, petId }) => {
             <Input
               error={errors?.h}
               label={'Health Information'}
+              placeholder={pet?.healthInformation}
               type="text"
               value={healthInformation}
               onChange={(e) => setHealthInformation(e.target.value)}

@@ -15,7 +15,7 @@ const PetCardNew = ({ id, name, breed, species }) => {
     setIsLoading(false);
   };
 
-  console.log(species);
+  // console.log(species);
 
   return (
     <div className="shadow-sm rounded-lg overflow-hidden">

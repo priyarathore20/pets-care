@@ -40,7 +40,9 @@ const Home = () => {
       <Header title="My Pets" />
       <div className="p-6 mt-[14px]">
         {isLoading ? (
-          <Loader />
+          <div className="h-[70vh] w-full">
+            <Loader />
+          </div>
         ) : pets.length !== 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3 lg:grid-cols-3">
             {pets.map((pet, index) => {
@@ -63,7 +65,11 @@ const Home = () => {
             </p>
             <Button
               label={'Click to add you first pet'}
-              onClick={() => router.push('/add-a-pet')}
+              onClick={() => {
+                setIsLoading(true);
+                router.push('/add-a-pet');
+                setIsLoading(false);
+              }}
             />
           </div>
         )}

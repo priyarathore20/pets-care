@@ -7,7 +7,7 @@ import withAuth from '@/hoc/WithAuth';
 import React, { useContext, useState } from 'react';
 import { MdEdit } from 'react-icons/md';
 import boyImg from '../../assets/boy.jpg';
-// import girlImg from '../../assets/girl.jpg';
+import girlImg from '../../assets/girl.jpg';
 import EditProfileModal from './EditProfileModal';
 
 const UserProfile = () => {
@@ -33,7 +33,7 @@ const UserProfile = () => {
           {/* Profile picture */}
           <div className="flex justify-center flex-col items-center py-5">
             <img
-              src={ boyImg?.src}
+              src={webUser?.gender === 'Female' ? girlImg?.src : boyImg?.src}
               width={150}
               height={150}
               alt="Profile"
