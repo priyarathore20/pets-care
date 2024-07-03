@@ -105,10 +105,12 @@ const AddPet = () => {
 
   return (
     <Dashboard>
-      <div className="items-center dark:bg-secondaryBlue flex flex-col justify-center center bg-bgLight">
+      <div className="items-center dark:bg-secondaryBlue flex flex-col justify-center center bg-transparent">
         <Header title={'Add Your Pet...!'} />
-        <div className="w-5/6 dark:bg-primaryBlue items-center my-5 rounded-lg px-4 py-7 flex flex-col justify-center bg-white">
-          <Logo />
+        <div className=" items-center my-5 rounded-lg px-5 py-7 flex flex-col justify-center sm:bg-white sm:dark:bg-primaryBlue">
+          <div className="sm:block hidden">
+            <Logo />
+          </div>
           <h2
             className={
               'mb-5 px-2 text-xl dark:text-formHeading font-medium text-grayHeading'
@@ -119,34 +121,34 @@ const AddPet = () => {
 
           <form
             onSubmit={handleSubmit}
-            className="flex flex-col justify-center items-center center"
+            className="flex flex-col justify-center items-center center w-full"
           >
-            <div className="gap-4 grid sm:max-md:grid-cols-1 mb-6 xxs:grid-cols-2">
+            <div className="gap-x-4 gap-y-3 w-full grid sm:max-md:grid-cols-1 mb-3 xxs:grid-cols-2">
               <div>
                 <Input
                   error={errors?.name}
                   label={'Name*'}
                   type="text"
+                  fullWidth
                   className="input"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                 />
               </div>
               <div className="flex flex-col">
-                <label className="text-grayHeading text-lg dark:text-cardSubTitle">
+                <label className="text-grayHeading text-lg dark:text-white/75">
                   Select species:*
                 </label>
                 <select
                   value={species?.toLowerCase()}
                   onChange={(e) => setSpecies(e.target.value)}
-                  className="py-2 dark:bg-primaryBlue dark:text-formHeading outline-none border border-cardSubTitle rounded-lg px-2"
+                  className="py-2 dark:text-formHeading outline-none border  bg-transparent border-cardSubTitle rounded-lg px-2"
                 >
-                  <option value="">Select a species</option>
                   {Object.keys(petImg).map((species, i) => (
                     <option
                       value={species.toLowerCase()}
                       key={i}
-                      className="dark:text-formHeading text-gray-700 py-1 outline-none cursor-pointer"
+                      className="dark:text-formHeading dark:bg-black bg-white text-gray-700 py-1 outline-none cursor-pointer"
                     >
                       {species?.charAt(0).toUpperCase() + species?.slice(1)}
                     </option>
@@ -161,6 +163,7 @@ const AddPet = () => {
                   type="text"
                   className="input"
                   value={breed}
+                  fullWidth
                   onChange={(e) => setBreed(e.target.value)}
                 />
               </div>
@@ -170,12 +173,13 @@ const AddPet = () => {
                   label={'Age*'}
                   type="text"
                   className="input"
+                  fullWidth
                   value={age}
                   onChange={(e) => setAge(e.target.value)}
                 />
               </div>
               <div className="flex flex-col">
-                <label className=" text-grayHeading text-lg dark:text-cardSubTitle">
+                <label className=" text-grayHeading text-lg dark:text-white/75">
                   Sex:*
                 </label>
                 <select
@@ -184,13 +188,13 @@ const AddPet = () => {
                     setSex(e.target.value);
                     // console.log(sex);
                   }}
-                  className="dark:bg-primaryBlue dark:text-formHeading py-2 outline-none border min-w-36 border-cardSubTitle rounded-lg px-2"
+                  className="bg-transparent dark:text-formHeading py-2 outline-none border min-w-36 border-cardSubTitle rounded-lg px-2"
                 >
                   {genderOptions.map((gender, i) => (
                     <option
                       value={gender.toLowerCase()}
                       key={i}
-                      className="text-gray-700  dark:text-formHeading py-1 outline-none"
+                      className="text-gray-700 dark:bg-black bg-white dark:text-formHeading py-1 outline-none"
                     >
                       {gender}
                     </option>
@@ -203,31 +207,33 @@ const AddPet = () => {
                   label={'Color*'}
                   type="text"
                   className="input"
+                  fullWidth
                   value={color}
                   onChange={(e) => setColor(e.target.value)}
                 />
               </div>
-              <div>
-                <Input
-                  error={errors?.description}
-                  label={'Description*'}
-                  type="text"
-                  className="input"
-                  value={description}
-                  onChange={(e) => setDescription(e.target.value)}
-                />
-              </div>
-              <div>
-                <Input
-                  error={errors?.healthInformation}
-                  label={'Health info*'}
-                  type="text"
-                  className="input"
-                  value={healthInformation}
-                  onChange={(e) => setHealthInformation(e.target.value)}
-                />
-              </div>
             </div>
+            <div className="w-full flex flex-col gap-y-3 mb-4">
+              <Input
+                error={errors?.description}
+                label={'Description*'}
+                type="text"
+                className="input"
+                fullWidth
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+              />
+              <Input
+                error={errors?.healthInformation}
+                label={'Health info*'}
+                fullWidth
+                type="text"
+                className="input"
+                value={healthInformation}
+                onChange={(e) => setHealthInformation(e.target.value)}
+              />
+            </div>
+
             <Button
               onClick={handleSubmit}
               disabled={isLoading}

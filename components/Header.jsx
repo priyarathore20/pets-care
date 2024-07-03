@@ -8,6 +8,7 @@ import { useRouter } from 'next/navigation';
 import { useContext, useState } from 'react';
 import { AuthContext } from '@/context/UserContext';
 import { sidebarLinks } from '@/data';
+import Logo from './Logo';
 
 const Header = ({ title }) => {
   const { webUser } = useContext(AuthContext);
@@ -21,13 +22,16 @@ const Header = ({ title }) => {
   };
 
   return (
-    <div className="mt-3 px-6 w-full">
+    <div className="sm:mt-3 sm:px-6 w-full">
       <div
         className={
-          'w-full h-16 -p-[16px] flex items-center justify-between shadow-sm dark:bg-primaryBlue rounded-lg bg-white px-6'
+          'w-full h-16 flex items-center justify-between sm:shadow-sm shadow-lg dark:bg-primaryBlue sm:rounded-lg bg-white px-6'
         }
       >
-        <div className="font-semibold text-black/75 text-lg dark:text-formHeading tracking-[0.015rem]">
+        <div className='block sm:hidden'>
+          <Logo />
+        </div>
+        <div className="sm:block hidden font-semibold text-black/75 text-lg dark:text-formHeading tracking-[0.015rem]">
           {title}
         </div>
 
@@ -54,19 +58,14 @@ const Header = ({ title }) => {
             <div
               className={`${
                 menuOpen ? 'block' : 'hidden'
-              } absolute bg-white dark:bg-primaryBlue h-56 w-36 top-8 -right-6 px-5 py-2`}
+              } absolute bg-white dark:bg-primaryBlue w-40 top-12 -right-6 p-5 `}
             >
               {sidebarLinks.map((actions, index) => (
-                <div key={index} className="pt-5">
-                  <div className="mb-2">
-                    <span className="border-gray-400 border-b w-full font-medium text-black/75 text-sm dark:text-white/75 tracking-[0.4px]">
-                      {actions.category}
-                    </span>
-                  </div>
+                <div key={index} className="">
                   {actions.links.map((item, itemIndex) => (
                     <div key={itemIndex}>
                       <h1
-                        className="mb-1 text-black/75 text-sm dark:text-white/75"
+                        className="mb-4 text-black/75 dark:text-white/75"
                         onClick={() => router.push(item?.href)}
                       >
                         {item?.name}

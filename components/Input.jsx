@@ -20,7 +20,7 @@ const Input = ({
       })}
     >
       {label && (
-        <label className="text-grayHeading text-lg dark:text-cardSubTitle">
+        <label className="text-grayHeading text-lg dark:text-white/75">
           {label}
         </label>
       )}
@@ -32,7 +32,7 @@ const Input = ({
         type={type}
         onChange={onChange}
         className={classNames(
-          'dark:text-formHeading rounded-lg pl-3 text-grayHeading outline-none dark:bg-primaryBlue bg-white border border-cardSubTitle py-2 px-1',
+          'dark:text-white/75 rounded-lg pl-3 text-grayHeading outline-none bg-transparent border border-cardSubTitle py-2 px-1',
           {
             'bg-gray-100 text-gray-400 cursor-not-allowed': disabled,
             'border border-red/95': error,

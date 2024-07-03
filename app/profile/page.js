@@ -44,15 +44,31 @@ const UserProfile = () => {
             </div>
           </div>
           {/* User details */}
-          {userDetails.map((item, index) => (
-            <div
-              className="px-12 py-2 flex flex-col xs:flex-row justify-between items-center md:items-start"
-              key={index}
-            >
-              <div className="text-gray-500 text-lg ">{item.label}</div>
-              <div className="text-gray-500 text-lg">{item.value}</div>
+          <div className="flex justify-center gap-x-4 items-center">
+            <div className="flex-[0.5]">
+              {userDetails.map((item, index) => (
+                <div className=" py-2 text-right" key={index}>
+                  <div className="text-gray-500 whitespace-nowrap dark:text-white/75 text-lg">
+                    {item.label}
+                  </div>
+                </div>
+              ))}
             </div>
-          ))}
+
+            <div className="flex-[0.5]">
+              {userDetails.map((item, index) => (
+                <div
+                  className=" py-2 flex flex-col xs:flex-row justify-between items-center md:items-start"
+                  key={index}
+                >
+                  {' '}
+                  <div className="text-gray-500 dark:text-white/75 text-lg">
+                    {item.value}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
           {/* <div className="flex justify-center items-center mt-6 ">
             <div
               onClick={() => setIsOpen(true)}

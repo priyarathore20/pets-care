@@ -8,10 +8,8 @@ import React, { useState } from 'react';
 
 const EditPetModal = ({ open, onClose, pet, petId }) => {
   const [name, setName] = useState(pet?.name || '');
-  const [species, setSpecies] = useState(pet?.species || '');
   const [breed, setBreed] = useState(pet?.breed || '');
   const [age, setAge] = useState(pet?.age || '');
-  const [sex, setSex] = useState(pet?.sex || '');
   const [color, setColor] = useState(pet?.color || '');
   const [description, setDescription] = useState(pet?.description || '');
   const [healthInformation, setHealthInformation] = useState(
@@ -43,10 +41,6 @@ const EditPetModal = ({ open, onClose, pet, petId }) => {
       validation = false;
       setErrors((prev) => ({ ...prev, breed: true }));
     }
-    if (sex.length === 0) {
-      validation = false;
-      setErrors((prev) => ({ ...prev, sex: true }));
-    }
     if (color.length === 0) {
       validation = false;
       setErrors((prev) => ({ ...prev, color: true }));
@@ -68,9 +62,7 @@ const EditPetModal = ({ open, onClose, pet, petId }) => {
       const data = {
         name,
         age,
-        species,
         breed,
-        sex,
         color,
         description,
         healthInformation,
@@ -95,7 +87,7 @@ const EditPetModal = ({ open, onClose, pet, petId }) => {
     <Dialog open={open} onClose={onClose}>
       <div
         className={
-          'w-[360px] s:w-[520px] dark:bg-primaryBlue h-full rounded-lg shadow-2xl px-5 pt-8 py-4 pb-8 flex flex-col items-center bg-white'
+          'max-w-[360px] w-full s:max-w-[520px] dark:bg-primaryBlue h-full rounded-lg shadow-2xl px-5 pt-8 py-4 pb-8 flex flex-col items-center bg-white'
         }
       >
         <h2
@@ -106,27 +98,21 @@ const EditPetModal = ({ open, onClose, pet, petId }) => {
           Something changed? Here we go..! 🚀
         </h2>
         <form className="flex flex-col justify-center items-center">
-          <div className="flex flex-wrap justify-center gap-4 mb-8">
+          <div className="justify-center gap-4 grid grid-cols-2 mb-4">
             <Input
               label={'Name'}
               error={errors?.name}
               type="text"
+              fullWidth
               value={name}
               placeholder={pet?.name}
               onChange={(e) => setName(e.target.value)}
             />
             <Input
-              error={errors?.species}
-              placeholder={pet?.species}
-              label={'Species'}
-              type="text"
-              value={species}
-              onChange={(e) => setSpecies(e.target.value)}
-            />
-            <Input
               error={errors?.breed}
               label={'Breed'}
               type="text"
+              fullWidth
               placeholder={pet?.breed}
               value={breed}
               onChange={(e) => setBreed(e.target.value)}
@@ -135,6 +121,7 @@ const EditPetModal = ({ open, onClose, pet, petId }) => {
               error={errors?.age}
               label={'Age'}
               type="text"
+              fullWidth
               placeholder={pet?.age}
               value={age}
               onChange={(e) => setAge(e.target.value)}
@@ -143,32 +130,29 @@ const EditPetModal = ({ open, onClose, pet, petId }) => {
               error={errors?.color}
               placeholder={pet?.color}
               label={'Color'}
+              fullWidth
               type="text"
               value={color}
               onChange={(e) => setColor(e.target.value)}
             />
-            <Input
-              label={'Sex'}
-              error={errors?.sex}
-              placeholder={pet?.sex}
-              type="text"
-              value={sex}
-              onChange={(e) => setSex(e.target.value)}
-            />
+          </div>
+          <div className="flex flex-col gap-y-4 mb-8 w-full">
             <Input
               error={errors?.description}
               placeholder={pet?.description}
               label={'Description'}
               type="text"
               value={description}
+              fullWidth
               onChange={(e) => setDescription(e.target.value)}
             />
             <Input
-              error={errors?.h}
+              error={errors?.healthInformation}
               label={'Health Information'}
               placeholder={pet?.healthInformation}
               type="text"
               value={healthInformation}
+              fullWidth
               onChange={(e) => setHealthInformation(e.target.value)}
             />
           </div>

@@ -23,7 +23,9 @@ const Sidebar = () => {
         'dark:bg-primaryBlue sm:block hidden w-[260px] pt-5 px-4 h-screen bg-white shadow-sm text-grayHeading'
       }
     >
-      <Logo />
+      <div className='px-8 py-3'>
+        <Logo />
+      </div>
       {sidebarLinks.map((actions, index) => (
         <div key={index} className="pt-5">
           <div className="mb-3">
@@ -68,7 +70,7 @@ function SidebarMenuLink({ item, pathname, onClick }) {
       >
         <svg
           className={classNames('w-6 h-6 ', {
-            ['text-formTitle dark:text-gray-500']: pathname !== item?.href,
+            ['text-formTitle dark:text-white/75']: pathname !== item?.href,
             [' text-formButton']: pathname === item?.href,
           })}
           viewBox="0 0 24 24"
@@ -78,7 +80,7 @@ function SidebarMenuLink({ item, pathname, onClick }) {
         </svg>
         <div
           className={classNames('flex-1text-base  tracking-[0.15px]', {
-            ['text-formTitle dark:text-gray-500']: pathname !== item?.href,
+            ['text-formTitle dark:text-white/75']: pathname !== item?.href,
             [' text-formButton']: pathname === item?.href,
           })}
         >

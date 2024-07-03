@@ -26,7 +26,7 @@ const DeletePetModal = ({ open, onClose, petId }) => {
 
   return (
     <Dialog open={open} onClose={onClose}>
-      <div className="flex justify-center bg-white dark:bg-primaryBlue shadow-xl px-5 py-8 rounded-xl w-[360px] s:w-[500px] h-4/6">
+      <div className="flex justify-center bg-white dark:bg-primaryBlue shadow-xl px-5 py-8 rounded-xl w-full max-w-[360px] s:max-w-[500px] h-4/6">
         <div className="flex flex-col justify-start items-center">
           <Image src={catImg} height={300} width={300} alt="" />
           <div>

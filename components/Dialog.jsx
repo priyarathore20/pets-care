@@ -18,7 +18,7 @@ const Dialog = ({ open, onClose, children }) => {
       ></div>
       <div
         className={classNames(
-          'z-40 relative max-h-[85%] overflow-x-hidden overflow-y-auto'
+          'z-40 relative max-h-[85%] px-5 overflow-x-hidden overflow-y-auto'
         )}
       >
         {children}

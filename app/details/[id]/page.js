@@ -81,14 +81,15 @@ const PetDetails = () => {
 
   return (
     <Dashboard>
-      <Header title={`${pet?.name} (${pet?.breed})`} />
+      <Header title={pet ? `${pet?.name}'s info` : ''} />
       {loading ? (
         <div className="h-4/5 w-full">
           <Loader />
         </div>
       ) : (
-        <div className='h-full w-full'>
-          <div className="p-6 mt-[14px] ">
+        <div className="h-full w-full">
+          <div className="p-6">
+            <h2 className="text-3xl font-bold dark:text-white/75">{pet?.name}</h2>
             <div className="flex items-center justify-between md:flex-row gap-y-5 flex-col py-5 w-full h-full">
               <div className="flex-[0.5] max-h-[350px]">
                 <img
@@ -113,7 +114,7 @@ const PetDetails = () => {
                     },
                   }}
                 />
-                <p className="text-gray-700">
+                <p className="dark:text-white/75 text-gray-700">
                   Stick it to your pet&apos;s collar.
                 </p>
               </div>
