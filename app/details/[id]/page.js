@@ -89,7 +89,7 @@ const PetDetails = () => {
       ) : (
         <div className="h-full w-full">
           <div className="p-6">
-            <h2 className="text-3xl font-bold dark:text-white/75">{pet?.name}</h2>
+            <h2 className="text-3xl font-bold dark:text-black/75">{pet?.name}</h2>
             <div className="flex items-center justify-between md:flex-row gap-y-5 flex-col py-5 w-full h-full">
               <div className="flex-[0.5] max-h-[350px]">
                 <img
