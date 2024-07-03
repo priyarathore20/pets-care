@@ -40,7 +40,7 @@ export const addPet = [
   { label: 'Size:' },
   { label: 'Weight:' },
   { label: 'Description:' },
-  { label: 'Health information:' },
+  { label: 'Health info:' },
 ];
 
 export const petImg = {

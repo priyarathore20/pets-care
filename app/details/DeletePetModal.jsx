@@ -8,7 +8,7 @@ import Loader from '@/components/Loader';
 
 const DeletePetModal = ({ open, onClose, petId }) => {
   const router = useRouter();
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   const deletePet = async (id) => {
     try {
@@ -30,7 +30,7 @@ const DeletePetModal = ({ open, onClose, petId }) => {
         <div className="flex flex-col justify-start items-center">
           <Image src={catImg} height={300} width={300} alt="" />
           <div>
-            <h3 className="font-semibold text-grayHeading text-xl">
+            <h3 className="font-semibold text-grayHeading text-xl dark:text-cardSubTitle">
               Are you sure you want to delete your pet?
             </h3>
             <div className="flex justify-end items-center gap-8 mt-6">

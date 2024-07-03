@@ -100,7 +100,7 @@ const EditPetModal = ({ open, onClose, pet, petId }) => {
       >
         <h2
           className={
-            'mb-5 px-2 text-xl dark:text-formTitle font-medium text-grayHeading'
+            'mb-5 px-2 text-xl dark:text-cardSubTitle font-medium text-grayHeading'
           }
         >
           Something changed? Here we go..! 🚀
