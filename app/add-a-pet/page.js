@@ -220,7 +220,7 @@ const AddPet = () => {
               <div>
                 <Input
                   error={errors?.healthInformation}
-                  label={'Health Information*'}
+                  label={'Health info*'}
                   type="text"
                   className="input"
                   value={healthInformation}
